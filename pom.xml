@@ -35,6 +35,16 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>11</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.vldrus</groupId>
+        <artifactId>cachedrowset-wrapper</artifactId>
+        <version>1.0.2</version>
+    </dependency>
     </dependencies>
 
     <build>
