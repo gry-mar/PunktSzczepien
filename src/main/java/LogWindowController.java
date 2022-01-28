@@ -3,7 +3,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 
@@ -42,13 +45,33 @@ public class LogWindowController {
         @FXML // fx:id="zaloguj"
         private Button zaloguj; // Value injected by FXMLLoader
 
-        @FXML
+    @FXML
+    private TextField pacjentHaslo;
+
+    @FXML
+    private TextField pacjentLogin;
+
+    @FXML
+    private Text tvLogInfo;
+
+
+    @FXML
         void clickedUtworzKonto(ActionEvent event) {
 
         }
 
         @FXML
         void clickedZaloguj(ActionEvent event) {
+
+            if (!this.login.getText().equals((Object)null)) {
+                tvLogInfo.setText("Probowales sie zalogowac");
+            }
+//            if(!login.getText().isBlank() && !haslo.getText().isBlank()){
+//
+//
+//            }else{
+//                tvLogInfo.setText("Wprowadz login i haslo");
+//            }
 
         }
 
@@ -68,7 +91,16 @@ public class LogWindowController {
             assert telefon != null : "fx:id=\"telefon\" was not injected: check your FXML file 'logwindow.fxml'.";
             assert utworzKonto != null : "fx:id=\"utworzKonto\" was not injected: check your FXML file 'logwindow.fxml'.";
             assert zaloguj != null : "fx:id=\"zaloguj\" was not injected: check your FXML file 'logwindow.fxml'.";
+            assert pacjentHaslo != null : "fx:id=\"pacjentHaslo\" was not injected: check your FXML file 'logwindow.fxml'.";
+            assert pacjentLogin != null : "fx:id=\"pacjentLogin\" was not injected: check your FXML file 'logwindow.fxml'.";
+            assert tvLogInfo != null : "fx:id=\"tvLogInfo\" was not injected: check your FXML file 'logwindow.fxml'.";
+        }
 
+        public void validateLogin(){
+        DatabaseConnection connectNow = new DatabaseConnection();
+            Connection connectDB = connectNow.getConnection();
+
+            String verifyLogin = "procedura logowanie";
         }
 
     }
