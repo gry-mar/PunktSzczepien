@@ -16,7 +16,7 @@ public class MainApplication extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        scene = new Scene(loadFXML("logwindow"), 1000.0D, 800.0D);
+        scene = new Scene(loadFXML("logwindow"), 800, 600);
         stage.setScene(scene);
         stage.setTitle("Punkt szczepien");
         stage.show();
