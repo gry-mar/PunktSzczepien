@@ -1,7 +1,13 @@
 CachedRowSetWrapper.class
+PacjentDAO.class
+classes\RealizacjaPacjent.class
 classes\Loginy.class
+classes\ArchiwumPacjent.class
+MainApplication.class
 LogWindowController.class
 Main.class
 DatabaseConnection.class
+classes\DostepneSzczepienia.class
 PacjentWindowController.class
 classes\Rola.class
+classes\TypySzczepien.class

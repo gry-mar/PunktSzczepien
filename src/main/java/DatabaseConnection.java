@@ -78,7 +78,7 @@ public class DatabaseConnection {
 
         CachedRowSetWrapper crs;
         try {
-            this.dbDisconnect();
+            this.getConnection();
             stmt = this.databaseLink.prepareStatement(queryStmt);
             resultSet = stmt.executeQuery(queryStmt);
             crs = new CachedRowSetWrapper();
