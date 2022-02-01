@@ -127,9 +127,9 @@ public class LekarzWindowController implements Initializable {
     }
 
     @FXML
-    void btnClickedFiltruj(ActionEvent event) {
+    void btnClickedFiltruj(ActionEvent event) throws SQLException {
         receiveData(event);
-        this.tblStatusZmiana.getItems().clear();
+        this.tblArchiwum.getItems().clear();
         Date dataOdSql = Date.valueOf(dateOD.getValue());
         Date dataDoSql = Date.valueOf(dateDO.getValue());
         ObservableList<LekarzArchiwum> lekarzArchiwumObservableList = this.lekarzDAO.showSpecifiedFromArchiwum(dataOdSql,dataDoSql);
@@ -138,6 +138,11 @@ public class LekarzWindowController implements Initializable {
         colArchiwumData.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Date>("dataLekarzArchiwum"));;
         colArchiwumGodzina.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Time>("godzinaLekarzRealizacja"));;
 
+        this.tblStatystyki.getItems().clear();
+        ObservableList<LekarzStatystyki> lekarzStatystyki = this.lekarzDAO.showLekarzStatystyki();
+        colStatystykiChoroba.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, String>("chorobaLekarzStatystyki"));
+        colStatystykiNazwa.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, String>("nazwaLekarzStatystyki"));
+        colStatystykiIlosc.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, Integer>("iloscWykonanychLekarzStatystyki"));
         // jeszcze część odnośnie statystyki \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         this.tblArchiwum.setItems(lekarzArchiwumObservableList);
@@ -147,6 +152,7 @@ public class LekarzWindowController implements Initializable {
     void btnClickedSzukajPacjenta(ActionEvent event) {
         String pesel = txtPesel.getText().toString();
         receiveData(event);
+        this.tblStatusZmiana.getItems().clear();
         ObservableList<LekarzStatus> lekarzStatus = this.lekarzDAO.showPacjenta(pesel);
         colStatusNazwa.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("nazwaLekarzStatus"));
         colStatusChoroba.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("chorobaLekarzStatus"));

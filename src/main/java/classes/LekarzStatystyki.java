@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class LekarzStatystyki {
     private StringProperty chorobaLekarzStatystyki = new SimpleStringProperty();
+    private StringProperty nazwaLekarzStatystyki = new SimpleStringProperty();
     private IntegerProperty iloscWykonanychLekarzStatystyki = new SimpleIntegerProperty();
 
     public LekarzStatystyki() {
@@ -34,5 +35,17 @@ public class LekarzStatystyki {
 
     public void setIloscWykonanychLekarzStatystyki(int iloscWykonanychLekarzStatystyki) {
         this.iloscWykonanychLekarzStatystyki.set(iloscWykonanychLekarzStatystyki);
+    }
+
+    public String getNazwaLekarzStatystyki() {
+        return nazwaLekarzStatystyki.get();
+    }
+
+    public StringProperty nazwaLekarzStatystykiProperty() {
+        return nazwaLekarzStatystyki;
+    }
+
+    public void setNazwaLekarzStatystyki(String nazwaLekarzStatystyki) {
+        this.nazwaLekarzStatystyki.set(nazwaLekarzStatystyki);
     }
 }
