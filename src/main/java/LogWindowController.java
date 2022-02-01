@@ -22,7 +22,7 @@ public class LogWindowController {
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
+
 
 
 
@@ -121,7 +121,14 @@ public class LogWindowController {
                          stage.setScene(scene);
                          stage.show();
                      }else{
-
+                         LekarzDAO lekarzDAO = new LekarzDAO(login.getText(),haslo.getText(),databaseConnection);
+                         Node node = (Node) event.getSource();
+                         stage = (Stage)(node.getScene().getWindow());
+                         Parent root=  FXMLLoader.load(getClass().getResource("lekarzwindow.fxml"));
+                         stage.setUserData(lekarzDAO);
+                         scene= new Scene(root,1000,800);
+                         stage.setScene(scene);
+                         stage.show();
 
                      }
                      login.clear();
@@ -163,7 +170,7 @@ public class LogWindowController {
             int nrPwzOut = 0;
             String logIHaslo;
             boolean czyIstnieje = false;
-            if (login.getText().toString() == "admin_punktu" && haslo.getText().toString() == "admin1") {
+            if (login.getText().toString().equals("admin_punktu") && haslo.getText().toString().equals("admin1")) {
                 loginOut = "admin_punktu";
                 hasloOut = "admin1";
                 czyIstnieje = true;

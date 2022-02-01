@@ -9,41 +9,47 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminController">
+<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminWindowController">
    <children>
-      <TableView layoutX="26.0" layoutY="243.0" prefHeight="179.0" prefWidth="255.0">
+      <TableView layoutX="17.0" layoutY="250.0" prefHeight="179.0" prefWidth="477.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="dataSzczCol" prefWidth="75.0" text="Data" />
+          <TableColumn fx:id="godzinaSzczCol" prefWidth="75.0" text="Godzina" />
+            <TableColumn fx:id="peselPacSzczCol" prefWidth="100.0" text="Pesel pacjent" />
+            <TableColumn fx:id="nrPwzSzczCol" prefWidth="75.0" text="Nr PWZ" />
+            <TableColumn fx:id="statusCol" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="typSzczCol" prefWidth="75.0" text="Typ" />
         </columns>
       </TableView>
-      <DatePicker layoutX="29.0" layoutY="78.0" />
-      <TextField layoutX="26.0" layoutY="117.0" promptText="gg:mm" />
+      <DatePicker fx:id="dtPickerDodajDate" layoutX="29.0" layoutY="78.0" />
+      <TextField fx:id="dodajGodzine" layoutX="26.0" layoutY="117.0" promptText="gg:mm:ss" />
       <Text layoutX="29.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj termin">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Button layoutX="29.0" layoutY="153.0" mnemonicParsing="false" text="Dodaj" />
-      <Button layoutX="336.0" layoutY="258.0" mnemonicParsing="false" text="Dodaj" />
-      <Button layoutX="27.0" layoutY="211.0" mnemonicParsing="false" text="Pokaz terminy" />
-      <Text layoutX="336.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj lekarza">
+      <Button fx:id="btnDodajTermin" layoutX="29.0" layoutY="153.0" mnemonicParsing="false" onAction="#dodajTerminClicked" text="Dodaj" />
+      <Button fx:id="btnDodajLekarza" layoutX="530.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajLekarzaClicked" text="Dodaj" />
+      <Button fx:id="btnPokazTerminy" layoutX="27.0" layoutY="211.0" mnemonicParsing="false" onAction="#pokazTerminyClicked" text="Pokaz terminy" />
+      <Text layoutX="554.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj lekarza">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <TextField layoutX="336.0" layoutY="66.0" promptText="Imie" />
-      <TextField layoutX="336.0" layoutY="104.0" promptText="Nazwisko" />
-      <TextField layoutX="336.0" layoutY="141.0" promptText="nr PWZ" />
-      <TextField layoutX="336.0" layoutY="178.0" promptText="login" />
-      <TextField layoutX="336.0" layoutY="224.0" promptText="haslo" />
-      <Button layoutX="425.0" layoutY="258.0" mnemonicParsing="false" text="Pokaz lekarzy" />
-      <TableView layoutX="316.0" layoutY="291.0" prefHeight="141.0" prefWidth="292.0">
+      <TextField fx:id="lekarzImie" layoutX="554.0" layoutY="56.0" promptText="Imie" />
+      <TextField fx:id="lekarzNazwisko" layoutX="554.0" layoutY="94.0" promptText="Nazwisko" />
+      <TextField fx:id="lekarzNrPwz" layoutX="554.0" layoutY="131.0" promptText="nr PWZ" />
+      <TextField fx:id="lekarzLogin" layoutX="554.0" layoutY="168.0" promptText="login" />
+      <TextField fx:id="lekarzHaslo" layoutX="554.0" layoutY="214.0" promptText="haslo" />
+      <Button fx:id="btnPokazLekarzy" layoutX="687.0" layoutY="250.0" mnemonicParsing="false" onAction="#pokazLekarzyClicked" text="Pokaz lekarzy" />
+      <TableView layoutX="534.0" layoutY="287.0" prefHeight="141.0" prefWidth="292.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="nrPwzCol" prefWidth="75.0" text="Nr PWZ" />
+          <TableColumn fx:id="imieLekarzCol" prefWidth="75.0" text="Imie" />
+            <TableColumn fx:id="nazwiskoLekarzCol" prefWidth="75.0" text="Nazwisko" />
+            <TableColumn fx:id="loginLekarzCol" prefWidth="75.0" text="Login" />
         </columns>
       </TableView>
-      <Button layoutX="26.0" layoutY="455.0" mnemonicParsing="false" text="Wyloguj" />
+      <Button fx:id="btnWyloguj" layoutX="26.0" layoutY="455.0" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" />
    </children>
 </AnchorPane>

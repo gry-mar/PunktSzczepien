@@ -57,7 +57,7 @@ public class LekarzDAO {
         this.nrPwz = nrPwz;
     }
 
-    public LekarzDAO(String userName, String userPassword) {
+    public LekarzDAO(String userName, String userPassword, DatabaseConnection databaseConnection) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.nrPwz = getNrPwz();

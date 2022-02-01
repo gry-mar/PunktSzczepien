@@ -147,9 +147,6 @@ public class PacjentWindowController implements Initializable {
     void pokazArchiwumClicked(ActionEvent event) {
         receiveData(event);
         this.tableArchiwum.getItems().clear();
-//        pacjentDAO.getPesel();
-////        pacjentDAO.getUserName();
-////        pacjentDAO.getUserPassword();
         Date dataOdSql = Date.valueOf(dataOdArchiwum.getValue());
         Date dataDoSql = Date.valueOf(dataDoArchiwum.getValue());
         System.out.println(dataDoSql+","+dataOdSql);
@@ -267,8 +264,6 @@ public class PacjentWindowController implements Initializable {
         assert tableWRealizacji != null : "fx:id=\"tableWRealizacji\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert zapiszNaSzczepienie != null : "fx:id=\"zapiszNaSzczepienie\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert zmienTermin != null : "fx:id=\"zmienTermin\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
-
-
         databaseConnection.getConnection();
 
     }

@@ -164,9 +164,9 @@ public class PacjentDAO {
             cstm.setDate(2,dataZapisu);
             cstm.setTime(3, godzinaZapisu);
             cstm.setString(4,choroba);
-            cstm.registerOutParameter(5, Types.BOOLEAN);
-            cstm.executeUpdate();
-            czyZapisano = (Boolean) cstm.getBoolean(1);
+            cstm.registerOutParameter(5, Types.BIT);
+            cstm.execute();
+            czyZapisano = (Boolean) cstm.getBoolean(5);
 
         } catch (SQLException e) {
             e.printStackTrace();
