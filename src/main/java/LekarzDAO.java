@@ -68,48 +68,48 @@ public class LekarzDAO {
 
     }
 
-    private ObservableList<LekarzStatus> getLekarzStatus(ResultSet resultSet) throws SQLException {
-        String selectStms = "select pesel, nazwa, choroba, data, godzina from dostepne_lekarz;";
-        ObservableList lekarzStatus = FXCollections.observableArrayList();
-        try{
-            ResultSet resultSet1 = this.databaseConnection.dbExecuteQuery(selectStms);
-            lekarzStatus = this.getLekarzStatus(resultSet1);
+    // status i archiwum
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    private ObservableList<LekarzStatus> getLekarzStatus(ResultSet resultSet) throws SQLException {
+        ObservableList<LekarzStatus> lekarzStatus = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            LekarzStatus ls = new LekarzStatus();
+            ls.setPeselLekarzStatus(resultSet.getString("peselc" ));
+            ls.setNazwaLekarzStatus(resultSet.getString("nazwa"));
+            ls.setChorobaLekarzStatus(resultSet.getString("choroba"));
+            ls.setDataLekarzRealizacja(resultSet.getDate("data"));
+            ls.getGodzinaLekarzRealizacja(resultSet.getTime("godzina"));
+            lekarzStatus.add(ls);
         }
         return lekarzStatus;
     }
 
     private ObservableList<LekarzArchiwum> getLekarzArchiwum(ResultSet resultSet) throws SQLException {
-        String selectStms = "select a.nazwa, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa;";
         ObservableList lekarzArchiwum = FXCollections.observableArrayList();
-        try{
-            ResultSet resultSet2 = this.databaseConnection.dbExecuteQuery(selectStms);
-            lekarzArchiwum = this.getLekarzArchiwum(resultSet2);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        while(resultSet.next()){
+            LekarzArchiwum la = new LekarzArchiwum();
+            la.setNazwaLekarzArchiwum(resultSet.getString("nazwa"));
+            la.setChorobaLekarzArchiwum(resultSet.getString("choroba"));
+            la.setDataLekarzArchiwum(resultSet.getDate("data"));
+            la.setGodzinaLekarzArchiwum(resultSet.getTime("godzina"));
+            lekarzArchiwum.add(la);
         }
         return lekarzArchiwum;
     }
 
-    private ObservableList<LekarzStatystyki> getLekarzStatystyki(ResultSet resultSet){
-        String selectStmt = "select id_typ, count(id_typ) from archiwum group by id_typ;";
-        ObservableList<LekarzStatystyki> lekarzStatystyki = FXCollections.observableArrayList();
-        try{
-            ResultSet resultSet3 = this.databaseConnection.dbExecuteQuery(selectStmt);
-            lekarzStatystyki = this.getLekarzStatystyki(resultSet3);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    private ObservableList<LekarzStatystyki> getLekarzStatystyki(ResultSet resultSet) throws SQLException {
+        ObservableList lekarzStatystyki = FXCollections.observableArrayList();
+        while (resultSet.next()){
+            LekarzStatystyki lst = new LekarzStatystyki();
+            lst.setChorobaLekarzStatystyki(resultSet.getString("choroba"));
+            lst.setNazwaLekarzStatystyki(resultSet.getString("nazwa"));
+            lekarzStatystyki.add(lst);
         }
         return lekarzStatystyki;
     }
 
     public ObservableList<LekarzArchiwum> showSpecifiedFromArchiwum(Date dataOD, Date dataDO){
-        String selectStmt = "select nazwa, chorob, data, godzina from archiwum where data between" + dataOD + "and" + dataDO + ";";
+        String selectStmt = "select a.nazwa, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa where data between" + dataOD + "and" + dataDO + ";";
         ObservableList<LekarzArchiwum> lekarzArchiwum = FXCollections.observableArrayList();
         try{
             ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStmt);
@@ -134,5 +134,20 @@ public class LekarzDAO {
             e.printStackTrace();
         }
         return lekarzStatuses;
+    }
+
+    public ObservableList<LekarzStatystyki> showLekarzStatystyki() throws SQLException {
+        String selectStmt = "select t.choroba, a.id_typ, count(a.id_typ) from archiwum a join typy_szczepien t on a.id_typ = t.nazwa group by a.id_typ;";
+        ObservableList<LekarzStatystyki> lekarzStatystyki = FXCollections.observableArrayList();
+        try{
+            ResultSet resultSet3 = this.databaseConnection.dbExecuteQuery(selectStmt);
+            lekarzStatystyki = this.getLekarzStatystyki(resultSet3);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return lekarzStatystyki;
     }
 }

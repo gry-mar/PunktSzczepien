@@ -67,8 +67,8 @@ public class LekarzStatus {
         this.dataLekarzRealizacja.set(dataLekarzRealizacja);
     }
 
-    public Time getGodzinaLekarzRealizacja() {
-        return godzinaLekarzRealizacja.get();
+    public Time getGodzinaLekarzRealizacja(Time godzinaLekarzRealizacja) {
+        return this.godzinaLekarzRealizacja.get();
     }
 
     public ObjectProperty<Time> godzinaLekarzRealizacjaProperty() {
