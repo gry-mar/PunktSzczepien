@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import classes.ArchiwumPacjent;
@@ -191,41 +193,43 @@ public class PacjentWindowController implements Initializable {
 
     @FXML
     void wylogujClicked(ActionEvent event) throws IOException, SQLException {
-
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        btnPokazArchiwum.getScene().getWindow().hide();
         Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
-        stage.setUserData(pacjentDAO);
+        Stage primaryStage = new Stage();
         scene= new Scene(root,1000,800);
-        stage.setScene(scene);
-        databaseConnection.dbDisconnect();
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     @FXML
-    void zapisNaSzczepienieClicked(ActionEvent event) {
+    void zapisNaSzczepienieClicked(ActionEvent event) throws ParseException {
         receiveData(event);
-        boolean czyZapisano = false;
-        try {
-            // to chyba przeniose do PacjentDaO ale to jutro bo dzisiaj juz mam dosc
-            CallableStatement cstm = databaseConnection.getDatabaseLink().prepareCall("{call zapis_na_szczepienie(?,?,?,?,?)}");
-            cstm.setString(1,pacjentDAO.getPesel().toString());
-            cstm.setDate(2,Date.valueOf(dataZapisuChooser.getValue()));
-            cstm.setTime(3,Time.valueOf(godzinaZapisu.getText()));
-            cstm.setString(4,chooseChoroba.getText().toString());
-            cstm.registerOutParameter(5, Types.BIT);
-            cstm.execute();
-            czyZapisano = (Boolean) cstm.getBoolean(1);
+        Date dataZapisu = Date.valueOf(dataZapisuChooser.getValue());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        long parseTime = sdf.parse(godzinaZapisu.getText().toString()).getTime();
+        Time godzina = new Time(parseTime);
+        String choroba = chooseChoroba.getText().toString();
+        boolean czyZapisano = pacjentDAO.zapisPacjenta(dataZapisu,godzina,choroba);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         System.out.println(czyZapisano);
 
 
     }
 
     @FXML
-    void zmianaTerminuClicked(ActionEvent event) {
+    void zmianaTerminuClicked(ActionEvent event) throws ParseException {
+        receiveData(event);
+        Date dataPocz = Date.valueOf(dataZ.getValue());
+        Date dataKonc = Date.valueOf(dataNa.getValue());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        long parseZ = sdf.parse(godzinaZ.getText().toString()).getTime();
+        long parseNa = sdf.parse(godzinaNa.getText().toString()).getTime();
+        Time godzinaPocz = new Time(parseZ);
+        Time godzinaKonc = new Time(parseNa);
+
+
+
+
 
 
     }

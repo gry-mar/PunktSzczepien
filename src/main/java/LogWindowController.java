@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,6 +66,8 @@ public class LogWindowController {
     @FXML
     private Text tvLogInfo;
 
+    private List<String> logHasloRola = new ArrayList<>();
+
 
     @FXML
         void clickedUtworzKonto(ActionEvent event) throws SQLException {
@@ -87,14 +90,17 @@ public class LogWindowController {
 
         @FXML
         void clickedZaloguj(ActionEvent event) throws SQLException {
-
+            //databaseConnection.getConnection();
+            boolean czyPoprawne = validateLogin();
             if (this.login.getText() != (Object) null) {
                 tvLogInfo.setText("Probowales sie zalogowac");
 //                String loginOut = validateLogin().get(0).toString();
 //                String hasloOut = validateLogin().get(1).toString();
 //                String thirdParam = validateLogin().get(2);
-                if(validateLogin()){
+
+                if(czyPoprawne){
                  try{
+                     if(logHasloRola.get(0).equals("pacjent")){
                      PacjentDAO pacjentDAO = new PacjentDAO(login.getText(),haslo.getText(), databaseConnection);
                      Node node = (Node) event.getSource();
                      stage = (Stage)(node.getScene().getWindow());
@@ -104,7 +110,22 @@ public class LogWindowController {
                     stage.setUserData(pacjentDAO);
                     scene= new Scene(root,1000,800);
                     stage.setScene(scene);
-                    stage.show();
+                    stage.show();}
+                     else if(logHasloRola.get(0).equals("admin_punktu")){
+                         AdminDAO adminDAO = new AdminDAO(login.getText(),haslo.getText(),databaseConnection);
+                         Node node = (Node) event.getSource();
+                         stage = (Stage)(node.getScene().getWindow());
+                         Parent root=  FXMLLoader.load(getClass().getResource("adminwindow.fxml"));
+                         stage.setUserData(adminDAO);
+                         scene= new Scene(root,1000,800);
+                         stage.setScene(scene);
+                         stage.show();
+                     }else{
+
+
+                     }
+                     login.clear();
+                     haslo.clear();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -140,19 +161,41 @@ public class LogWindowController {
             String hasloOut;
             String peselOut = null;
             int nrPwzOut = 0;
+            String logIHaslo;
             boolean czyIstnieje = false;
-            List<String> logAndPassword = new ArrayList<>();
             if (login.getText().toString() == "admin_punktu" && haslo.getText().toString() == "admin1") {
                 loginOut = "admin_punktu";
                 hasloOut = "admin1";
                 czyIstnieje = true;
+                logHasloRola.add(loginOut);
+                logHasloRola.add(hasloOut);
+                logHasloRola.add("A");
+                czyIstnieje = true;
             } else {
-                CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{?=call czy_istnieje(?,?)}");
-                cStm.registerOutParameter(1, Types.BIT);
-                cStm.setString(2, login.getText().toString());
-                cStm.setString(3, haslo.getText().toString());
-                cStm.execute();
-                czyIstnieje = (Boolean) (cStm.getBoolean(1));
+
+                CallableStatement cstm = databaseConnection.getDatabaseLink().prepareCall("{?=call logowanie(?,?)}");
+                cstm.registerOutParameter(1,Types.VARCHAR);
+                cstm.setString(2, login.getText().toString());
+                cstm.setString(3,haslo.getText().toString());
+                cstm.execute();
+                logIHaslo = cstm.getString(1);
+                if(logIHaslo==null){
+                    czyIstnieje = false;
+                }else {
+                    logHasloRola = Arrays.asList(logIHaslo.split(","));
+                    czyIstnieje = true;
+                }
+
+
+
+//                CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{?=call czy_istnieje(?,?)}");
+//                cStm.registerOutParameter(1, Types.BIT);
+//                cStm.setString(2, login.getText().toString());
+//                cStm.setString(3, haslo.getText().toString());
+//                cStm.execute();
+//                czyIstnieje = (Boolean) (cStm.getBoolean(1));
+
+
 //                CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{call login_func(?, ?, ?, ?, ?, ?, ?)}");
 //            cStm.setString(1,login.getText().toString());
 //            cStm.setString(2,haslo.getText().toString());

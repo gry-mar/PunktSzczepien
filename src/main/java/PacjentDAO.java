@@ -4,9 +4,7 @@ import classes.RealizacjaPacjent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PacjentDAO {
 
@@ -156,8 +154,27 @@ public class PacjentDAO {
     }
 
 
-    public void zapisPacjenta(){
+    public boolean zapisPacjenta(Date dataZapisu, Time godzinaZapisu, String choroba){
+        boolean czyZapisano = false;
+        try {
+           databaseConnection.getConnection();
 
+            CallableStatement cstm = databaseConnection.getDatabaseLink().prepareCall("{call zapis_na_szczepienie(?,?,?,?,?)}");
+            cstm.setString(1,getPesel());
+            cstm.setDate(2,dataZapisu);
+            cstm.setTime(3, godzinaZapisu);
+            cstm.setString(4,choroba);
+            cstm.registerOutParameter(5, Types.BOOLEAN);
+            cstm.executeUpdate();
+            czyZapisano = (Boolean) cstm.getBoolean(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(czyZapisano);
+        System.out.println(getPesel());
+
+        return czyZapisano;
     }
 
 
