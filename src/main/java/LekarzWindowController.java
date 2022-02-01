@@ -104,11 +104,11 @@ public class LekarzWindowController {
                 String answerStatus = rsAll.getString(6);
 
                 // zrobić klasę do zbierania wartości
-                list.addAll(answerPesel, answerNazwa, answerChoroba, answerData, answerGodzina, answerStatus);
-                chorobaStatus.setCellValueFactory(new PropertyValueFactory<>("Choroba"));
-                dataStatus.setCellFactory(new PropertyValueFactory<>("Data"));
-                godzinaStatus.getCellFactory(new PropertyValueFactory<>("Godzina"));
-                idTypStatus.getCellFactory(new PropertyValueFactory<>("Typ"));
+//                list.addAll(answerPesel, answerNazwa, answerChoroba, answerData, answerGodzina, answerStatus);
+//                chorobaStatus.setCellValueFactory(new PropertyValueFactory<>("Choroba"));
+//                dataStatus.setCellFactory(new PropertyValueFactory<>("Data"));
+//                godzinaStatus.getCellFactory(new PropertyValueFactory<>("Godzina"));
+//                idTypStatus.getCellFactory(new PropertyValueFactory<>("Typ"));
 
             }
         }

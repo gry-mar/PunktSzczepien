@@ -1,3 +1,4 @@
+F:\SEMESTR v\PunktSzczepien\src\main\java\LekarzWindowController.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Loginy.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Lekarz.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\MainApplication.java
@@ -5,11 +6,17 @@ F:\SEMESTR v\PunktSzczepien\src\main\java\classes\TypySzczepien.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\LogWindowController.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\PacjentWindowController.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\PacjentDAO.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Pacjent.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Archiwum.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Szczepienia.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\DatabaseConnection.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\CachedRowSetWrapper.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\ArchiwumPacjent.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\DostepneSzczepienia.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\classes\LekarzStatus.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\classes\RealizacjaPacjent.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Status.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\classes\LekarzDAO.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\classes\Rola.java
 F:\SEMESTR v\PunktSzczepien\src\main\java\Main.java
+F:\SEMESTR v\PunktSzczepien\src\main\java\AdminWindowController.java

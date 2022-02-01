@@ -1,14 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Lekarzview"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LekarzWindowController">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="305.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zmień status szczepienia">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="80.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pesel pacjenta:">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextField fx:id="peselPac" alignment="TOP_LEFT" promptText="pesel">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="btnSzukajPacjenta" mnemonicParsing="false" onAction="#btnClickedSzukajPacjenta" text="Zmień status">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="110.0" />
+                     </VBox.margin>
+                  </Button>
+                  <TableView fx:id="tblStatusZmiana" prefHeight="122.0" prefWidth="300.0">
+                     <columns>
+                        <TableColumn fx:id="idTypStatus1" prefWidth="59.0" text="Pesel" />
+                        <TableColumn fx:id="idTypStatus" prefWidth="63.0" text="Nazwa" />
+                        <TableColumn fx:id="chorobaStatus" prefWidth="68.0" text="Choroba" />
+                        <TableColumn fx:id="dataStatus" prefWidth="62.0" text="Data" />
+                        <TableColumn fx:id="godzinaStatus" prefWidth="47.0" text="Godzina" />
+                     </columns>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa szczepionki:">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextField fx:id="idTyp" promptText="nazwa szczepienia">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zmień status na:">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <ChoiceBox fx:id="sortujPoList" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="20.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+                  <Button fx:id="btnZmienStatus" mnemonicParsing="false" onAction="#btnClickedZmienStatus" text="Zmień status">
+                     <VBox.margin>
+                        <Insets left="110.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="400.0" prefWidth="305.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Archiwum">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="110.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox prefHeight="60.0" prefWidth="263.0">
+                     <children>
+                        <VBox prefHeight="20.0" prefWidth="131.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data OD:" />
+                              <TextField fx:id="dataOd" alignment="TOP_LEFT" promptText="rrrr-mm-dd" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="75.0" prefWidth="131.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data DO:" />
+                              <TextField fx:id="dataDo" alignment="TOP_LEFT" promptText="rrrr-mm-dd" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnFiltruj" mnemonicParsing="false" onAction="#btnClickedFiltruj" text="Filtruj">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="120.0" />
+                     </VBox.margin>
+                  </Button>
+                  <TableView fx:id="tblArchiwum" prefHeight="132.0" prefWidth="305.0">
+                     <columns>
+                        <TableColumn fx:id="idTypArchiwum" prefWidth="75.0" text="Nazwa" />
+                        <TableColumn fx:id="chorobaArchiwum" prefWidth="75.0" text="Choroba" />
+                        <TableColumn fx:id="datatArchiwum" prefWidth="75.0" text="Data" />
+                        <TableColumn fx:id="godzinaArchiwum" prefWidth="75.0" text="Godzina" />
+                     </columns>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statystyki">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TableView fx:id="tblStatystyki" prefHeight="141.0" prefWidth="300.0">
+                     <columns>
+                        <TableColumn fx:id="chorobaStatystyka" prefWidth="186.0" text="Choroba" />
+                        <TableColumn fx:id="ilośćWykonanychStatystyka" prefWidth="111.0" text="Ilość wykonanych" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>
