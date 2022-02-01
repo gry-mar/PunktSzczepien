@@ -1,23 +1,25 @@
 import java.net.URL;
-import java.sql.*;
-import java.util.Date;
+import java.sql.CallableStatement;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ResourceBundle;
 
-import classes.*;
-import com.google.protobuf.Value;
-import javafx.collections.FXCollections;
+import classes.DostepneSzczepienia;
+import classes.LekarzArchiwum;
+import classes.LekarzStatus;
+import classes.LekarzStatystyki;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-public class LekarzWindowController {
-    private ObservableList<?> list= FXCollections.observableArrayList();
+public class LekarzWindowController implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -26,129 +28,183 @@ public class LekarzWindowController {
     private URL location;
 
     @FXML
-    private Button btnSzukajPacjenta;
+    private Button btnFiltruj;
 
     @FXML
-    private Button btnFiltruj;
+    private Button btnSzukajPacjenta;
 
     @FXML
     private Button btnZmienStatus;
 
     @FXML
-    private TableColumn<Archiwum, String> chorobaArchiwum;
+    private TableColumn<LekarzArchiwum, String> colArchiwumChoroba;
 
     @FXML
-    private TableColumn<Szczepienia, String> chorobaStatus;
+    private TableColumn<LekarzArchiwum, Date> colArchiwumData;
 
     @FXML
-    private TableColumn<Archiwum, String> chorobaStatystyka;
+    private TableColumn<LekarzArchiwum, Time> colArchiwumGodzina;
 
     @FXML
-    private TextField dataDo;
+    private TableColumn<LekarzArchiwum, String> colArchiwumNazwa;
 
     @FXML
-    private TextField dataOd;
+    private TableColumn<LekarzStatus, String> colStatusChoroba;
 
     @FXML
-    private TableColumn<Szczepienia, Date> dataStatus;
+    private TableColumn<LekarzStatus, Date> colStatusData;
 
     @FXML
-    private TableColumn<Archiwum, Date> datatArchiwum;
+    private TableColumn<LekarzStatus, Time> colStatusGodzina;
 
     @FXML
-    private TableColumn<Archiwum, Time> godzinaArchiwum;
+    private TableColumn<LekarzStatus, String> colStatusNazwa;
 
     @FXML
-    private TableColumn<Szczepienia, Time> godzinaStatus;
+    private TableColumn<LekarzStatus, String> colStatusPesel;
 
     @FXML
-    private TextField idTyp;
+    private TableColumn<LekarzStatystyki, String> colStatystykiChoroba;
 
     @FXML
-    private TableColumn<Archiwum, String> idTypArchiwum;
+    private TableColumn<LekarzStatystyki, Integer> colStatystykiIlosc;
 
     @FXML
-    private TableColumn<Szczepienia, String> idTypStatus;
+    private TableColumn<LekarzStatystyki, String> colStatystykiNazwa;
 
     @FXML
-    private TableColumn<Archiwum, Integer> ilośćWykonanychStatystyka;
+    private TableView<LekarzArchiwum> tblArchiwum;
 
     @FXML
-    private TextField peselPac;
+    private TableView<LekarzStatus> tblStatusZmiana;
 
     @FXML
-    private ChoiceBox<Status> sortujPoList;
+    private TableView<LekarzStatystyki> tblStatystyki;
 
     @FXML
-    private TableView  tblStatystyki;
+    private TextField txtDataDo;
 
     @FXML
-    private TableView  tblArchiwum;
+    private TextField txtDataOd;
 
     @FXML
-    private TableView  tblStatusZmiana;
+    private TextField txtNazwa;
 
     @FXML
-    void btnClickedSzukajPacjenta(ActionEvent event) throws SQLException {
-        tblStatusZmiana.getItems().clear();
-        if(!peselPac.getText().equals(null)){
-            Connection connection = DriverManager.getConnection("", "admin", "admin1");
-            PreparedStatement selectAll = connection.prepareStatement("select * from dostepne_lekarz where pesel =" + peselPac.getText() + ";");
-            ResultSet rsAll = selectAll.executeQuery();
-            while(rsAll.next()){
-                String answerPesel = rsAll.getString(1);
-                String answerNazwa = rsAll.getString(2);
-                String answerChoroba = rsAll.getString(3);
-                String answerData = rsAll.getString(4);
-                String answerGodzina = rsAll.getString(5);
-                String answerStatus = rsAll.getString(6);
+    private TextField txtPesel;
 
-                // zrobić klasę do zbierania wartości
-//                list.addAll(answerPesel, answerNazwa, answerChoroba, answerData, answerGodzina, answerStatus);
-//                chorobaStatus.setCellValueFactory(new PropertyValueFactory<>("Choroba"));
-//                dataStatus.setCellFactory(new PropertyValueFactory<>("Data"));
-//                godzinaStatus.getCellFactory(new PropertyValueFactory<>("Godzina"));
-//                idTypStatus.getCellFactory(new PropertyValueFactory<>("Typ"));
+    @FXML
+    private TextField txtStatus;
 
-            }
-        }
+    @FXML
+    private TextField txtGodzinaStatus;
 
+    @FXML
+    private DatePicker dateDO;
+
+    @FXML
+    private DatePicker dateOD;
+
+    @FXML
+    private DatePicker dateStatus;
+
+    private LekarzDAO lekarzDAO;
+    private DatabaseConnection databaseConnection;
+    private Stage stage;
+    private Scene scene;
+
+    public void setLekarzDAO(LekarzDAO lekarzDAO){
+        this.lekarzDAO = lekarzDAO;
+    }
+
+    private void receiveData(ActionEvent event){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        this.lekarzDAO = (LekarzDAO) stage.getUserData();
+        String userName = lekarzDAO.getUserName();
+        String userPassword = lekarzDAO.getUserPassword();
+        Integer nrPWZ = lekarzDAO.getNrPwz();
     }
 
     @FXML
     void btnClickedFiltruj(ActionEvent event) {
+        receiveData(event);
+        this.tblStatusZmiana.getItems().clear();
+        Date dataOdSql = Date.valueOf(dateOD.getValue());
+        Date dataDoSql = Date.valueOf(dateDO.getValue());
+        ObservableList<LekarzArchiwum> lekarzArchiwumObservableList = this.lekarzDAO.showSpecifiedFromArchiwum(dataOdSql,dataDoSql);
+        colArchiwumNazwa.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("nazwaLekarzArchiwum"));
+        colArchiwumChoroba.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("chorobaLekarzArchiwum"));;
+        colArchiwumData.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Date>("dataLekarzArchiwum"));;
+        colArchiwumGodzina.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Time>("godzinaLekarzRealizacja"));;
+
+        // jeszcze część odnośnie statystyki \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        this.tblArchiwum.setItems(lekarzArchiwumObservableList);
+    }
+
+    @FXML
+    void btnClickedSzukajPacjenta(ActionEvent event) {
+        String pesel = txtPesel.getText().toString();
+        receiveData(event);
+        ObservableList<LekarzStatus> lekarzStatus = this.lekarzDAO.showPacjenta(pesel);
+        colStatusNazwa.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("nazwaLekarzStatus"));
+        colStatusChoroba.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("chorobaLekarzStatus"));
+        colStatusData.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Date>("dataLekarzRealizacja"));
+        colStatusGodzina.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Time>("godzinaLekarzRealizacja"));
+
+        this.tblStatusZmiana.setItems(lekarzStatus);
 
     }
 
     @FXML
     void btnClickedZmienStatus(ActionEvent event) {
+        receiveData(event);
+        String nazwa = txtNazwa.getText().toString();
+        String status = txtStatus.getText().toString();
+        Date data = Date.valueOf(dateStatus.getValue());
+        Time godzina = Time.valueOf(txtGodzinaStatus.getText().toString());
+        try{
+            CallableStatement cstmUpdate = databaseConnection.getDatabaseLink().prepareCall("update szczepienia set status = " + status + " where " +
+                    " nazwa = " + nazwa + " and data = " + data + " and godzina = " + godzina + ";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void initialize() {
-        assert btnSzukajPacjenta != null : "fx:id=\"btnSzukajPacjenta\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert btnFiltruj != null : "fx:id=\"btnFiltruj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert btnSzukajPacjenta != null : "fx:id=\"btnSzukajPacjenta\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert btnZmienStatus != null : "fx:id=\"btnZmienStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert chorobaArchiwum != null : "fx:id=\"chorobaArchiwum\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert chorobaStatus != null : "fx:id=\"chorobaStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert chorobaStatystyka != null : "fx:id=\"chorobaStatystyka\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert dataDo != null : "fx:id=\"dataDo\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert dataOd != null : "fx:id=\"dataOd\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert dataStatus != null : "fx:id=\"dataStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert datatArchiwum != null : "fx:id=\"datatArchiwum\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert godzinaArchiwum != null : "fx:id=\"godzinaArchiwum\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert godzinaStatus != null : "fx:id=\"godzinaStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert idTyp != null : "fx:id=\"idTyp\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert idTypArchiwum != null : "fx:id=\"idTypArchiwum\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert idTypStatus != null : "fx:id=\"idTypStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert ilośćWykonanychStatystyka != null : "fx:id=\"ilośćWykonanychStatystyka\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert peselPac != null : "fx:id=\"peselPac\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert sortujPoList != null : "fx:id=\"sortujPoList\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-        assert tblStatystyki != null : "fx:id=\"tableStatystyki\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colArchiwumChoroba != null : "fx:id=\"colArchiwumChoroba\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colArchiwumData != null : "fx:id=\"colArchiwumData\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colArchiwumGodzina != null : "fx:id=\"colArchiwumGodzina\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colArchiwumNazwa != null : "fx:id=\"colArchiwumNazwa\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatusChoroba != null : "fx:id=\"colStatusChoroba\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatusData != null : "fx:id=\"colStatusData\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatusGodzina != null : "fx:id=\"colStatusGodzina\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatusNazwa != null : "fx:id=\"colStatusNazwa\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatusPesel != null : "fx:id=\"colStatusPesel\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatystykiChoroba != null : "fx:id=\"colStatystykiChoroba\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatystykiIlosc != null : "fx:id=\"colStatystykiIlosc\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert colStatystykiNazwa != null : "fx:id=\"colStatystykiNazwa\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert tblArchiwum != null : "fx:id=\"tblArchiwum\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert tblStatusZmiana != null : "fx:id=\"tblStatusZmiana\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert tblStatystyki != null : "fx:id=\"tblStatystyki\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtNazwa != null : "fx:id=\"txtNazwa\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtPesel != null : "fx:id=\"txtPesel\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtStatus != null : "fx:id=\"txtStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert dateDO != null : "fx:id=\"dateDO\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert dateOD != null : "fx:id=\"dateOD\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert dateStatus != null : "fx:id=\"dateStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtGodzinaStatus != null : "fx:id=\"txtGodzinaStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

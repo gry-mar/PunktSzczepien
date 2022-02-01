@@ -1,37 +1,81 @@
 package classes;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.sql.Date;
+import java.sql.Time;
+
 public class LekarzStatus {
-    private String pesel;
-    private String nazwa;
-    private String choroba;
-    private String data;
-    private String godzina;
+    private StringProperty peselLekarzStatus = new SimpleStringProperty();
+    private StringProperty nazwaLekarzStatus = new SimpleStringProperty();
+    private StringProperty chorobaLekarzStatus= new SimpleStringProperty();
+    private ObjectProperty<Date> dataLekarzRealizacja = new SimpleObjectProperty<>();
+    private ObjectProperty<Time> godzinaLekarzRealizacja = new SimpleObjectProperty<>();
 
-    public LekarzStatus(String pesel, String nazwa, String choroba, String data, String godzina) {
-        this.pesel = pesel;
-        this.nazwa = nazwa;
-        this.choroba = choroba;
-        this.data = data;
-        this.godzina = godzina;
+    public LekarzStatus(){
+
     }
 
-    public String getPesel() {
-        return pesel;
+    public String getPeselLekarzStatus() {
+        return peselLekarzStatus.get();
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public StringProperty peselLekarzStatusProperty(String pesel) {
+        return peselLekarzStatus;
     }
 
-    public String getChoroba() {
-        return choroba;
+    public void setPeselLekarzStatus(String peselLekarzStatus) {
+        this.peselLekarzStatus.set(peselLekarzStatus);
     }
 
-    public String getData() {
-        return data;
+    public String getNazwaLekarzStatus() {
+        return nazwaLekarzStatus.get();
     }
 
-    public String getGodzina() {
-        return godzina;
+    public StringProperty nazwaLekarzStatusProperty(String nazwa) {
+        return nazwaLekarzStatus;
+    }
+
+    public void setNazwaLekarzStatus(String nazwaLekarzStatus) {
+        this.nazwaLekarzStatus.set(nazwaLekarzStatus);
+    }
+
+    public String getChorobaLekarzStatus(Time godzina) {
+        return chorobaLekarzStatus.get();
+    }
+
+    public StringProperty chorobaLekarzStatusProperty(String choroba) {
+        return chorobaLekarzStatus;
+    }
+
+    public void setChorobaLekarzStatus(String chorobaLekarzStatus) {
+        this.chorobaLekarzStatus.set(chorobaLekarzStatus);
+    }
+
+    public Date getDataLekarzRealizacja() {
+        return dataLekarzRealizacja.get();
+    }
+
+    public ObjectProperty<Date> dataLekarzRealizacjaProperty(Date data) {
+        return dataLekarzRealizacja;
+    }
+
+    public void setDataLekarzRealizacja(Date dataLekarzRealizacja) {
+        this.dataLekarzRealizacja.set(dataLekarzRealizacja);
+    }
+
+    public Time getGodzinaLekarzRealizacja() {
+        return godzinaLekarzRealizacja.get();
+    }
+
+    public ObjectProperty<Time> godzinaLekarzRealizacjaProperty() {
+        return godzinaLekarzRealizacja;
+    }
+
+    public void setGodzinaLekarzRealizacja(Time godzinaLekarzRealizacja) {
+        this.godzinaLekarzRealizacja.set(godzinaLekarzRealizacja);
     }
 }
