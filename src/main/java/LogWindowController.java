@@ -5,12 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -191,9 +188,7 @@ public class LogWindowController {
             return czyIstnieje;
         }
 //
-            private void sendData(MouseEvent event){
 
-            }
 
 
 

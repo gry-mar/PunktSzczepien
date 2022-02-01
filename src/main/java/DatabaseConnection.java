@@ -78,8 +78,8 @@ public class DatabaseConnection {
 
         CachedRowSetWrapper crs;
         try {
-            this.getConnection();
-            stmt = this.databaseLink.prepareStatement(queryStmt);
+            getConnection();
+            stmt = databaseLink.prepareStatement(queryStmt);
             resultSet = stmt.executeQuery(queryStmt);
             crs = new CachedRowSetWrapper();
             crs.populate(resultSet);

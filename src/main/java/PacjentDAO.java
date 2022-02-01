@@ -1,12 +1,12 @@
 import classes.ArchiwumPacjent;
 import classes.DostepneSzczepienia;
+import classes.RealizacjaPacjent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class PacjentDAO {
 
@@ -29,6 +29,14 @@ public class PacjentDAO {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public DatabaseConnection getDatabaseConnection() {
+        return databaseConnection;
+    }
+
+    public void setDatabaseConnection(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
     }
 
     public String getPesel() {
@@ -90,6 +98,19 @@ public class PacjentDAO {
         return dostepne;
     }
 
+    private ObservableList<RealizacjaPacjent> datRealizacja(ResultSet rs) throws SQLException {
+        ObservableList<RealizacjaPacjent> realizacja = FXCollections.observableArrayList();
+        while(rs.next()){
+            RealizacjaPacjent r = new RealizacjaPacjent();
+            r.setNazwaRelizacja(rs.getString("nazwa"));
+            r.setChorobaRealizacja(rs.getString("choroba"));
+            r.setDataRalizacja(rs.getDate("data"));
+            r.setGodzinaRealizacja(rs.getTime("godzina"));
+            realizacja.add(r);
+        }
+        return realizacja;
+    }
+
     public ObservableList<ArchiwumPacjent> showSpecifiedFromArchiwum(Date dataOd, Date dataDo){
         String selectStmt = "SELECT nazwa, choroba, data, godzina FROM archiwum_pacjent WHERE pesel = '"+pesel+"' AND data BETWEEN '"+dataOd + "' AND '"+dataDo+"';";
         ObservableList<ArchiwumPacjent> archiwum = FXCollections.observableArrayList();
@@ -107,7 +128,7 @@ public class PacjentDAO {
     }
 
     public ObservableList<DostepneSzczepienia> showAllDostepne(){
-        String selectStmt = "SELECT * FROM dostepne_szczepienia;";
+        String selectStmt = "SELECT nazwa, choroba, data, godzina FROM dostepne_szczepienia;";
         ObservableList<DostepneSzczepienia> dostepne = FXCollections.observableArrayList();
         try{
             ResultSet rs = this.databaseConnection.dbExecuteQuery(selectStmt);
@@ -118,6 +139,25 @@ public class PacjentDAO {
             e.printStackTrace();
         }
         return dostepne;
+    }
+
+    public ObservableList<RealizacjaPacjent> showAllRealizacja(){
+        String selectStmt = "SELECT nazwa, choroba, data, godzina FROM realizacja_szczepienia";
+        ObservableList<RealizacjaPacjent> realizacja = FXCollections.observableArrayList();
+        try{
+            ResultSet rs = this.databaseConnection.dbExecuteQuery(selectStmt);
+            realizacja = this.datRealizacja(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return realizacja;
+    }
+
+
+    public void zapisPacjenta(){
+
     }
 
 
