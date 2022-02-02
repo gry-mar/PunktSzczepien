@@ -12,8 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -143,25 +141,32 @@ public class PacjentWindowController {
     @FXML
     void pokazArchiwumClicked(ActionEvent event) {
         this.tableArchiwum.getItems().clear();
-        Date dataOdSql = Date.valueOf(dataOdArchiwum.getValue());
-        Date dataDoSql = Date.valueOf(dataDoArchiwum.getValue());
-        System.out.println(dataDoSql+","+dataOdSql);
-        ObservableList<ArchiwumPacjent> archiwumPacjentObservableList =
-                this.pacjentDAO.showSpecifiedFromArchiwum(dataOdSql,dataDoSql);
-        nazwaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("nazwa"));
-        chorobaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("choroba"));
-        dataArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Date>("data"));
-        godzinaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Time>("godzina"));
+        tableArchiwum.refresh();
 
-        this.tableArchiwum.setItems(archiwumPacjentObservableList);
-        System.out.println(archiwumPacjentObservableList.toString());
-        System.out.println(archiwumPacjentObservableList.get(0).getChoroba().toString());
+        try {
+            Date dataOdSql = Date.valueOf(dataOdArchiwum.getValue());
+            Date dataDoSql = Date.valueOf(dataDoArchiwum.getValue());
+            System.out.println(dataDoSql + "," + dataOdSql);
+            ObservableList<ArchiwumPacjent> archiwumPacjentObservableList =
+                    this.pacjentDAO.showSpecifiedFromArchiwum(dataOdSql, dataDoSql);
+            nazwaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent, String>("nazwa"));
+            chorobaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent, String>("choroba"));
+            dataArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent, Date>("data"));
+            godzinaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent, Time>("godzina"));
+
+            this.tableArchiwum.setItems(archiwumPacjentObservableList);
+            System.out.println(archiwumPacjentObservableList.toString());
+            System.out.println(archiwumPacjentObservableList.get(0).getChoroba().toString());
+        }catch(NullPointerException e){
+            tvArchiwumError.setText("Wybierz przedział dat");
+        }
 
 
     }
 
     @FXML
     void pokazDostepneClicked(ActionEvent event) {
+        tableDostepne.refresh();
         ObservableList<DostepneSzczepienia> dostepneSzczepienia = this.pacjentDAO.showAllDostepne();
         nazwaDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia,String>("nazwaDostepne"));
         chorobaDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia,String>("chorobaDostepne"));
@@ -173,6 +178,7 @@ public class PacjentWindowController {
 
     @FXML
     void pokazNadchodzaceClicked(ActionEvent event) {
+        tableWRealizacji.refresh();
         ObservableList<RealizacjaPacjent> realizacja = this.pacjentDAO.showAllRealizacja();
         nazwaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent,String>("nazwaRealizacja"));
         chorobaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent,String>("chorobaRealizacja"));
@@ -196,36 +202,49 @@ public class PacjentWindowController {
 
     @FXML
     void zapisNaSzczepienieClicked(ActionEvent event) throws ParseException {
-        Date dataZapisu = Date.valueOf(dataZapisuChooser.getValue());
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-        long parseTime = sdf.parse(godzinaZapisu.getText().toString()).getTime();
-        Time godzina = new Time(parseTime);
-        String choroba = chooseChoroba.getText().toString();
-        boolean czyZapisano = pacjentDAO.zapisPacjenta(dataZapisu,godzina,choroba);
-        if(czyZapisano){
-            tvCzyZapisano.setText("Poprawnie zapisano na szczepienie");
-        }else{
-            tvCzyZapisano.setText("Błąd przy zapisie na szczepienie! Sprawdz dane");
+        try {
+            Date dataZapisu = Date.valueOf(dataZapisuChooser.getValue());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            long parseTime = sdf.parse(godzinaZapisu.getText().toString()).getTime();
+            Time godzina = new Time(parseTime);
+            String choroba = chooseChoroba.getText().toString();
+            boolean czyZapisano = pacjentDAO.zapisPacjenta(dataZapisu, godzina, choroba);
+            if (czyZapisano) {
+                tvCzyZapisano.setText("Poprawnie zapisano na szczepienie");
+            } else {
+                tvCzyZapisano.setText("Błąd przy zapisie na szczepienie! Sprawdz dane");
+            }System.out.println(czyZapisano);
+
+        }catch(NullPointerException e){
+            tvCzyZapisano.setText("Wprowadź wszystkie dane");
         }
 
-        System.out.println(czyZapisano);
+
 
 
     }
 
     @FXML
     void zmianaTerminuClicked(ActionEvent event) throws ParseException {
-        Date dataPocz = Date.valueOf(dataZ.getValue());
-        Date dataKonc = Date.valueOf(dataNa.getValue());
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-        long parseZ = sdf.parse(godzinaZ.getText().toString()).getTime();
-        long parseNa = sdf.parse(godzinaNa.getText().toString()).getTime();
-        Time godzinaPocz = new Time(parseZ);
-        Time godzinaKonc = new Time(parseNa);
-        String choroba;
-
-
-
+        try {
+            Date dataPocz = Date.valueOf(dataZ.getValue());
+            Date dataKonc = Date.valueOf(dataNa.getValue());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            long parseZ = sdf.parse(godzinaZ.getText().toString()).getTime();
+            long parseNa = sdf.parse(godzinaNa.getText().toString()).getTime();
+            Time godzinaPocz = new Time(parseZ);
+            Time godzinaKonc = new Time(parseNa);
+            String choroba = tfChorobaZmiana.getText().toString();
+            boolean czyZapisano = pacjentDAO.zmianaTeminuPacjenta(dataPocz, godzinaPocz, dataKonc, godzinaKonc, choroba);
+            System.out.println(czyZapisano);
+            if ((czyZapisano)) {
+                tvCzyZmeniono.setText("Poprawnie zmieniono termin");
+            } else {
+                tvCzyZmeniono.setText("Sprawdz wprowadzone wartosci");
+            }
+        }catch(NullPointerException e){
+            tvCzyZmeniono.setText("Wprowadź wszystkie wartości");
+        }
 
 
 

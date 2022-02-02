@@ -69,41 +69,4 @@ public class ArchiwumPacjent {
         this.godzina.set(godzina);
     }
 
-    //    private String nazwa;
-//    private String choroba;
-//    private Date data;
-//    private Time godzina;
-//
-//
-//    public String getNazwa() {
-//        return nazwa;
-//    }
-//
-//    public void setNazwa(String nazwa) {
-//        this.nazwa = nazwa;
-//    }
-//
-//    public String getChoroba() {
-//        return choroba;
-//    }
-//
-//    public void setChoroba(String choroba) {
-//        this.choroba = choroba;
-//    }
-//
-//    public Date getData() {
-//        return data;
-//    }
-//
-//    public void setData(Date data) {
-//        this.data = data;
-//    }
-//
-//    public Time getGodzina() {
-//        return godzina;
-//    }
-//
-//    public void setGodzina(Time godzina) {
-//        this.godzina = godzina;
-//    }
 }

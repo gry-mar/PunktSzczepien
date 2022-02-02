@@ -1,6 +1,5 @@
 public final class UserHolder {
 
-    //private User user;
 
     private static UserHolder instance;
     private static String haslo;

@@ -5,19 +5,10 @@ import javafx.beans.property.*;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class Szczepienia {
-//    private String idSzczepienia;
-//    private LocalDate date;
-//    private LocalDateTime time;
-//    private int peselPacjent;
-//    private int nrPwz;
-//    private String idTyp;
-//    private Status status;
 
-    private StringProperty idSczepienia = new SimpleStringProperty();
     private ObjectProperty<Date> data = new SimpleObjectProperty<>();
     private ObjectProperty<Time> godzina = new SimpleObjectProperty<>();
     private IntegerProperty peselPacjent = new SimpleIntegerProperty();
@@ -28,8 +19,8 @@ public class Szczepienia {
     public Szczepienia() {
     }
 
-    public Szczepienia(StringProperty idSczepienia, ObjectProperty<Date> data, ObjectProperty<Time> godzina, IntegerProperty peselPacjent, IntegerProperty nrPwzLekarz, StringProperty idTyp, ObjectProperty<Status> status) {
-        this.idSczepienia = idSczepienia;
+    public Szczepienia(ObjectProperty<Date> data, ObjectProperty<Time> godzina, IntegerProperty peselPacjent, IntegerProperty nrPwzLekarz, StringProperty idTyp, ObjectProperty<Status> status) {
+
         this.data = data;
         this.godzina = godzina;
         this.peselPacjent = peselPacjent;
@@ -38,17 +29,6 @@ public class Szczepienia {
         this.status = status;
     }
 
-    public String getIdSczepienia() {
-        return idSczepienia.get();
-    }
-
-    public StringProperty idSczepieniaProperty() {
-        return idSczepienia;
-    }
-
-    public void setIdSczepienia(String idSczepienia) {
-        this.idSczepienia.set(idSczepienia);
-    }
 
     public Date getData() {
         return data.get();

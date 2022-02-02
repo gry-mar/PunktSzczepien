@@ -79,4 +79,11 @@ public class AdminDAO {
         return lekarze;
     }
 
+    public boolean zapisLekarza(){
+        boolean czyDodano = false;
+
+
+        return czyDodano;
+    }
+
 }

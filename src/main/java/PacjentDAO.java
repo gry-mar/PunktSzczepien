@@ -192,9 +192,14 @@ public class PacjentDAO {
             cstm.setTime(4,godzinaNa);
             cstm.setString(5,choroba);
             cstm.setString(6,getPesel());
-            cstm.registerOutParameter(6,Types.BIT);
+            cstm.registerOutParameter(7,Types.VARCHAR);
             cstm.execute();
-            czyZapisano = (Boolean) cstm.getBoolean(6);
+            String zapis = cstm.getString(7);
+            if(zapis.equals("tak")){
+                czyZapisano = true;
+            }else{
+                czyZapisano = false;
+            }
 
 
         } catch (SQLException throwables) {

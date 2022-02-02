@@ -66,10 +66,7 @@ public class DostepneSzczepienia {
     public void setGodzinaDostepne(Time godzinaDostepne) {
         this.godzinaDostepne.set(godzinaDostepne);
     }
-    //    private String nazwaDostepne;
-//    private String chorobaDostepne;
-//    private LocalDate dataDostepne;
-//    private LocalTime godzinaDostepne;
+
 
 
 
