@@ -1,6 +1,8 @@
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import classes.DostepneSzczepienia;
 import classes.Lekarz;
 import classes.Szczepienia;
 import javafx.collections.ObservableList;
@@ -11,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AdminWindowController {
@@ -93,28 +97,37 @@ public class AdminWindowController {
     @FXML
     private TableView<Szczepienia> tableSzczepienia;
 
+    @FXML
+    private Text tvDodawanieLekarza;
+
+    @FXML
+    private Text tvDodawanieTerminu;
+
+
     private Scene scene;
     private Stage stage;
     private AdminDAO adminDAO;
     private DatabaseConnection databaseConnection;
+    private UserHolder userHolder;
 
     public void setAdminDAO(AdminDAO adminDAO){
         this.adminDAO = adminDAO;
     }
 
-    private void receiveData(ActionEvent event){
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        this.adminDAO= (AdminDAO) stage.getUserData();
-        String userName = adminDAO.getUserNameA();
-        String userPassword = adminDAO.getUserPasswordA();
-
-    }
+//    private void receiveData(ActionEvent event){
+//        Node node = (Node) event.getSource();
+//        Stage stage = (Stage) node.getScene().getWindow();
+//        this.adminDAO= (AdminDAO) stage.getUserData();
+//        String userName = adminDAO.getUserNameA();
+//        String userPassword = adminDAO.getUserPasswordA();
+//
+//    }
 
 
 
     @FXML
     void dodajLekarzaClicked(ActionEvent event) {
+
 
     }
 
@@ -125,8 +138,12 @@ public class AdminWindowController {
 
     @FXML
     void pokazLekarzyClicked(ActionEvent event) {
-        receiveData(event);
-        ObservableList<Lekarz> lekarze;
+        ObservableList<Lekarz> lekarze = this.adminDAO.showAllLekarze();
+        imieLekarzCol.setCellValueFactory(new PropertyValueFactory<Lekarz,String>("imie"));
+        nazwiskoLekarzCol.setCellValueFactory(new PropertyValueFactory<Lekarz,String>("nazwisko"));
+        nrPwzCol.setCellValueFactory(new PropertyValueFactory<Lekarz,Integer>("nrPwz"));
+        loginLekarzCol.setCellValueFactory(new PropertyValueFactory<Lekarz,String>("loginLekarz"));
+        this.tableLekarz.setItems(lekarze);
 
 
 
@@ -139,12 +156,12 @@ public class AdminWindowController {
     }
 
     @FXML
-    void wylogujClicked(ActionEvent event) {
-        //btnPokazArchiwum.getScene().getWindow().hide();
-        //Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
+    void wylogujClicked(ActionEvent event) throws IOException {
+        btnPokazLekarzy.getScene().getWindow().hide();
+        Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
         Stage primaryStage = new Stage();
-        //scene= new Scene(root,1000,800);
-        //primaryStage.setScene(scene);
+        scene= new Scene(root,1000,800);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -174,6 +191,17 @@ public class AdminWindowController {
         assert typSzczCol != null : "fx:id=\"typSzczCol\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tableLekarz != null : "fx:id=\"tableLekarz\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tableSzczepienia != null : "fx:id=\"tableSzczepienia\" was not injected: check your FXML file 'adminwindow.fxml'.";
+        assert tvDodawanieLekarza != null : "fx:id=\"tvDodawanieLekarza\" was not injected: check your FXML file 'adminwindow.fxml'.";
+        assert tvDodawanieTerminu != null : "fx:id=\"tvDodawanieTerminu\" was not injected: check your FXML file 'adminwindow.fxml'.";
+
+        databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        databaseConnection.getConnection();
+        userHolder = UserHolder.getInstance();
+        System.out.println(UserHolder.getHaslo());
+        String login = UserHolder.getLogin();
+        String haslo = UserHolder.getHaslo();
+        adminDAO = new AdminDAO(login,haslo);
+        databaseConnection = adminDAO.getDatabaseConnection();
         databaseConnection.getConnection();
 
     }

@@ -23,8 +23,8 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="183.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="259.0" minHeight="10.0" prefHeight="195.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="207.00001831054686" minHeight="10.0" prefHeight="207.00001831054686" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="259.0" minHeight="10.0" prefHeight="185.3999816894531" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -42,11 +42,11 @@
             </TableView>
             <VBox prefHeight="325.0" prefWidth="504.0" GridPane.rowIndex="2">
                <children>
-                  <DatePicker fx:id="dataZapisuChooser">
+                  <DatePicker fx:id="dataZapisuChooser" promptText="yyyy-mm-dd">
                      <VBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </VBox.margin></DatePicker>
-                  <TextField fx:id="godzinaZapisu" alignment="CENTER" prefHeight="25.0" prefWidth="454.0" promptText="gg:mm">
+                  <TextField fx:id="godzinaZapisu" alignment="CENTER" prefHeight="25.0" prefWidth="454.0" promptText="gg:mm:ss">
                      <padding>
                         <Insets left="5.0" right="40.0" />
                      </padding>
@@ -62,7 +62,6 @@
                      <VBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </VBox.margin></Button>
-                  <Text fx:id="czyZapisano" strokeType="OUTSIDE" strokeWidth="0.0" />
                </children>
             </VBox>
             <VBox prefHeight="319.0" prefWidth="500.0">
@@ -78,6 +77,14 @@
                      <VBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </VBox.margin></Button>
+                  <Text fx:id="tvCzyZapisano" fill="#ef0202" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="20.0" />
+                     </VBox.margin>
+                  </Text>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
@@ -89,7 +96,7 @@
                      <VBox.margin>
                         <Insets bottom="10.0" left="8.0" />
                      </VBox.margin></Text>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="126.0" prefWidth="500.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
@@ -125,26 +132,44 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choroba: ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Text>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <DatePicker fx:id="dataZ" />
-                              <DatePicker fx:id="dataNa" />
-                              <TextField fx:id="godzinaZ" alignment="CENTER" promptText="gg:mm" />
-                              <TextField fx:id="godzinaNa" alignment="CENTER" promptText="gg:mm" />
+                              <DatePicker fx:id="dataZ" promptText="yyyy-mm-dd" />
+                              <DatePicker fx:id="dataNa" promptText="yyyy-mm-dd" />
+                              <TextField fx:id="godzinaZ" alignment="CENTER" promptText="gg:mm:ss" />
+                              <TextField fx:id="godzinaNa" alignment="CENTER" promptText="gg:mm:ss" />
+                              <TextField fx:id="tfChorobaZmiana" prefHeight="14.0" prefWidth="100.0" />
                            </children>
                         </VBox>
+                        <Text fx:id="tvCzyZmeniono" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <HBox.margin>
+                              <Insets left="20.0" top="80.0" />
+                           </HBox.margin>
+                        </Text>
                         <Button fx:id="zmienTermin" mnemonicParsing="false" onAction="#zmianaTerminuClicked" text="Zmień termin">
                            <HBox.margin>
                               <Insets left="30.0" top="30.0" />
                            </HBox.margin></Button>
+                        <Text fill="#fa0404" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <HBox.margin>
+                              <Insets left="20.0" top="70.0" />
+                           </HBox.margin>
+                        </Text>
                      </children>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Button fx:id="btnPokazNadchodzace" mnemonicParsing="false" onAction="#pokazNadchodzaceClicked" text="Pokaż nadchodzące">
+                  <Button fx:id="btnPokazNadchodzace" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pokazNadchodzaceClicked" text="Pokaż nadchodzące">
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets bottom="10.0" left="10.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -208,7 +233,7 @@
                                        <VBox.margin>
                                           <Insets left="4.0" />
                                        </VBox.margin></Text>
-                                    <DatePicker fx:id="dataOdArchiwum" />
+                                    <DatePicker fx:id="dataOdArchiwum" promptText="yyyy-mm-dd" />
                                     <Button fx:id="btnPokazArchiwum" mnemonicParsing="false" onAction="#pokazArchiwumClicked" text="Pokaż">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="30.0" top="5.0" />
@@ -219,7 +244,7 @@
                               <VBox prefHeight="93.0" prefWidth="184.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DO:" />
-                                    <DatePicker fx:id="dataDoArchiwum" />
+                                    <DatePicker fx:id="dataDoArchiwum" promptText="yyyy-mm-dd" />
                                  </children>
                               </VBox>
                            </children>
@@ -228,6 +253,11 @@
                   </VBox>
                </children>
             </VBox>
+            <Text fx:id="tvArchiwumError" fill="#f70606" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Text>
             <Button fx:id="btnWyloguj" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" />

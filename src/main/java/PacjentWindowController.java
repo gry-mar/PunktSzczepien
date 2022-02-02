@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class PacjentWindowController implements Initializable {
+public class PacjentWindowController {
 
     @FXML
     private ResourceBundle resources;
@@ -44,6 +44,14 @@ public class PacjentWindowController implements Initializable {
     @FXML
     private TextField chooseChoroba;
 
+    @FXML
+    private Text tvArchiwumError;
+
+    @FXML
+    private Text tvCzyZapisano;
+
+    @FXML
+    private Text tvCzyZmeniono;
 
     @FXML
     private TableColumn<ArchiwumPacjent, String> chorobaArchiwumCol;
@@ -54,8 +62,6 @@ public class PacjentWindowController implements Initializable {
     @FXML
     private TableColumn<RealizacjaPacjent, String> chorobaWRealizacjiCol;
 
-    @FXML
-    private Text czyZapisano;
 
     @FXML
     private TableColumn<ArchiwumPacjent, Date> dataArchiwumCol;
@@ -115,7 +121,7 @@ public class PacjentWindowController implements Initializable {
     private TableView<DostepneSzczepienia> tableDostepne;
 
     @FXML
-    private TableView<?> tableWRealizacji;
+    private TableView<RealizacjaPacjent> tableWRealizacji;
 
     @FXML
     private Button zapiszNaSzczepienie;
@@ -123,40 +129,29 @@ public class PacjentWindowController implements Initializable {
     @FXML
     private Button zmienTermin;
 
+    @FXML
+    private TextField tfChorobaZmiana;
+
     private PacjentDAO pacjentDAO;
     private DatabaseConnection databaseConnection;
     private Stage stage;
     private Scene scene;
+    private UserHolder userHolder;
 
 
-    public void setPacjentDAO(PacjentDAO pacjentDAO) {
-        this.pacjentDAO = pacjentDAO;
-    }
-
-    private void receiveData(ActionEvent event){
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        this.pacjentDAO = (PacjentDAO) stage.getUserData();
-        String userName = pacjentDAO.getUserName();
-        String userPassword = pacjentDAO.getUserPassword();
-        String pesel = pacjentDAO.getPesel();
-
-    }
 
     @FXML
     void pokazArchiwumClicked(ActionEvent event) {
-        receiveData(event);
         this.tableArchiwum.getItems().clear();
         Date dataOdSql = Date.valueOf(dataOdArchiwum.getValue());
         Date dataDoSql = Date.valueOf(dataDoArchiwum.getValue());
         System.out.println(dataDoSql+","+dataOdSql);
         ObservableList<ArchiwumPacjent> archiwumPacjentObservableList =
                 this.pacjentDAO.showSpecifiedFromArchiwum(dataOdSql,dataDoSql);
-        nazwaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("Nazwa"));
-        chorobaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("Choroba"));
-        dataArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Date>("Data"));
-        godzinaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Time>("Godzina"));
-
+        nazwaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("nazwa"));
+        chorobaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,String>("choroba"));
+        dataArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Date>("data"));
+        godzinaArchiwumCol.setCellValueFactory(new PropertyValueFactory<ArchiwumPacjent,Time>("godzina"));
 
         this.tableArchiwum.setItems(archiwumPacjentObservableList);
         System.out.println(archiwumPacjentObservableList.toString());
@@ -167,7 +162,6 @@ public class PacjentWindowController implements Initializable {
 
     @FXML
     void pokazDostepneClicked(ActionEvent event) {
-        receiveData(event);
         ObservableList<DostepneSzczepienia> dostepneSzczepienia = this.pacjentDAO.showAllDostepne();
         nazwaDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia,String>("nazwaDostepne"));
         chorobaDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia,String>("chorobaDostepne"));
@@ -179,34 +173,40 @@ public class PacjentWindowController implements Initializable {
 
     @FXML
     void pokazNadchodzaceClicked(ActionEvent event) {
-        receiveData(event);
         ObservableList<RealizacjaPacjent> realizacja = this.pacjentDAO.showAllRealizacja();
         nazwaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent,String>("nazwaRealizacja"));
         chorobaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent,String>("chorobaRealizacja"));
         dataWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent, Date>("dataRealizacja"));
         godzinaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent, Time>("godzinaRealizacja"));
+        this.tableWRealizacji.setItems(realizacja);
 
     }
 
     @FXML
     void wylogujClicked(ActionEvent event) throws IOException, SQLException {
+
         btnPokazArchiwum.getScene().getWindow().hide();
         Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
         Stage primaryStage = new Stage();
         scene= new Scene(root,1000,800);
         primaryStage.setScene(scene);
         primaryStage.show();
+        //userHolder.setUserHolder(new UserHolder(null,null));
     }
 
     @FXML
     void zapisNaSzczepienieClicked(ActionEvent event) throws ParseException {
-        receiveData(event);
         Date dataZapisu = Date.valueOf(dataZapisuChooser.getValue());
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         long parseTime = sdf.parse(godzinaZapisu.getText().toString()).getTime();
         Time godzina = new Time(parseTime);
         String choroba = chooseChoroba.getText().toString();
         boolean czyZapisano = pacjentDAO.zapisPacjenta(dataZapisu,godzina,choroba);
+        if(czyZapisano){
+            tvCzyZapisano.setText("Poprawnie zapisano na szczepienie");
+        }else{
+            tvCzyZapisano.setText("Błąd przy zapisie na szczepienie! Sprawdz dane");
+        }
 
         System.out.println(czyZapisano);
 
@@ -215,7 +215,6 @@ public class PacjentWindowController implements Initializable {
 
     @FXML
     void zmianaTerminuClicked(ActionEvent event) throws ParseException {
-        receiveData(event);
         Date dataPocz = Date.valueOf(dataZ.getValue());
         Date dataKonc = Date.valueOf(dataNa.getValue());
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
@@ -223,6 +222,7 @@ public class PacjentWindowController implements Initializable {
         long parseNa = sdf.parse(godzinaNa.getText().toString()).getTime();
         Time godzinaPocz = new Time(parseZ);
         Time godzinaKonc = new Time(parseNa);
+        String choroba;
 
 
 
@@ -241,7 +241,7 @@ public class PacjentWindowController implements Initializable {
         assert chorobaArchiwumCol != null : "fx:id=\"chorobaArchiwumCol\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert chorobaDostepneCol != null : "fx:id=\"chorobaDostepneCol\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert chorobaWRealizacjiCol != null : "fx:id=\"chorobaWRealizacjiCol\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
-        assert czyZapisano != null : "fx:id=\"czyZapisano\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
+        assert tvCzyZmeniono != null : "fx:id=\"tvCzyZmeniono\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert dataArchiwumCol != null : "fx:id=\"dataArchiwumCol\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert dataDoArchiwum != null : "fx:id=\"dataDoArchiwum\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert dataDostepneCol != null : "fx:id=\"dataDostepneCol\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
@@ -264,13 +264,23 @@ public class PacjentWindowController implements Initializable {
         assert tableWRealizacji != null : "fx:id=\"tableWRealizacji\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert zapiszNaSzczepienie != null : "fx:id=\"zapiszNaSzczepienie\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert zmienTermin != null : "fx:id=\"zmienTermin\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
+        assert tvArchiwumError != null : "fx:id=\"tvArchiwumError\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
+        assert tvCzyZapisano != null : "fx:id=\"tvCzyZapisano\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
+        assert tfChorobaZmiana != null : "fx:id=\"tfChorobaZmiana\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
+        userHolder = UserHolder.getInstance();
+        System.out.println(UserHolder.getHaslo());
+        String login = UserHolder.getLogin();
+        String haslo = UserHolder.getHaslo();
+        pacjentDAO = new PacjentDAO(login,haslo);
+        databaseConnection = pacjentDAO.getDatabaseConnection();
         databaseConnection.getConnection();
 
+        String pesel = pacjentDAO.getPesel();
+        System.out.println(pesel);
+
+
+
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-    }
 }

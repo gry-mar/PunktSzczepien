@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminWindowController">
    <children>
-      <TableView layoutX="17.0" layoutY="250.0" prefHeight="179.0" prefWidth="477.0">
+      <TableView fx:id="tableSzczepienia" layoutX="17.0" layoutY="250.0" prefHeight="179.0" prefWidth="477.0">
         <columns>
           <TableColumn fx:id="dataSzczCol" prefWidth="75.0" text="Data" />
           <TableColumn fx:id="godzinaSzczCol" prefWidth="75.0" text="Godzina" />
@@ -42,7 +42,7 @@
       <TextField fx:id="lekarzLogin" layoutX="554.0" layoutY="168.0" promptText="login" />
       <TextField fx:id="lekarzHaslo" layoutX="554.0" layoutY="214.0" promptText="haslo" />
       <Button fx:id="btnPokazLekarzy" layoutX="687.0" layoutY="250.0" mnemonicParsing="false" onAction="#pokazLekarzyClicked" text="Pokaz lekarzy" />
-      <TableView layoutX="534.0" layoutY="287.0" prefHeight="141.0" prefWidth="292.0">
+      <TableView fx:id="tableLekarz" layoutX="534.0" layoutY="287.0" prefHeight="141.0" prefWidth="292.0">
         <columns>
           <TableColumn fx:id="nrPwzCol" prefWidth="75.0" text="Nr PWZ" />
           <TableColumn fx:id="imieLekarzCol" prefWidth="75.0" text="Imie" />
@@ -51,5 +51,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnWyloguj" layoutX="26.0" layoutY="455.0" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" />
+      <Text fx:id="tvDodawanieTerminu" fill="#e40808" layoutX="176.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="tvDodawanieLekarza" fill="#f70303" layoutX="567.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

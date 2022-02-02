@@ -51,5 +51,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnWyloguj" layoutX="26.0" layoutY="455.0" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" />
+      <Text fx:id="tvDodawanieTerminu" fill="#e40808" layoutX="176.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="tvDodawanieLekarza" fill="#f70303" layoutX="567.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

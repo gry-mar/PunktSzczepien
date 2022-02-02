@@ -112,6 +112,7 @@ public class LekarzWindowController implements Initializable {
     private DatabaseConnection databaseConnection;
     private Stage stage;
     private Scene scene;
+    private UserHolder userHolder = new UserHolder(null, null);
 
     public void setLekarzDAO(LekarzDAO lekarzDAO){
         this.lekarzDAO = lekarzDAO;

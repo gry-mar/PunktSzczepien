@@ -12,10 +12,11 @@ public class AdminDAO {
     private String userPasswordA;
     private DatabaseConnection databaseConnection;
 
-    public AdminDAO(String userNameA, String userPasswordA, DatabaseConnection databaseConnection) {
+    public AdminDAO(String userNameA, String userPasswordA) {
         this.userNameA = userNameA;
         this.userPasswordA = userPasswordA;
-        this.databaseConnection = databaseConnection;
+        this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        databaseConnection.getConnection();
     }
 
 
@@ -64,6 +65,18 @@ public class AdminDAO {
         }
         return lekarze;
     }
-
+    public ObservableList<Lekarz> showAllLekarze(){
+        String stmt = "SELECT * from lekarze";
+        ObservableList<Lekarz> lekarze = FXCollections.observableArrayList();
+        try{
+            ResultSet rs = this.databaseConnection.dbExecuteQuery(stmt);
+            lekarze = this.getAllLekarze(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return lekarze;
+    }
 
 }

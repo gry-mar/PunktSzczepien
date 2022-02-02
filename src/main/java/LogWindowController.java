@@ -67,6 +67,7 @@ public class LogWindowController {
     private Text tvLogInfo;
 
     private List<String> logHasloRola = new ArrayList<>();
+    private UserHolder userHolder = new UserHolder(null, null);
 
 
     @FXML
@@ -92,7 +93,7 @@ public class LogWindowController {
         void clickedZaloguj(ActionEvent event) throws SQLException {
             //databaseConnection.getConnection();
             boolean czyPoprawne = validateLogin();
-            if (this.login.getText() != (Object) null) {
+            if (!this.login.getText().isEmpty()) {
                 tvLogInfo.setText("Probowales sie zalogowac");
 //                String loginOut = validateLogin().get(0).toString();
 //                String hasloOut = validateLogin().get(1).toString();
@@ -100,36 +101,39 @@ public class LogWindowController {
 
                 if(czyPoprawne){
                  try{
+                     userHolder = new UserHolder(login.getText(), haslo.getText());
+                     //userHolder.setUserHolder(userHolder);
                      if(logHasloRola.get(0).equals("pacjent")){
-                     PacjentDAO pacjentDAO = new PacjentDAO(login.getText(),haslo.getText(), databaseConnection);
+                     //PacjentDAO pacjentDAO = new PacjentDAO(login.getText(),haslo.getText(), databaseConnection);
                      Node node = (Node) event.getSource();
                      stage = (Stage)(node.getScene().getWindow());
                     Parent root=  FXMLLoader.load(getClass().getResource("pacjentwindow.fxml"));
-                    //PacjentWindowController controller =new PacjentWindowController();
-                    //controller.setPacjentDAO(pacjentDAO);
-                    stage.setUserData(pacjentDAO);
+
+                    //stage.setUserData(pacjentDAO);
                     scene= new Scene(root,1000,800);
                     stage.setScene(scene);
                     stage.show();}
                      else if(logHasloRola.get(0).equals("admin_punktu")){
-                         AdminDAO adminDAO = new AdminDAO(login.getText(),haslo.getText(),databaseConnection);
+                         //AdminDAO adminDAO = new AdminDAO(login.getText(),haslo.getText(),databaseConnection);
                          Node node = (Node) event.getSource();
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("adminwindow.fxml"));
-                         stage.setUserData(adminDAO);
+                         //stage.setUserData(adminDAO);
                          scene= new Scene(root,1000,800);
                          stage.setScene(scene);
                          stage.show();
-                     }else{
-                         LekarzDAO lekarzDAO = new LekarzDAO(login.getText(),haslo.getText(),databaseConnection);
+                     }else if (logHasloRola.get(0).equals("lekarz")){
+                          //LekarzDAO lekarzDAO= new LekarzDAO(login.getText(),haslo.getText(),databaseConnection);
                          Node node = (Node) event.getSource();
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("lekarzwindow.fxml"));
-                         stage.setUserData(lekarzDAO);
+                        // stage.setUserData(lekarzDAO);
                          scene= new Scene(root,1000,800);
                          stage.setScene(scene);
                          stage.show();
 
+                     }else{
+                         tvLogInfo.setText("Wprowadzono niepoprawne dane logowania");
                      }
                      login.clear();
                      haslo.clear();
@@ -173,7 +177,6 @@ public class LogWindowController {
             if (login.getText().toString().equals("admin_punktu") && haslo.getText().toString().equals("admin1")) {
                 loginOut = "admin_punktu";
                 hasloOut = "admin1";
-                czyIstnieje = true;
                 logHasloRola.add(loginOut);
                 logHasloRola.add(hasloOut);
                 logHasloRola.add("A");
@@ -192,52 +195,9 @@ public class LogWindowController {
                     logHasloRola = Arrays.asList(logIHaslo.split(","));
                     czyIstnieje = true;
                 }
-
-
-
-//                CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{?=call czy_istnieje(?,?)}");
-//                cStm.registerOutParameter(1, Types.BIT);
-//                cStm.setString(2, login.getText().toString());
-//                cStm.setString(3, haslo.getText().toString());
-//                cStm.execute();
-//                czyIstnieje = (Boolean) (cStm.getBoolean(1));
-
-
-//                CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{call login_func(?, ?, ?, ?, ?, ?, ?)}");
-//            cStm.setString(1,login.getText().toString());
-//            cStm.setString(2,haslo.getText().toString());
-//            cStm.registerOutParameter(3, Types.CHAR);
-//            cStm.registerOutParameter(4, Types.INTEGER);
-//            cStm.registerOutParameter(5, Types.CHAR);
-//            cStm.registerOutParameter(6, Types.VARCHAR);
-//            cStm.registerOutParameter(7, Types.VARCHAR);
-//            cStm.executeUpdate();
-//            peselOut = cStm.getString(3);
-//            nrPwzOut = cStm.getInt(4);
-//            loginOut = cStm.getString(6);
-//            hasloOut= cStm.getString(7);
-//            databaseConnection.dbDisconnect();
-//           // DatabaseConnection databaseConnection1 = new DatabaseConnection(loginOut, hasloOut);
-//            //databaseConnection1.getConnection();
-//                databaseConnection.setDatabaseUser(loginOut);
-//                databaseConnection.setDatabasePassword(hasloOut);
-//                databaseConnection.getConnection();
-//            tvLogInfo.setText( loginOut);
-//            }
-//            logAndPassword.add(loginOut);
-//            logAndPassword.add(hasloOut);
-//            if(peselOut != null){
-//                logAndPassword.add(peselOut);
-//            }else if(nrPwzOut !=0){
-//                logAndPassword.add(String.valueOf(nrPwzOut));
-//            }
-//            return logAndPassword;
-
-
             }
             return czyIstnieje;
         }
-//
 
 
 
