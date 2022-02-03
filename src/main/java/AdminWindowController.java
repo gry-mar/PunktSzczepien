@@ -160,7 +160,7 @@ public class AdminWindowController {
         btnPokazLekarzy.getScene().getWindow().hide();
         Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
         Stage primaryStage = new Stage();
-        scene= new Scene(root,1000,800);
+        scene= new Scene(root,600,400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

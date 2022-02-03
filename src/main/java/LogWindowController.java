@@ -72,20 +72,30 @@ public class LogWindowController {
 
     @FXML
         void clickedUtworzKonto(ActionEvent event) throws SQLException {
-        CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{call rejestracja(?,?,?,?,?,?,?)}");
-        cStm.setString(1,pacjentLogin.getText().toString());
-        cStm.setString(2,pacjentHaslo.getText().toString());
-        cStm.setString(3,pesel.getText().toString());
-        cStm.setString(4,imie.getText().toString());
-        cStm.setString(5,nazwisko.getText().toString());
-        cStm.setString(6,telefon.getText().toString());
-        cStm.registerOutParameter(7,Types.BIT);
-        cStm.executeUpdate();
-        boolean czyIstnieje = (Boolean) (cStm.getBoolean(7));
-        if(czyIstnieje){
-            tvLogInfo.setText("Takie konto istnieje, zaloguj sie");
-        }else{
-            tvLogInfo.setText("Uworzono konto, teraz mozesz sie zalogowac");
+        try {
+            String login = pacjentLogin.getText().toString();
+            String haslo = pacjentHaslo.getText().toString();
+            String peselPac = pesel.getText().toString();
+            String imiePac = imie.getText().toString();
+            String nazwiskoPac = nazwisko.getText().toString();
+            String telefonPac = telefon.getText().toString();
+            CallableStatement cStm = databaseConnection.getDatabaseLink().prepareCall("{call rejestracja(?,?,?,?,?,?,?)}");
+            cStm.setString(1, login);
+            cStm.setString(2, haslo);
+            cStm.setString(3, peselPac);
+            cStm.setString(4, imiePac);
+            cStm.setString(5, nazwiskoPac);
+            cStm.setString(6, telefonPac);
+            cStm.registerOutParameter(7, Types.BIT);
+            cStm.executeUpdate();
+            boolean czyIstnieje = (Boolean) (cStm.getBoolean(7));
+            if (czyIstnieje) {
+                tvLogInfo.setText("Takie konto istnieje, zaloguj sie");
+            } else {
+                tvLogInfo.setText("Uworzono konto, teraz mozesz sie zalogowac");
+            }
+        }catch(NullPointerException e){
+            tvLogInfo.setText("Wprowadź wszystkie dane logowania");
         }
         }
 
@@ -110,7 +120,7 @@ public class LogWindowController {
                     Parent root=  FXMLLoader.load(getClass().getResource("pacjentwindow.fxml"));
 
                     //stage.setUserData(pacjentDAO);
-                    scene= new Scene(root,1000,800);
+                    scene= new Scene(root,1000,700);
                     stage.setScene(scene);
                     stage.show();}
                      else if(logHasloRola.get(0).equals("admin_punktu")){
@@ -119,7 +129,7 @@ public class LogWindowController {
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("adminwindow.fxml"));
                          //stage.setUserData(adminDAO);
-                         scene= new Scene(root,1000,800);
+                         scene= new Scene(root,1000,700);
                          stage.setScene(scene);
                          stage.show();
                      }else if (logHasloRola.get(0).equals("lekarz")){
@@ -128,7 +138,7 @@ public class LogWindowController {
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("lekarzwindow.fxml"));
                         // stage.setUserData(lekarzDAO);
-                         scene= new Scene(root,1000,800);
+                         scene= new Scene(root,1000,700);
                          stage.setScene(scene);
                          stage.show();
 

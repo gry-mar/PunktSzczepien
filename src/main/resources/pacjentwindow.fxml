@@ -15,7 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #D9FEFA;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PacjentWindowController">
+<?import java.net.URL?>
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PacjentWindowController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
    <children>
       <GridPane layoutY="11.0" prefHeight="689.0" prefWidth="1000.0">
         <columnConstraints>
@@ -156,15 +160,10 @@
                               <Insets left="20.0" top="80.0" />
                            </HBox.margin>
                         </Text>
-                        <Button fx:id="zmienTermin" mnemonicParsing="false" onAction="#zmianaTerminuClicked" text="Zmień termin">
+                        <Button fx:id="zmienTermin" mnemonicParsing="false" onAction="#zmianaTerminuClicked" text="Zmień termin" HBox.hgrow="NEVER">
                            <HBox.margin>
                               <Insets left="30.0" top="30.0" />
                            </HBox.margin></Button>
-                        <Text fill="#fa0404" strokeType="OUTSIDE" strokeWidth="0.0">
-                           <HBox.margin>
-                              <Insets left="20.0" top="70.0" />
-                           </HBox.margin>
-                        </Text>
                      </children>
                   </HBox>
                   <Button fx:id="btnPokazNadchodzace" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pokazNadchodzaceClicked" text="Pokaż nadchodzące">
