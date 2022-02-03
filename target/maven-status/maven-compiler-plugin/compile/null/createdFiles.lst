@@ -1,10 +1,11 @@
-classes\Lekarz.class
 classes\Szczepienia.class
 classes\Loginy.class
 MainApplication.class
-LogWindowController.class
 Main.class
+classes\Rola.class
+classes\Lekarz.class
+AdminDAO.class
+LogWindowController.class
 DatabaseConnection.class
 classes\Status.class
-classes\Rola.class
 classes\TypySzczepien.class
