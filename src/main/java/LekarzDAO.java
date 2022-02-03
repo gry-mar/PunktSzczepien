@@ -14,6 +14,29 @@ public class LekarzDAO {
     private Integer nrPwz;
     private DatabaseConnection databaseConnection;
 
+    public Integer getNrPwz() {
+        String selectStms = "select nr_pwz from lekarze where login_lek = '" + userName + "';";
+        try{
+            ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStms);
+            while(resultSet.next()){
+                nrPwz = Integer.valueOf(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return nrPwz;
+    }
+
+    public LekarzDAO(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        databaseConnection.getConnection();
+        this.nrPwz = getNrPwz();
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -38,20 +61,6 @@ public class LekarzDAO {
         this.databaseConnection = databaseConnection;
     }
 
-    public Integer getNrPwz() {
-        String selectStms = "select nr_pwz from lekarze where login_lec = '" + userName + "';";
-        try{
-            ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStms);
-            while(resultSet.next()){
-                nrPwz = Integer.valueOf(resultSet.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return nrPwz;
-    }
 
     public void setNrPwz(Integer nrPwz) {
         this.nrPwz = nrPwz;
@@ -74,7 +83,7 @@ public class LekarzDAO {
         ObservableList<LekarzStatus> lekarzStatus = FXCollections.observableArrayList();
         while(resultSet.next()){
             LekarzStatus ls = new LekarzStatus();
-            ls.setPeselLekarzStatus(resultSet.getString("peselc" ));
+            ls.setPeselLekarzStatus(resultSet.getString("pesel" ));
             ls.setNazwaLekarzStatus(resultSet.getString("nazwa"));
             ls.setChorobaLekarzStatus(resultSet.getString("choroba"));
             ls.setDataLekarzRealizacja(resultSet.getDate("data"));
@@ -109,7 +118,7 @@ public class LekarzDAO {
     }
 
     public ObservableList<LekarzArchiwum> showSpecifiedFromArchiwum(Date dataOD, Date dataDO){
-        String selectStmt = "select a.nazwa, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa where data between" + dataOD + "and" + dataDO + ";";
+        String selectStmt = "select a.id_typ, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa where data between '" + dataOD +"'"+ " and " +"'"+ dataDO + "';";
         ObservableList<LekarzArchiwum> lekarzArchiwum = FXCollections.observableArrayList();
         try{
             ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStmt);
@@ -123,7 +132,7 @@ public class LekarzDAO {
     }
 
     public ObservableList<LekarzStatus> showPacjenta(String pesel){
-        String selectStmt = "Select nazwa, choroba, data, godzina from dostepne_lekarz where pesel = " + pesel + ";";
+        String selectStmt = "select nazwa, choroba, data, godzina from dostepne_lekarz where pesel = '" + pesel + "';";
         ObservableList<LekarzStatus> lekarzStatuses = FXCollections.observableArrayList();
         try{
             ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStmt);

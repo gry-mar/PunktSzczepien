@@ -124,7 +124,6 @@ public class LogWindowController {
                     stage.setScene(scene);
                     stage.show();}
                      else if(logHasloRola.get(0).equals("admin_punktu")){
-                         //AdminDAO adminDAO = new AdminDAO(login.getText(),haslo.getText(),databaseConnection);
                          Node node = (Node) event.getSource();
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("adminwindow.fxml"));
