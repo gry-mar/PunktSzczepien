@@ -12,8 +12,8 @@ public class LekarzStatus {
     private StringProperty peselLekarzStatus = new SimpleStringProperty();
     private StringProperty nazwaLekarzStatus = new SimpleStringProperty();
     private StringProperty chorobaLekarzStatus= new SimpleStringProperty();
-    private ObjectProperty<Date> dataLekarzRealizacja = new SimpleObjectProperty<>();
-    private ObjectProperty<Time> godzinaLekarzRealizacja = new SimpleObjectProperty<>();
+    private ObjectProperty<Date> dataLekarzStatus = new SimpleObjectProperty<>();
+    private ObjectProperty<Time> godzinaLekarzStatus = new SimpleObjectProperty<>();
 
     public LekarzStatus(){
 
@@ -43,7 +43,7 @@ public class LekarzStatus {
         this.nazwaLekarzStatus.set(nazwaLekarzStatus);
     }
 
-    public String getChorobaLekarzStatus(Time godzina) {
+    public String getChorobaLekarzStatus() {
         return chorobaLekarzStatus.get();
     }
 
@@ -55,27 +55,31 @@ public class LekarzStatus {
         this.chorobaLekarzStatus.set(chorobaLekarzStatus);
     }
 
-    public Date getDataLekarzRealizacja() {
-        return dataLekarzRealizacja.get();
+    public Date getDataLekarzStatus() {
+        return dataLekarzStatus.get();
     }
 
-    public ObjectProperty<Date> dataLekarzRealizacjaProperty(Date data) {
-        return dataLekarzRealizacja;
+    public ObjectProperty<Date> dataLekarzStatusProperty(Date data) {
+        return dataLekarzStatus;
     }
 
-    public void setDataLekarzRealizacja(Date dataLekarzRealizacja) {
-        this.dataLekarzRealizacja.set(dataLekarzRealizacja);
+    public void setDataLekarzStatus(Date dataLekarzStatus) {
+        this.dataLekarzStatus.set(dataLekarzStatus);
     }
 
-    public Time getGodzinaLekarzRealizacja(Time godzinaLekarzRealizacja) {
-        return this.godzinaLekarzRealizacja.get();
+    public Time getGodzinaLekarzStatus() {
+        return godzinaLekarzStatus.get();
     }
 
-    public ObjectProperty<Time> godzinaLekarzRealizacjaProperty() {
-        return godzinaLekarzRealizacja;
+    public ObjectProperty<Time> godzinaLekarzStatusProperty(Time godzina) {
+        return godzinaLekarzStatus;
     }
 
-    public void setGodzinaLekarzRealizacja(Time godzinaLekarzRealizacja) {
-        this.godzinaLekarzRealizacja.set(godzinaLekarzRealizacja);
+    public void setGodzinaLekarzStatus(Time godzinaLekarzStatus) {
+        this.godzinaLekarzStatus.set(godzinaLekarzStatus);
+    }
+
+    public void getGodzinaLekarzStatus(Time godzina)  {
+        this.godzinaLekarzStatus.set(godzina);
     }
 }

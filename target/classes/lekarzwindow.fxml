@@ -98,7 +98,10 @@
                         <VBox prefHeight="89.0" prefWidth="231.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Godzina" />
-                              <TextField fx:id="txtGodzinaStatus" alignment="CENTER" promptText="hh:mm" />
+                              <TextField fx:id="txtGodzinaStatus" alignment="CENTER" promptText="hh:mm:ss">
+                                 <VBox.margin>
+                                    <Insets right="20.0" />
+                                 </VBox.margin></TextField>
                            </children>
                         </VBox>
                      </children>
@@ -169,8 +172,8 @@
                   </Text>
                   <TableView fx:id="tblStatystyki" prefHeight="234.0" prefWidth="406.0">
                      <columns>
-                        <TableColumn fx:id="colStatystykiChoroba" prefWidth="148.0" text="Choroba" />
                         <TableColumn fx:id="colStatystykiNazwa" prefWidth="150.0" text="Nazwa" />
+                        <TableColumn fx:id="colStatystykiChoroba" prefWidth="148.0" text="Choroba" />
                         <TableColumn fx:id="colStatystykiIlosc" prefWidth="87.0" text="Ilość" />
                      </columns>
                   </TableView>

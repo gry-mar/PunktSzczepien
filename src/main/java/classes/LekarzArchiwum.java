@@ -42,7 +42,7 @@ public class LekarzArchiwum {
         this.chorobaLekarzArchiwum.set(chorobaLekarzArchiwum);
     }
 
-    public Date getDataLekarzArchiwum(Time godzina) {
+    public Date getDataLekarzArchiwum() {
         return dataLekarzArchiwum.get();
     }
 
@@ -64,5 +64,8 @@ public class LekarzArchiwum {
 
     public void setGodzinaLekarzArchiwum(Time godzinaLekarzArchiwum) {
         this.godzinaLekarzArchiwum.set(godzinaLekarzArchiwum);
+    }
+    public void getGodzinaLekarzArchiwum(Time godzina)  {
+        this.godzinaLekarzArchiwum.set(godzina);
     }
 }

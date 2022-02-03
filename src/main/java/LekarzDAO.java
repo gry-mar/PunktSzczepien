@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -83,11 +84,10 @@ public class LekarzDAO {
         ObservableList<LekarzStatus> lekarzStatus = FXCollections.observableArrayList();
         while(resultSet.next()){
             LekarzStatus ls = new LekarzStatus();
-            ls.setPeselLekarzStatus(resultSet.getString("pesel" ));
             ls.setNazwaLekarzStatus(resultSet.getString("nazwa"));
             ls.setChorobaLekarzStatus(resultSet.getString("choroba"));
-            ls.setDataLekarzRealizacja(resultSet.getDate("data"));
-            ls.getGodzinaLekarzRealizacja(resultSet.getTime("godzina"));
+            ls.setDataLekarzStatus(resultSet.getDate("data"));
+            ls.getGodzinaLekarzStatus(resultSet.getTime("godzina"));
             lekarzStatus.add(ls);
         }
         return lekarzStatus;
@@ -97,7 +97,7 @@ public class LekarzDAO {
         ObservableList lekarzArchiwum = FXCollections.observableArrayList();
         while(resultSet.next()){
             LekarzArchiwum la = new LekarzArchiwum();
-            la.setNazwaLekarzArchiwum(resultSet.getString("nazwa"));
+            la.setNazwaLekarzArchiwum(resultSet.getString("id_typ"));
             la.setChorobaLekarzArchiwum(resultSet.getString("choroba"));
             la.setDataLekarzArchiwum(resultSet.getDate("data"));
             la.setGodzinaLekarzArchiwum(resultSet.getTime("godzina"));
@@ -111,7 +111,7 @@ public class LekarzDAO {
         while (resultSet.next()){
             LekarzStatystyki lst = new LekarzStatystyki();
             lst.setChorobaLekarzStatystyki(resultSet.getString("choroba"));
-            lst.setNazwaLekarzStatystyki(resultSet.getString("nazwa"));
+            lst.setNazwaLekarzStatystyki(resultSet.getString("id_typ"));
             lekarzStatystyki.add(lst);
         }
         return lekarzStatystyki;
@@ -146,7 +146,8 @@ public class LekarzDAO {
     }
 
     public ObservableList<LekarzStatystyki> showLekarzStatystyki() throws SQLException {
-        String selectStmt = "select t.choroba, a.id_typ, count(a.id_typ) from archiwum a join typy_szczepien t on a.id_typ = t.nazwa group by a.id_typ;";
+        String selectStmt = "select t.choroba, a.id_typ, count(a.id_typ) from archiwum a join " +
+                "typy_szczepien t on a.id_typ = t.nazwa group by a.id_typ;";
         ObservableList<LekarzStatystyki> lekarzStatystyki = FXCollections.observableArrayList();
         try{
             ResultSet resultSet3 = this.databaseConnection.dbExecuteQuery(selectStmt);

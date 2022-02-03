@@ -25,7 +25,7 @@ public class LekarzStatystyki {
         this.chorobaLekarzStatystyki.set(chorobaLekarzStatystyki);
     }
 
-    public int getIloscWykonanychLekarzStatystyki() {
+    public Integer getIloscWykonanychLekarzStatystyki() {
         return iloscWykonanychLekarzStatystyki.get();
     }
 
@@ -33,7 +33,7 @@ public class LekarzStatystyki {
         return iloscWykonanychLekarzStatystyki;
     }
 
-    public void setIloscWykonanychLekarzStatystyki(int iloscWykonanychLekarzStatystyki) {
+    public void setIloscWykonanychLekarzStatystyki(Integer iloscWykonanychLekarzStatystyki) {
         this.iloscWykonanychLekarzStatystyki.set(iloscWykonanychLekarzStatystyki);
     }
 
