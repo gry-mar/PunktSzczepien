@@ -3,6 +3,7 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import classes.DostepneSzczepienia;
@@ -128,16 +129,16 @@ public class LekarzWindowController{
         colArchiwumNazwa.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("nazwaLekarzArchiwum"));
         colArchiwumChoroba.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("chorobaLekarzArchiwum"));;
         colArchiwumData.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Date>("dataLekarzArchiwum"));;
-        colArchiwumGodzina.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Time>("godzinaLekarzRealizacja"));;
+        colArchiwumGodzina.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Time>("godzinaLekarzArchiwum"));;
 
         this.tblStatystyki.getItems().clear();
         ObservableList<LekarzStatystyki> lekarzStatystyki = this.lekarzDAO.showLekarzStatystyki();
         colStatystykiChoroba.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, String>("chorobaLekarzStatystyki"));
         colStatystykiNazwa.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, String>("nazwaLekarzStatystyki"));
         colStatystykiIlosc.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, Integer>("iloscWykonanychLekarzStatystyki"));
-        // jeszcze część odnośnie statystyki \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         this.tblArchiwum.setItems(lekarzArchiwumObservableList);
+        this.tblStatystyki.setItems(lekarzStatystyki);
     }
 
     @FXML
@@ -147,8 +148,8 @@ public class LekarzWindowController{
         ObservableList<LekarzStatus> lekarzStatus = this.lekarzDAO.showPacjenta(pesel);
         colStatusNazwa.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("nazwaLekarzStatus"));
         colStatusChoroba.setCellValueFactory(new PropertyValueFactory<LekarzStatus, String>("chorobaLekarzStatus"));
-        colStatusData.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Date>("dataLekarzRealizacja"));
-        colStatusGodzina.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Time>("godzinaLekarzRealizacja"));
+        colStatusData.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Date>("dataLekarzStatus"));
+        colStatusGodzina.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Time>("godzinaLekarzStatus"));
 
         this.tblStatusZmiana.setItems(lekarzStatus);
 
@@ -159,10 +160,12 @@ public class LekarzWindowController{
         String nazwa = txtNazwa.getText().toString();
         String status = txtStatus.getText().toString();
         Date data = Date.valueOf(dateStatus.getValue());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         Time godzina = Time.valueOf(txtGodzinaStatus.getText().toString());
         try{
-            CallableStatement cstmUpdate = databaseConnection.getDatabaseLink().prepareCall("update szczepienia set status = " + status + " where " +
-                    " nazwa = " + nazwa + " and data = " + data + " and godzina = " + godzina + ";");
+            // do przeżucenia do LekarzDAO
+            CallableStatement cstmUpdate = databaseConnection.getDatabaseLink().prepareCall("update szczepienia set status = '" + status + "'  where " +
+                    " nazwa = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
