@@ -156,7 +156,10 @@ public class PacjentWindowController {
 
             this.tableArchiwum.setItems(archiwumPacjentObservableList);
             System.out.println(archiwumPacjentObservableList.toString());
-            System.out.println(archiwumPacjentObservableList.get(0).getChoroba().toString());
+            if(archiwumPacjentObservableList.isEmpty()){
+                tvArchiwumError.setText("W zadanym przedziale nie ma szczepień");
+            }
+            //System.out.println(.toString());
         }catch(NullPointerException e){
             tvArchiwumError.setText("Wybierz przedział dat");
         }
@@ -173,6 +176,9 @@ public class PacjentWindowController {
         dataDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia, Date>("dataDostepne"));
         godzinaDostepneCol.setCellValueFactory(new PropertyValueFactory<DostepneSzczepienia, Time>("godzinaDostepne"));
         this.tableDostepne.setItems(dostepneSzczepienia);
+        if(dostepneSzczepienia.isEmpty()){
+            tvCzyZapisano.setText("Nie ma dostępnych szczepień");
+        }
 
     }
 
@@ -185,6 +191,9 @@ public class PacjentWindowController {
         dataWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent, Date>("dataRealizacja"));
         godzinaWRealizacjiCol.setCellValueFactory(new PropertyValueFactory<RealizacjaPacjent, Time>("godzinaRealizacja"));
         this.tableWRealizacji.setItems(realizacja);
+        if(realizacja.isEmpty()){
+            tvCzyZmeniono.setText("Nie masz nadchodzących szczepień");
+        }
 
     }
 

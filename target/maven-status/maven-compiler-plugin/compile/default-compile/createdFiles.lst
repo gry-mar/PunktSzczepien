@@ -9,9 +9,12 @@ classes\LekarzStatus.class
 AdminWindowController.class
 classes\Rola.class
 CachedRowSetWrapper.class
+AdminDAO.class
 classes\ArchiwumPacjent.class
 LogWindowController.class
+UserHolder.class
 DatabaseConnection.class
 classes\DostepneSzczepienia.class
+LekarzDAO.class
 classes\TypySzczepien.class
 classes\LekarzArchiwum.class

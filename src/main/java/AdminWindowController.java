@@ -1,15 +1,17 @@
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-import classes.DostepneSzczepienia;
 import classes.Lekarz;
 import classes.Szczepienia;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -41,7 +43,7 @@ public class AdminWindowController {
     private Button btnWyloguj;
 
     @FXML
-    private TableColumn<?, ?> dataSzczCol;
+    private TableColumn<Szczepienia, Date> dataSzczCol;
 
     @FXML
     private TextField dodajGodzine;
@@ -50,7 +52,7 @@ public class AdminWindowController {
     private DatePicker dtPickerDodajDate;
 
     @FXML
-    private TableColumn<?, ?> godzinaSzczCol;
+    private TableColumn<Szczepienia, Time> godzinaSzczCol;
 
     @FXML
     private TableColumn<Lekarz, String> imieLekarzCol;
@@ -80,16 +82,16 @@ public class AdminWindowController {
     private TableColumn<Lekarz, Integer> nrPwzCol;
 
     @FXML
-    private TableColumn<?, ?> nrPwzSzczCol;
+    private TableColumn<Szczepienia, Integer> nrPwzSzczCol;
 
     @FXML
-    private TableColumn<?, ?> peselPacSzczCol;
+    private TableColumn<Szczepienia, String> peselPacSzczCol;
 
     @FXML
-    private TableColumn<?, ?> statusCol;
+    private TableColumn<Szczepienia, String> statusCol;
 
     @FXML
-    private TableColumn<?, ?> typSzczCol;
+    private TableColumn<Szczepienia, String> typSzczCol;
 
     @FXML
     private TableView<Lekarz> tableLekarz;
@@ -103,6 +105,13 @@ public class AdminWindowController {
     @FXML
     private Text tvDodawanieTerminu;
 
+    @FXML
+    private TextField tfChorobaAdd;
+
+    @FXML
+    private TextField nrPwzLekarzaDodaj;
+
+
 
     private Scene scene;
     private Stage stage;
@@ -114,25 +123,51 @@ public class AdminWindowController {
         this.adminDAO = adminDAO;
     }
 
-//    private void receiveData(ActionEvent event){
-//        Node node = (Node) event.getSource();
-//        Stage stage = (Stage) node.getScene().getWindow();
-//        this.adminDAO= (AdminDAO) stage.getUserData();
-//        String userName = adminDAO.getUserNameA();
-//        String userPassword = adminDAO.getUserPasswordA();
-//
-//    }
 
 
 
     @FXML
     void dodajLekarzaClicked(ActionEvent event) {
+        try {
+            String imie = lekarzImie.getText().toString();
+            String nazwisko = lekarzNazwisko.getText().toString();
+            int nrPwz = Integer.valueOf(lekarzNrPwz.getText());
+            String login = lekarzLogin.getText().toString();
+            String haslo = lekarzHaslo.getText().toString();
+            boolean czyDodano = adminDAO.zapisLekarza(imie, nazwisko, nrPwz, login, haslo);
+            if (czyDodano) {
+                tvDodawanieLekarza.setText("Poprawnie dodano lekarza");
+            } else {
+                tvDodawanieLekarza.setText("Wystąpił błąd przy dodawaniu");
+            }
+        }catch(NullPointerException e){
+            tvDodawanieLekarza.setText("Wprowadż wszystkie dane");
+        }
 
 
     }
 
     @FXML
-    void dodajTerminClicked(ActionEvent event) {
+    void dodajTerminClicked(ActionEvent event) throws ParseException {
+try {
+    Date data = Date.valueOf(dtPickerDodajDate.getValue());
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+    long parseZ = sdf.parse(dodajGodzine.getText().toString()).getTime();
+    Time godzina = new Time(parseZ);
+    String choroba = tfChorobaAdd.getText().toString();
+    int nrPwz = Integer.parseInt(nrPwzLekarzaDodaj.getText().toString());
+    boolean czyDodano = this.adminDAO.dodajTermin(data, godzina, choroba, nrPwz);
+    if (czyDodano) {
+        tvDodawanieTerminu.setText("Poprawnie dodano trermin");
+    } else {
+        tvDodawanieTerminu.setText("Błąd przy dodawaniu, sprawdź dane");
+    }
+}catch(NullPointerException e){
+    tvDodawanieTerminu.setText("Wprowadź wszystkie dane");
+}
+
+
+
 
     }
 
@@ -152,6 +187,14 @@ public class AdminWindowController {
 
     @FXML
     void pokazTerminyClicked(ActionEvent event) {
+        ObservableList<Szczepienia> szczepienia = this.adminDAO.showAllSzczepienia();
+        dataSzczCol.setCellValueFactory(new PropertyValueFactory<Szczepienia, Date>("data"));
+        godzinaSzczCol.setCellValueFactory(new PropertyValueFactory<Szczepienia, Time>("godzina"));
+        peselPacSzczCol.setCellValueFactory(new PropertyValueFactory<Szczepienia,String>("peselPacjent"));
+        nrPwzSzczCol.setCellValueFactory(new PropertyValueFactory<Szczepienia,Integer>("nrPwzLekarz"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<Szczepienia,String>("status"));
+        typSzczCol.setCellValueFactory(new PropertyValueFactory<Szczepienia,String>("idTyp"));
+        this.tableSzczepienia.setItems(szczepienia);
 
     }
 
@@ -193,7 +236,8 @@ public class AdminWindowController {
         assert tableSzczepienia != null : "fx:id=\"tableSzczepienia\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tvDodawanieLekarza != null : "fx:id=\"tvDodawanieLekarza\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tvDodawanieTerminu != null : "fx:id=\"tvDodawanieTerminu\" was not injected: check your FXML file 'adminwindow.fxml'.";
-
+        assert tfChorobaAdd != null : "fx:id=\"tfChorobaAdd\" was not injected: check your FXML file 'adminwindow.fxml'.";
+        assert nrPwzLekarzaDodaj != null : "fx:id=\"nrPwzLekarzaDodaj\" was not injected: check your FXML file 'adminwindow.fxml'.";
         databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
         databaseConnection.getConnection();
         userHolder = UserHolder.getInstance();

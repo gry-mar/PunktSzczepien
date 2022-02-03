@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -15,7 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #D9FEFA;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PacjentWindowController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PacjentWindowController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
    <children>
       <GridPane layoutY="11.0" prefHeight="689.0" prefWidth="1000.0">
         <columnConstraints>
@@ -29,7 +33,7 @@
             <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="tableDostepne" prefHeight="132.0" prefWidth="305.0" GridPane.rowIndex="1">
+            <TableView fx:id="tableDostepne" prefHeight="132.0" prefWidth="305.0" style="-fx-border-color: #0451bf;" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="nazwaDostepneCol" prefWidth="150.0" text="Nazwa" />
                 <TableColumn fx:id="chorobaDostepneCol" prefWidth="116.0" text="Choroba" />
@@ -42,25 +46,25 @@
             </TableView>
             <VBox prefHeight="325.0" prefWidth="504.0" GridPane.rowIndex="2">
                <children>
-                  <DatePicker fx:id="dataZapisuChooser" promptText="yyyy-mm-dd">
+                  <DatePicker fx:id="dataZapisuChooser">
                      <VBox.margin>
-                        <Insets left="5.0" top="10.0" />
+                        <Insets left="50.0" top="10.0" />
                      </VBox.margin></DatePicker>
                   <TextField fx:id="godzinaZapisu" alignment="CENTER" prefHeight="25.0" prefWidth="454.0" promptText="gg:mm:ss">
                      <padding>
                         <Insets left="5.0" right="40.0" />
                      </padding>
                      <VBox.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
+                        <Insets left="50.0" right="200.0" top="10.0" />
                      </VBox.margin></TextField>
                   <TextField fx:id="chooseChoroba" alignment="CENTER" promptText="choroba">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets left="50.0" right="200.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button fx:id="zapiszNaSzczepienie" mnemonicParsing="false" onAction="#zapisNaSzczepienieClicked" text="Zapisz">
+                  <Button fx:id="zapiszNaSzczepienie" mnemonicParsing="false" onAction="#zapisNaSzczepienieClicked" style="-fx-background-color: #0451bf;" text="Zapisz" textFill="WHITE">
                      <VBox.margin>
-                        <Insets left="5.0" top="10.0" />
+                        <Insets left="50.0" top="10.0" />
                      </VBox.margin></Button>
                </children>
             </VBox>
@@ -73,14 +77,11 @@
                      <VBox.margin>
                         <Insets left="8.0" top="40.0" />
                      </VBox.margin></Text>
-                  <Button fx:id="btnPokazDost" mnemonicParsing="false" onAction="#pokazDostepneClicked" text="Pokaż dostępne">
+                  <Button fx:id="btnPokazDost" mnemonicParsing="false" onAction="#pokazDostepneClicked" style="-fx-background-color: #0451bf;" text="Pokaż dostępne" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </VBox.margin></Button>
                   <Text fx:id="tvCzyZapisano" fill="#ef0202" strokeType="OUTSIDE" strokeWidth="0.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
                      <VBox.margin>
                         <Insets left="15.0" top="20.0" />
                      </VBox.margin>
@@ -144,37 +145,37 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <DatePicker fx:id="dataZ" promptText="yyyy-mm-dd" />
-                              <DatePicker fx:id="dataNa" promptText="yyyy-mm-dd" />
+                              <DatePicker fx:id="dataZ" />
+                              <DatePicker fx:id="dataNa" />
                               <TextField fx:id="godzinaZ" alignment="CENTER" promptText="gg:mm:ss" />
                               <TextField fx:id="godzinaNa" alignment="CENTER" promptText="gg:mm:ss" />
                               <TextField fx:id="tfChorobaZmiana" prefHeight="14.0" prefWidth="100.0" />
                            </children>
                         </VBox>
-                        <Text fx:id="tvCzyZmeniono" strokeType="OUTSIDE" strokeWidth="0.0">
-                           <HBox.margin>
-                              <Insets left="20.0" top="80.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Button fx:id="zmienTermin" mnemonicParsing="false" onAction="#zmianaTerminuClicked" text="Zmień termin">
-                           <HBox.margin>
-                              <Insets left="30.0" top="30.0" />
-                           </HBox.margin></Button>
-                        <Text fill="#fa0404" strokeType="OUTSIDE" strokeWidth="0.0">
-                           <HBox.margin>
-                              <Insets left="20.0" top="70.0" />
-                           </HBox.margin>
-                        </Text>
+                        <VBox prefHeight="128.0" prefWidth="225.0">
+                           <children>
+                              <Button fx:id="zmienTermin" mnemonicParsing="false" onAction="#zmianaTerminuClicked" style="-fx-background-color: #0451bf;" text="Zmień termin" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Text fx:id="tvCzyZmeniono" strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="btnPokazNadchodzace" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pokazNadchodzaceClicked" text="Pokaż nadchodzące">
+                  <Button fx:id="btnPokazNadchodzace" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pokazNadchodzaceClicked" style="-fx-background-color: #0451bf;" text="Pokaż nadchodzące" textFill="WHITE">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" />
                      </VBox.margin>
                   </Button>
                </children>
             </VBox>
-            <TableView fx:id="tableArchiwum" prefHeight="256.0" prefWidth="496.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TableView fx:id="tableArchiwum" prefHeight="256.0" prefWidth="496.0" style="-fx-border-color: #0451bf;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <columns>
                   <TableColumn fx:id="nazwaArchiwumCol" prefWidth="75.0" text="Nazwa" />
                   <TableColumn fx:id="chorobaArchiwumCol" prefWidth="140.0" text="Choroba" />
@@ -187,12 +188,12 @@
             </TableView>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TableView fx:id="tableWRealizacji" prefHeight="202.0" prefWidth="481.0">
+                  <TableView fx:id="tableWRealizacji" prefHeight="191.0" prefWidth="522.0" style="-fx-border-color: #0451bf;">
                      <columns>
                         <TableColumn fx:id="nazwaWRealizacjiCol" prefWidth="65.0" text="Nazwa" />
                         <TableColumn fx:id="chorobaWRealizacjiCol" prefWidth="172.0" text="Choroba" />
                         <TableColumn fx:id="dataWRealizacjiCol" prefWidth="91.0" text="Data" />
-                        <TableColumn fx:id="godzinaWRealizacjiCol" prefWidth="162.0" text="Godzina" />
+                        <TableColumn fx:id="godzinaWRealizacjiCol" prefWidth="166.0" text="Godzina" />
                      </columns>
                      <padding>
                         <Insets left="5.0" right="5.0" />
@@ -233,8 +234,8 @@
                                        <VBox.margin>
                                           <Insets left="4.0" />
                                        </VBox.margin></Text>
-                                    <DatePicker fx:id="dataOdArchiwum" promptText="yyyy-mm-dd" />
-                                    <Button fx:id="btnPokazArchiwum" mnemonicParsing="false" onAction="#pokazArchiwumClicked" text="Pokaż">
+                                    <DatePicker fx:id="dataOdArchiwum" />
+                                    <Button fx:id="btnPokazArchiwum" mnemonicParsing="false" onAction="#pokazArchiwumClicked" style="-fx-background-color: #0451bf;" text="Pokaż" textFill="WHITE">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="30.0" top="5.0" />
                                        </VBox.margin>
@@ -244,7 +245,7 @@
                               <VBox prefHeight="93.0" prefWidth="184.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DO:" />
-                                    <DatePicker fx:id="dataDoArchiwum" promptText="yyyy-mm-dd" />
+                                    <DatePicker fx:id="dataDoArchiwum" />
                                  </children>
                               </VBox>
                            </children>
@@ -258,7 +259,7 @@
                   <Insets left="100.0" />
                </GridPane.margin>
             </Text>
-            <Button fx:id="btnWyloguj" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" GridPane.rowIndex="3">
+            <Button fx:id="btnWyloguj" mnemonicParsing="false" onAction="#wylogujClicked" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #0451bf;" text="Wyloguj" textFill="WHITE" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></Button>

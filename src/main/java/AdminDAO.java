@@ -3,10 +3,7 @@ import classes.Szczepienia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 public class AdminDAO {
 
@@ -108,5 +105,44 @@ public class AdminDAO {
 
         return czyDodano;
     }
+
+    public ObservableList<Szczepienia> showAllSzczepienia(){
+        String stmt = "SELECT data, godzina, pesel_pacjenta, lekarz_nr_pwz, status, id_typ FROM szczepienia;";
+        ObservableList<Szczepienia> szczepienia = FXCollections.observableArrayList();
+        try{
+            ResultSet rs = this.databaseConnection.dbExecuteQuery(stmt);
+            szczepienia = this.getSzczepieniaList(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return szczepienia;
+    }
+
+public boolean dodajTermin(Date data, Time godzina, String choroba, int nrPwz){
+        boolean czyDodano = false;
+        try{
+            databaseConnection.getConnection();
+            CallableStatement cstm = databaseConnection.getDatabaseLink()
+                    .prepareCall("{call dodajtermin(?,?,?,?,?)}");
+            cstm.setDate(1,data);
+            cstm.setTime(2,godzina);
+            cstm.setString(3,choroba);
+            cstm.setInt(4,nrPwz);
+            cstm.registerOutParameter(5,Types.VARCHAR);
+            cstm.execute();
+            String dodanie = cstm.getString(5);
+            if(dodanie.equals("tak")){
+                czyDodano = true;
+            }else{
+                czyDodano = false;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return czyDodano;
+}
+
 
 }
