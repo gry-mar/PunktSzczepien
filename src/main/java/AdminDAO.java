@@ -3,8 +3,10 @@ import classes.Szczepienia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class AdminDAO {
 
@@ -44,12 +46,18 @@ public class AdminDAO {
         this.databaseConnection = databaseConnection;
     }
 
-    private ObservableList<Szczepienia> getSzczepieniaList(ResultSet rs){
+    private ObservableList<Szczepienia> getSzczepieniaList(ResultSet rs) throws SQLException {
         ObservableList szczepieniaList = FXCollections.observableArrayList();
-//        while(rs.next()){
-//            Szczepienia s = new Szczepienia();
-//            s.setIdSczepienia(rs.getBinaryStream(""));
-//        }
+        while(rs.next()){
+            Szczepienia s = new Szczepienia();
+            s.setData(rs.getDate("data"));
+            s.setGodzina(rs.getTime("godzina"));
+            s.setPeselPacjent(rs.getString("pesel_pacjenta"));
+            s.setNrPwzLekarz(rs.getInt("lekarz_nr_pwz"));
+            s.setIdTyp(rs.getString("id_typ"));
+            s.setStatus(rs.getString("status"));
+            szczepieniaList.add(s);
+        }
         return szczepieniaList;
     }
 
@@ -79,8 +87,23 @@ public class AdminDAO {
         return lekarze;
     }
 
-    public boolean zapisLekarza(){
+    public boolean zapisLekarza(String imie, String nazwisko, int nrPwz, String loginLek, String hasloLek){
         boolean czyDodano = false;
+        try{
+            databaseConnection.getConnection();
+            CallableStatement cstm = databaseConnection.getDatabaseLink()
+                    .prepareCall("{call rejestracja_lekarz(?,?,?,?,?,?)}");
+            cstm.setString(1,imie);
+            cstm.setString(2,nazwisko);
+            cstm.setInt(3,nrPwz);
+            cstm.setString(4,loginLek);
+            cstm.setString(5,hasloLek);
+            cstm.registerOutParameter(6, Types.BIT);
+            cstm.execute();
+            czyDodano = (Boolean) cstm.getBoolean(6);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
 
         return czyDodano;

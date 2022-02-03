@@ -11,16 +11,16 @@ public class Szczepienia {
 
     private ObjectProperty<Date> data = new SimpleObjectProperty<>();
     private ObjectProperty<Time> godzina = new SimpleObjectProperty<>();
-    private IntegerProperty peselPacjent = new SimpleIntegerProperty();
+    private StringProperty peselPacjent = new SimpleStringProperty();
     private IntegerProperty nrPwzLekarz = new SimpleIntegerProperty();
     private StringProperty idTyp = new SimpleStringProperty();
-    private ObjectProperty<Status> status = new SimpleObjectProperty<>();
+    private StringProperty status = new SimpleStringProperty();
 
     public Szczepienia() {
     }
 
-    public Szczepienia(ObjectProperty<Date> data, ObjectProperty<Time> godzina, IntegerProperty peselPacjent, IntegerProperty nrPwzLekarz, StringProperty idTyp, ObjectProperty<Status> status) {
-
+    public Szczepienia(ObjectProperty<Date> data, ObjectProperty<Time> godzina, StringProperty peselPacjent,
+                       IntegerProperty nrPwzLekarz, StringProperty idTyp, StringProperty status) {
         this.data = data;
         this.godzina = godzina;
         this.peselPacjent = peselPacjent;
@@ -28,7 +28,6 @@ public class Szczepienia {
         this.idTyp = idTyp;
         this.status = status;
     }
-
 
     public Date getData() {
         return data.get();
@@ -54,15 +53,15 @@ public class Szczepienia {
         this.godzina.set(godzina);
     }
 
-    public int getPeselPacjent() {
+    public String getPeselPacjent() {
         return peselPacjent.get();
     }
 
-    public IntegerProperty peselPacjentProperty() {
+    public StringProperty peselPacjentProperty() {
         return peselPacjent;
     }
 
-    public void setPeselPacjent(int peselPacjent) {
+    public void setPeselPacjent(String peselPacjent) {
         this.peselPacjent.set(peselPacjent);
     }
 
@@ -90,15 +89,15 @@ public class Szczepienia {
         this.idTyp.set(idTyp);
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status.get();
     }
 
-    public ObjectProperty<Status> statusProperty() {
+    public StringProperty statusProperty() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status.set(status);
     }
 }
