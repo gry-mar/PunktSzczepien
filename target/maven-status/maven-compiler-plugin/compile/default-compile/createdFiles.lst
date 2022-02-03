@@ -14,6 +14,7 @@ classes\ArchiwumPacjent.class
 LogWindowController.class
 UserHolder.class
 DatabaseConnection.class
+classes\Status.class
 classes\DostepneSzczepienia.class
 LekarzDAO.class
 classes\TypySzczepien.class

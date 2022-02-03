@@ -83,7 +83,7 @@ public class LekarzDAO {
         ObservableList<LekarzStatus> lekarzStatus = FXCollections.observableArrayList();
         while(resultSet.next()){
             LekarzStatus ls = new LekarzStatus();
-            ls.setPeselLekarzStatus(resultSet.getString("pesel" ));
+            //ls.setPeselLekarzStatus(resultSet.getString("pesel" ));
             ls.setNazwaLekarzStatus(resultSet.getString("nazwa"));
             ls.setChorobaLekarzStatus(resultSet.getString("choroba"));
             ls.setDataLekarzRealizacja(resultSet.getDate("data"));

@@ -128,7 +128,7 @@ public class LogWindowController {
                          stage = (Stage)(node.getScene().getWindow());
                          Parent root=  FXMLLoader.load(getClass().getResource("adminwindow.fxml"));
                          //stage.setUserData(adminDAO);
-                         scene= new Scene(root,1000,700);
+                         scene= new Scene(root,900,600);
                          stage.setScene(scene);
                          stage.show();
                      }else if (logHasloRola.get(0).equals("lekarz")){
@@ -173,7 +173,7 @@ public class LogWindowController {
             assert tvLogInfo != null : "fx:id=\"tvLogInfo\" was not injected: check your FXML file 'logwindow.fxml'.";
             databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
             databaseConnection.getConnection();
-            tvLogInfo.setText("dziala w miare");
+
         }
 
         public boolean validateLogin() throws SQLException {
