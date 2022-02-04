@@ -145,7 +145,7 @@ public class LekarzDAO {
 
     public ObservableList<LekarzStatystyki> showLekarzStatystyki() throws SQLException {
         String selectStmt = "select t.choroba, a.id_typ, count(a.id_typ) from archiwum a join " +
-                "typy_szczepien t on a.id_typ = t.nazwa group by a.id_typ;";
+                "typy_szczepien t on a.id_typ = t.nazwa where status = 'zrealizowane' group by a.id_typ;";
         ObservableList<LekarzStatystyki> lekarzStatystyki = FXCollections.observableArrayList();
         try{
             ResultSet resultSet3 = this.databaseConnection.dbExecuteQuery(selectStmt);
@@ -165,7 +165,7 @@ public class LekarzDAO {
                 " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
         statement.execute(update);
         Statement statement1 = databaseConnection.databaseLink.createStatement();
-        String delete = "delete from szczepienia where status = '" + status + "'  where " +
+        String delete = "delete from szczepienia where status = '" + status + "'  and " +
                                " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
         statement1.execute(delete);
     }

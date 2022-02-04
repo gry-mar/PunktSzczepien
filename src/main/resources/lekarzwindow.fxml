@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -9,35 +10,45 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LekarzWindowController">
+<AnchorPane prefHeight="689.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LekarzWindowController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
    <children>
-      <HBox prefHeight="600.0" prefWidth="800.0">
+      <HBox prefHeight="689.0" prefWidth="1000.0">
          <children>
-            <VBox prefHeight="600.0" prefWidth="434.0">
+            <VBox prefHeight="689.0" prefWidth="498.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zmień status szczepienia">
                      <VBox.margin>
                         <Insets bottom="10.0" left="80.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
                   </Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pesel pacjenta:">
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Text>
                   <TextField fx:id="txtPesel" alignment="TOP_LEFT" promptText="pesel">
                      <VBox.margin>
                         <Insets bottom="5.0" left="20.0" right="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button fx:id="btnSzukajPacjenta" mnemonicParsing="false" onAction="#btnClickedSzukajPacjenta" text="Szukaj">
+                  <Button fx:id="btnSzukajPacjenta" mnemonicParsing="false" onAction="#btnClickedSzukajPacjenta" style="-fx-background-color: #0451bf;" text="Szukaj" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="21.0" left="180.0" />
+                        <Insets bottom="21.0" left="200.0" />
                      </VBox.margin>
                   </Button>
-                  <TableView fx:id="tblStatusZmiana" prefHeight="308.0" prefWidth="420.0">
+                  <TableView fx:id="tblStatusZmiana" prefHeight="252.0" prefWidth="492.0">
                      <columns>
                         <TableColumn fx:id="colStatusNazwa" prefWidth="105.0" text="Nazwa" />
                         <TableColumn fx:id="colStatusChoroba" prefWidth="108.0" text="Choroba" />
@@ -45,7 +56,7 @@
                         <TableColumn fx:id="colStatusGodzina" prefWidth="102.0" text="Godzina" />
                      </columns>
                      <VBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="15.0" left="3.0" right="3.0" />
                      </VBox.margin>
                   </TableView>
                   <HBox prefHeight="56.0" prefWidth="384.0">
@@ -56,6 +67,9 @@
                                  <VBox.margin>
                                     <Insets left="20.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Text>
                               <TextField fx:id="txtNazwa" prefHeight="25.0" prefWidth="138.0" promptText="nazwa szczepienia">
                                  <VBox.margin>
@@ -70,6 +84,9 @@
                                  <VBox.margin>
                                     <Insets left="20.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Text>
                               <TextField fx:id="txtStatus" prefHeight="25.0" prefWidth="102.0" promptText="zrealizowane/niezrealizowane/dostępne">
                                  <VBox.margin>
@@ -79,15 +96,21 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox prefHeight="56.0" prefWidth="451.0">
                      <children>
                         <VBox prefHeight="90.0" prefWidth="182.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data" />
-                              <DatePicker fx:id="dateStatus">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
+                              <DatePicker fx:id="dateStatus" prefHeight="25.0" prefWidth="160.0">
                                  <VBox.margin>
-                                    <Insets right="40.0" />
+                                    <Insets right="20.0" />
                                  </VBox.margin>
                               </DatePicker>
                            </children>
@@ -97,39 +120,48 @@
                         </VBox>
                         <VBox prefHeight="89.0" prefWidth="231.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Godzina" />
-                              <TextField fx:id="txtGodzinaStatus" alignment="CENTER" promptText="hh:mm:ss">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Godzina">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
+                              <TextField fx:id="txtGodzinaStatus" alignment="CENTER" prefHeight="25.0" prefWidth="243.0" promptText="hh:mm:ss">
                                  <VBox.margin>
-                                    <Insets right="20.0" />
+                                    <Insets left="15.0" />
                                  </VBox.margin></TextField>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="btnZmienStatus" mnemonicParsing="false" onAction="#btnClickedZmienStatus" text="Zmień status">
+                  <Button fx:id="btnZmienStatus" mnemonicParsing="false" onAction="#btnClickedZmienStatus" style="-fx-background-color: #0451bf;" text="Zmień status" textFill="WHITE">
                      <VBox.margin>
-                        <Insets left="180.0" />
+                        <Insets left="180.0" top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnWyloguj" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#ClickedWyloguj" text="Wyloguj">
+                  <Button fx:id="btnWyloguj" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#ClickedWyloguj" style="-fx-background-color: #0451bf;" text="Wyloguj" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="10.0" left="20.0" />
+                        <Insets bottom="10.0" left="20.0" top="30.0" />
                      </VBox.margin>
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="600.0" prefWidth="406.0">
+            <VBox prefHeight="689.0" prefWidth="503.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Archiwum">
                      <VBox.margin>
                         <Insets bottom="10.0" left="160.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
                   </Text>
                   <HBox prefHeight="60.0" prefWidth="263.0">
                      <children>
                         <VBox prefHeight="20.0" prefWidth="131.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data OD:" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data OD:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
                               <DatePicker fx:id="dateOD">
                                  <VBox.margin>
                                     <Insets />
@@ -142,11 +174,14 @@
                         </VBox>
                         <VBox prefHeight="75.0" prefWidth="131.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data DO:" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data DO:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
                               <DatePicker fx:id="dateDO" />
                            </children>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
@@ -154,12 +189,12 @@
                         <Insets left="50.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="btnFiltruj" mnemonicParsing="false" onAction="#btnClickedFiltruj" text="Filtruj">
+                  <Button fx:id="btnFiltruj" mnemonicParsing="false" onAction="#btnClickedFiltruj" style="-fx-background-color: #0451bf;" text="Filtruj" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="7.0" left="170.0" />
+                        <Insets bottom="7.0" left="210.0" top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <TableView fx:id="tblArchiwum" prefHeight="215.0" prefWidth="406.0">
+                  <TableView fx:id="tblArchiwum" prefHeight="280.0" prefWidth="503.0">
                      <columns>
                         <TableColumn fx:id="colArchiwumNazwa" prefWidth="109.0" text="Nazwa" />
                         <TableColumn fx:id="colArchiwumChoroba" prefWidth="109.0" text="Choroba" />
@@ -167,20 +202,26 @@
                         <TableColumn fx:id="colArchiwumGodzina" prefWidth="81.0" text="Godzina" />
                      </columns>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
                      </VBox.margin>
                   </TableView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statystyki">
                      <VBox.margin>
                         <Insets bottom="8.0" left="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
                   </Text>
-                  <TableView fx:id="tblStatystyki" prefHeight="234.0" prefWidth="406.0">
+                  <TableView fx:id="tblStatystyki" prefHeight="287.0" prefWidth="503.0">
                      <columns>
                         <TableColumn fx:id="colStatystykiNazwa" prefWidth="150.0" text="Nazwa" />
                         <TableColumn fx:id="colStatystykiChoroba" prefWidth="148.0" text="Choroba" />
                         <TableColumn fx:id="colStatystykiIlosc" prefWidth="87.0" text="Ilość" />
                      </columns>
+                     <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" />
+                     </VBox.margin>
                   </TableView>
                </children>
             </VBox>
