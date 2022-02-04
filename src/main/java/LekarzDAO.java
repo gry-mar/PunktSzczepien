@@ -30,7 +30,7 @@ public class LekarzDAO {
     public LekarzDAO(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
-        this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        this.databaseConnection = new DatabaseConnection("lekarz", "lekarz1");
         databaseConnection.getConnection();
         this.nrPwz = getNrPwz();
     }

@@ -51,9 +51,9 @@
                   <TableView fx:id="tblStatusZmiana" prefHeight="252.0" prefWidth="492.0">
                      <columns>
                         <TableColumn fx:id="colStatusNazwa" prefWidth="105.0" text="Nazwa" />
-                        <TableColumn fx:id="colStatusChoroba" prefWidth="108.0" text="Choroba" />
-                        <TableColumn fx:id="colStatusData" prefWidth="97.0" text="Data" />
-                        <TableColumn fx:id="colStatusGodzina" prefWidth="102.0" text="Godzina" />
+                        <TableColumn fx:id="colStatusChoroba" prefWidth="127.19995880126953" text="Choroba" />
+                        <TableColumn fx:id="colStatusData" prefWidth="126.40000915527344" text="Data" />
+                        <TableColumn fx:id="colStatusGodzina" prefWidth="129.60003662109375" text="Godzina" />
                      </columns>
                      <VBox.margin>
                         <Insets bottom="15.0" left="3.0" right="3.0" />
@@ -197,9 +197,9 @@
                   <TableView fx:id="tblArchiwum" prefHeight="280.0" prefWidth="503.0">
                      <columns>
                         <TableColumn fx:id="colArchiwumNazwa" prefWidth="109.0" text="Nazwa" />
-                        <TableColumn fx:id="colArchiwumChoroba" prefWidth="109.0" text="Choroba" />
-                        <TableColumn fx:id="colArchiwumData" prefWidth="85.0" text="Data" />
-                        <TableColumn fx:id="colArchiwumGodzina" prefWidth="81.0" text="Godzina" />
+                        <TableColumn fx:id="colArchiwumChoroba" prefWidth="132.80004119873047" text="Choroba" />
+                        <TableColumn fx:id="colArchiwumData" prefWidth="131.9999237060547" text="Data" />
+                        <TableColumn fx:id="colArchiwumGodzina" prefWidth="120.0" text="Godzina" />
                      </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
@@ -215,9 +215,9 @@
                   </Text>
                   <TableView fx:id="tblStatystyki" prefHeight="287.0" prefWidth="503.0">
                      <columns>
-                        <TableColumn fx:id="colStatystykiNazwa" prefWidth="150.0" text="Nazwa" />
-                        <TableColumn fx:id="colStatystykiChoroba" prefWidth="148.0" text="Choroba" />
-                        <TableColumn fx:id="colStatystykiIlosc" prefWidth="87.0" text="Ilość" />
+                        <TableColumn fx:id="colStatystykiNazwa" prefWidth="216.8000151515007" text="Nazwa" />
+                        <TableColumn fx:id="colStatystykiChoroba" prefWidth="156.7999725341797" text="Choroba" />
+                        <TableColumn fx:id="colStatystykiIlosc" prefWidth="114.39996337890625" text="Ilość" />
                      </columns>
                      <VBox.margin>
                         <Insets bottom="3.0" left="3.0" right="3.0" />

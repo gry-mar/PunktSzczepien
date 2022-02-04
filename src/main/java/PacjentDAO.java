@@ -60,7 +60,7 @@ public class PacjentDAO {
     public PacjentDAO(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
-        this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        this.databaseConnection = new DatabaseConnection("pacjent", "pacjent1");
         databaseConnection.getConnection();
         this.pesel = getPesel();
 
