@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
+    <stylesheets>
+        <URL value="@welcome_style.css" />
+    </stylesheets>
+    <children>
+      <Text fill="#0e416b" layoutX="109.0" layoutY="151.0" stroke="#210e96" strokeType="OUTSIDE" strokeWidth="1.1" text="Witaj w Punkcie Szczepień">
+         <font>
+            <Font name="Yu Gothic Medium" size="31.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnGoToLog" layoutX="228.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToLog" prefHeight="61.0" prefWidth="143.0" style="-fx-background-color: #0451bf;" text="Przejdź do aplikacji" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
