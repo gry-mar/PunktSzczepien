@@ -111,6 +111,8 @@ public class AdminWindowController {
     @FXML
     private TextField nrPwzLekarzaDodaj;
 
+    @FXML
+    private TextField tfNazwaSzczepionki;
 
 
     private Scene scene;
@@ -155,8 +157,9 @@ try {
     long parseZ = sdf.parse(dodajGodzine.getText().toString()).getTime();
     Time godzina = new Time(parseZ);
     String choroba = tfChorobaAdd.getText().toString();
+    String nazwaSzczepionki = tfNazwaSzczepionki.getText().toString();
     int nrPwz = Integer.parseInt(nrPwzLekarzaDodaj.getText().toString());
-    boolean czyDodano = this.adminDAO.dodajTermin(data, godzina, choroba, nrPwz);
+    boolean czyDodano = this.adminDAO.dodajTermin(data, godzina, choroba, nrPwz, nazwaSzczepionki);
     if (czyDodano) {
         tvDodawanieTerminu.setText("Poprawnie dodano trermin");
     } else {
@@ -238,6 +241,7 @@ try {
         assert tvDodawanieTerminu != null : "fx:id=\"tvDodawanieTerminu\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tfChorobaAdd != null : "fx:id=\"tfChorobaAdd\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert nrPwzLekarzaDodaj != null : "fx:id=\"nrPwzLekarzaDodaj\" was not injected: check your FXML file 'adminwindow.fxml'.";
+        assert tfNazwaSzczepionki != null : "fx:id=\"tfNazwaSzczepionki\" was not injected: check your FXML file 'adminwindow.fxml'.";
         databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
         databaseConnection.getConnection();
         userHolder = UserHolder.getInstance();

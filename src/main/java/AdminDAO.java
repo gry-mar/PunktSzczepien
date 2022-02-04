@@ -120,19 +120,20 @@ public class AdminDAO {
         return szczepienia;
     }
 
-public boolean dodajTermin(Date data, Time godzina, String choroba, int nrPwz){
+public boolean dodajTermin(Date data, Time godzina, String choroba, int nrPwz, String nazwaSzczepionki){
         boolean czyDodano = false;
         try{
             databaseConnection.getConnection();
             CallableStatement cstm = databaseConnection.getDatabaseLink()
-                    .prepareCall("{call dodajtermin(?,?,?,?,?)}");
+                    .prepareCall("{call dodajtermin(?,?,?,?,?,?)}");
             cstm.setDate(1,data);
             cstm.setTime(2,godzina);
             cstm.setString(3,choroba);
-            cstm.setInt(4,nrPwz);
-            cstm.registerOutParameter(5,Types.VARCHAR);
+            cstm.setString(4,nazwaSzczepionki);
+            cstm.setInt(5,nrPwz);
+            cstm.registerOutParameter(6,Types.VARCHAR);
             cstm.execute();
-            String dodanie = cstm.getString(5);
+            String dodanie = cstm.getString(6);
             if(dodanie.equals("tak")){
                 czyDodano = true;
             }else{
