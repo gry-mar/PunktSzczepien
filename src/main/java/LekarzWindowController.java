@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Date;
@@ -13,8 +14,10 @@ import classes.LekarzStatystyki;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,6 +33,9 @@ public class LekarzWindowController{
 
     @FXML
     private Button btnFiltruj;
+
+    @FXML
+    private Button btnWyloguj;
 
     @FXML
     private Button btnSzukajPacjenta;
@@ -125,7 +131,7 @@ public class LekarzWindowController{
         this.tblArchiwum.getItems().clear();
         Date dataOdSql = Date.valueOf(dateOD.getValue());
         Date dataDoSql = Date.valueOf(dateDO.getValue());
-        ObservableList<LekarzArchiwum> lekarzArchiwumObservableList = this.lekarzDAO.showSpecifiedFromArchiwum(dataOdSql,dataDoSql);
+        ObservableList<LekarzArchiwum> lekarzArchiwumObservableList = this.lekarzDAO.showSpecifiedFromArchiwum(dataOdSql, dataDoSql);
         colArchiwumNazwa.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("nazwaLekarzArchiwum"));
         colArchiwumChoroba.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, String>("chorobaLekarzArchiwum"));;
         colArchiwumData.setCellValueFactory(new PropertyValueFactory<LekarzArchiwum, Date>("dataLekarzArchiwum"));;
@@ -157,24 +163,42 @@ public class LekarzWindowController{
 
     @FXML
     void btnClickedZmienStatus(ActionEvent event) {
+        userHolder = UserHolder.getInstance();
+        System.out.println(UserHolder.getHaslo());
+        String login = UserHolder.getLogin();
+        String haslo = UserHolder.getHaslo();
+        lekarzDAO = new LekarzDAO(login,haslo);// ogar
+        databaseConnection = lekarzDAO.getDatabaseConnection();
+        databaseConnection.getConnection();
+
         String nazwa = txtNazwa.getText().toString();
         String status = txtStatus.getText().toString();
         Date data = Date.valueOf(dateStatus.getValue());
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         Time godzina = Time.valueOf(txtGodzinaStatus.getText().toString());
         try{
-            // do przeżucenia do LekarzDAO
-            CallableStatement cstmUpdate = databaseConnection.getDatabaseLink().prepareCall("update szczepienia set status = '" + status + "'  where " +
-                    " nazwa = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';");
+            this.lekarzDAO.lekarzUpdate(status, nazwa, data, godzina);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    void ClickedWyloguj(ActionEvent event) throws IOException, SQLException {
+
+        btnFiltruj.getScene().getWindow().hide();
+        Parent root=  FXMLLoader.load(getClass().getResource("logwindow.fxml"));
+        Stage primaryStage = new Stage();
+        scene= new Scene(root,600,400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        //userHolder.setUserHolder(new UserHolder(null,null));
     }
 
     @FXML
     void initialize() {
         assert btnFiltruj != null : "fx:id=\"btnFiltruj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert btnWyloguj != null : "fx:id=\"btnWyloguj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert btnSzukajPacjenta != null : "fx:id=\"btnSzukajPacjenta\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert btnZmienStatus != null : "fx:id=\"btnZmienStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert colArchiwumChoroba != null : "fx:id=\"colArchiwumChoroba\" was not injected: check your FXML file 'lekarzwindow.fxml'.";

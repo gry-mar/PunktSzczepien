@@ -4,10 +4,7 @@ import classes.LekarzStatystyki;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LekarzDAO {
     private String userName;
@@ -112,6 +109,7 @@ public class LekarzDAO {
             LekarzStatystyki lst = new LekarzStatystyki();
             lst.setChorobaLekarzStatystyki(resultSet.getString("choroba"));
             lst.setNazwaLekarzStatystyki(resultSet.getString("id_typ"));
+            lst.setIloscWykonanychLekarzStatystyki(resultSet.getInt(3));
             lekarzStatystyki.add(lst);
         }
         return lekarzStatystyki;
@@ -159,5 +157,16 @@ public class LekarzDAO {
             e.printStackTrace();
         }
         return lekarzStatystyki;
+    }
+
+    public void lekarzUpdate(String status, String nazwa, Date data, Time godzina ) throws SQLException {
+        Statement statement = databaseConnection.databaseLink.createStatement();
+        String update = "update szczepienia set status = '" + status + "'  where " +
+                " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
+        statement.execute(update);
+        Statement statement1 = databaseConnection.databaseLink.createStatement();
+        String delete = "delete from szczepienia where status = '" + status + "'  where " +
+                               " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
+        statement1.execute(delete);
     }
 }

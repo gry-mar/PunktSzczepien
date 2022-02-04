@@ -111,6 +111,11 @@
                         <Insets left="180.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="btnWyloguj" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#ClickedWyloguj" text="Wyloguj">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
             <VBox prefHeight="600.0" prefWidth="406.0">
