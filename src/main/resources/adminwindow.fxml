@@ -15,7 +15,7 @@
         <URL value="@styles.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="tableSzczepienia" layoutX="17.0" layoutY="250.0" prefHeight="179.0" prefWidth="477.0">
+      <TableView fx:id="tableSzczepienia" layoutX="17.0" layoutY="250.0" prefHeight="179.0" prefWidth="477.0" style="-fx-border-color: #0451bf;">
         <columns>
           <TableColumn fx:id="dataSzczCol" prefWidth="75.0" text="Data" />
           <TableColumn fx:id="godzinaSzczCol" prefWidth="75.0" text="Godzina" />
@@ -27,14 +27,14 @@
       </TableView>
       <DatePicker fx:id="dtPickerDodajDate" layoutX="26.0" layoutY="69.0" />
       <TextField fx:id="dodajGodzine" layoutX="27.0" layoutY="107.0" promptText="gg:mm:ss" />
-      <Text layoutX="29.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj termin">
+      <Text layoutX="29.0" layoutY="53.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj termin">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Button fx:id="btnDodajTermin" layoutX="32.0" layoutY="214.0" mnemonicParsing="false" onAction="#dodajTerminClicked" text="Dodaj" />
-      <Button fx:id="btnDodajLekarza" layoutX="530.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajLekarzaClicked" text="Dodaj" />
-      <Button fx:id="btnPokazTerminy" layoutX="337.0" layoutY="214.0" mnemonicParsing="false" onAction="#pokazTerminyClicked" text="Pokaz terminy" />
+      <Button fx:id="btnDodajTermin" layoutX="32.0" layoutY="214.0" mnemonicParsing="false" onAction="#dodajTerminClicked" style="-fx-background-color: #0451bf;" text="Dodaj" textFill="WHITE" />
+      <Button fx:id="btnDodajLekarza" layoutX="530.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajLekarzaClicked" style="-fx-background-color: #0451bf;" text="Dodaj" textFill="WHITE" />
+      <Button fx:id="btnPokazTerminy" layoutX="337.0" layoutY="214.0" mnemonicParsing="false" onAction="#pokazTerminyClicked" style="-fx-background-color: #0451bf;" text="Pokaz terminy" textFill="WHITE" />
       <Text layoutX="554.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj lekarza">
          <font>
             <Font size="21.0" />
@@ -45,8 +45,8 @@
       <TextField fx:id="lekarzNrPwz" layoutX="554.0" layoutY="131.0" promptText="nr PWZ" />
       <TextField fx:id="lekarzLogin" layoutX="554.0" layoutY="168.0" promptText="login" />
       <TextField fx:id="lekarzHaslo" layoutX="554.0" layoutY="214.0" promptText="haslo" />
-      <Button fx:id="btnPokazLekarzy" layoutX="687.0" layoutY="250.0" mnemonicParsing="false" onAction="#pokazLekarzyClicked" text="Pokaz lekarzy" />
-      <TableView fx:id="tableLekarz" layoutX="534.0" layoutY="287.0" prefHeight="141.0" prefWidth="292.0">
+      <Button fx:id="btnPokazLekarzy" layoutX="687.0" layoutY="250.0" mnemonicParsing="false" onAction="#pokazLekarzyClicked" style="-fx-background-color: #0451bf;" text="Pokaz lekarzy" textFill="WHITE" />
+      <TableView fx:id="tableLekarz" layoutX="534.0" layoutY="287.0" prefHeight="141.0" prefWidth="292.0" style="-fx-border-color: #0451bf;">
         <columns>
           <TableColumn fx:id="nrPwzCol" prefWidth="75.0" text="Nr PWZ" />
           <TableColumn fx:id="imieLekarzCol" prefWidth="75.0" text="Imie" />
@@ -54,7 +54,7 @@
             <TableColumn fx:id="loginLekarzCol" prefWidth="75.0" text="Login" />
         </columns>
       </TableView>
-      <Button fx:id="btnWyloguj" layoutX="26.0" layoutY="455.0" mnemonicParsing="false" onAction="#wylogujClicked" text="Wyloguj" />
+      <Button fx:id="btnWyloguj" layoutX="26.0" layoutY="455.0" mnemonicParsing="false" onAction="#wylogujClicked" style="-fx-background-color: #0451bf;" text="Wyloguj" textFill="WHITE" />
       <Text fx:id="tvDodawanieTerminu" fill="#e40808" layoutX="176.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="tvDodawanieLekarza" fill="#f70303" layoutX="567.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <TextField fx:id="tfChorobaAdd" layoutX="27.0" layoutY="144.0" promptText="choroba" />
