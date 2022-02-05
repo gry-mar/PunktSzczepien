@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LekarzWindowController{
@@ -115,6 +116,12 @@ public class LekarzWindowController{
     @FXML
     private DatePicker dateStatus;
 
+    @FXML
+    private Text tfArchiwumError;
+
+    @FXML
+    private Text tfStatusError;
+
     private LekarzDAO lekarzDAO;
     private DatabaseConnection databaseConnection;
     private Stage stage;
@@ -128,6 +135,7 @@ public class LekarzWindowController{
 
     @FXML
     void btnClickedFiltruj(ActionEvent event) throws SQLException {
+        try{
         this.tblArchiwum.getItems().clear();
         Date dataOdSql = Date.valueOf(dateOD.getValue());
         Date dataDoSql = Date.valueOf(dateDO.getValue());
@@ -144,7 +152,10 @@ public class LekarzWindowController{
         colStatystykiIlosc.setCellValueFactory(new PropertyValueFactory<LekarzStatystyki, Integer>("iloscWykonanychLekarzStatystyki"));
 
         this.tblArchiwum.setItems(lekarzArchiwumObservableList);
-        this.tblStatystyki.setItems(lekarzStatystyki);
+        this.tblStatystyki.setItems(lekarzStatystyki);}
+        catch(NullPointerException e){
+            tfArchiwumError.setText("Wybierz zakres dat");
+        }
     }
 
     @FXML
@@ -163,24 +174,27 @@ public class LekarzWindowController{
 
     @FXML
     void btnClickedZmienStatus(ActionEvent event) {
-        userHolder = UserHolder.getInstance();
-        System.out.println(UserHolder.getHaslo());
-        String login = UserHolder.getLogin();
-        String haslo = UserHolder.getHaslo();
-        lekarzDAO = new LekarzDAO(login,haslo);// ogar
-        databaseConnection = lekarzDAO.getDatabaseConnection();
-        databaseConnection.getConnection();
+       try{
+//           userHolder = UserHolder.getInstance();
+//        System.out.println(UserHolder.getHaslo());
+//        String login = UserHolder.getLogin();
+//        String haslo = UserHolder.getHaslo();
+        //lekarzDAO = new LekarzDAO(login,haslo);// ogar
+//        databaseConnection = lekarzDAO.getDatabaseConnection();
+//        databaseConnection.getConnection();
 
         String nazwa = txtNazwa.getText().toString();
         String status = txtStatus.getText().toString();
         Date data = Date.valueOf(dateStatus.getValue());
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         Time godzina = Time.valueOf(txtGodzinaStatus.getText().toString());
-        try{
-            this.lekarzDAO.lekarzUpdate(status, nazwa, data, godzina);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.lekarzDAO.lekarzUpdate(status, nazwa, data, godzina);}
+       catch (SQLException throwables) {
+           throwables.printStackTrace();
+       }catch(NullPointerException e){
+           tfStatusError.setText("Wprowadź wszystkie dane");
+       }
+
     }
 
     @FXML
@@ -223,7 +237,8 @@ public class LekarzWindowController{
         assert dateOD != null : "fx:id=\"dateOD\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert dateStatus != null : "fx:id=\"dateStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert txtGodzinaStatus != null : "fx:id=\"txtGodzinaStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
-
+        assert tfArchiwumError != null : "fx:id=\"tfArchiwumError\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert tfStatusError != null : "fx:id=\"tfStatusError\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         userHolder = UserHolder.getInstance();
         System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();

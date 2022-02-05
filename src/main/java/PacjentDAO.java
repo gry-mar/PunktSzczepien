@@ -6,6 +6,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ *
+ */
+
 public class PacjentDAO {
 
     private String userName;

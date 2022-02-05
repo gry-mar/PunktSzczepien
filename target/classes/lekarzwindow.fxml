@@ -48,6 +48,11 @@
                         <Insets bottom="21.0" left="200.0" />
                      </VBox.margin>
                   </Button>
+                  <Text fx:id="tfStatusError" fill="#f70606" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Text>
                   <TableView fx:id="tblStatusZmiana" prefHeight="252.0" prefWidth="492.0">
                      <columns>
                         <TableColumn fx:id="colStatusNazwa" prefWidth="105.0" text="Nazwa" />
@@ -194,6 +199,7 @@
                         <Insets bottom="7.0" left="210.0" top="10.0" />
                      </VBox.margin>
                   </Button>
+                  <Text fx:id="tfArchiwumError" fill="#ff0404" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <TableView fx:id="tblArchiwum" prefHeight="280.0" prefWidth="503.0">
                      <columns>
                         <TableColumn fx:id="colArchiwumNazwa" prefWidth="109.0" text="Nazwa" />
@@ -213,7 +219,7 @@
                         <Font name="System Bold" size="21.0" />
                      </font>
                   </Text>
-                  <TableView fx:id="tblStatystyki" prefHeight="287.0" prefWidth="503.0">
+                  <TableView fx:id="tblStatystyki" prefHeight="274.0" prefWidth="497.0">
                      <columns>
                         <TableColumn fx:id="colStatystykiNazwa" prefWidth="216.8000151515007" text="Nazwa" />
                         <TableColumn fx:id="colStatystykiChoroba" prefWidth="156.7999725341797" text="Choroba" />
