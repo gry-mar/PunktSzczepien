@@ -6,6 +6,13 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Archiwum {
+
+    /**
+     * class to map data from archiwum table
+     * @author martyna Grygiel, Zofia Dobrowolska
+     * @version 1.0
+     * @since 03.02.2022
+     */
     private StringProperty idSzczepienia;
     private ObjectProperty<Date> date;
     private ObjectProperty<Time> godzina;

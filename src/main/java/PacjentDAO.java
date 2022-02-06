@@ -6,11 +6,16 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-/**
- *
- */
 
 public class PacjentDAO {
+
+    /**
+     * PacjentDAO class is responsible for database operations for Pacjent view
+     * for example executing procedures and queries
+     * @author Martyna Grygiel
+     * @version 1.0
+     * @since 04.02.2022
+     */
 
     private String userName;
     private String userPassword;
@@ -41,6 +46,10 @@ public class PacjentDAO {
         this.databaseConnection = databaseConnection;
     }
 
+    /**
+     * method to get pesel by executing sql query
+     * @return String pesel
+     */
     public String getPesel() {
         String selectStmt = "SELECT pesel FROM pacjenci WHERE login_pac = " + "'" + userName + "';";
         String pesel = "";
@@ -73,6 +82,12 @@ public class PacjentDAO {
     public PacjentDAO() {
     }
 
+    /**
+     * method to map sql columns to ArchiwumPacjent
+     * @param rs
+     * @return ObservableList of objects ArchiwumPacjent
+     * @throws SQLException
+     */
     private ObservableList<ArchiwumPacjent> getAtchiwumList(ResultSet rs) throws SQLException {
         ObservableList archiwumList = FXCollections.observableArrayList();
         while (rs.next()) {
@@ -85,7 +100,12 @@ public class PacjentDAO {
         }
         return archiwumList;
     }
-
+    /**
+     * method to map sql columns to DostepneSzczepienia
+     * @param rs
+     * @return ObservableList of objects DosepneSzczepienia
+     * @throws SQLException
+     */
 
     private ObservableList<DostepneSzczepienia> datDostepne(ResultSet rs) throws SQLException {
         ObservableList<DostepneSzczepienia> dostepne = FXCollections.observableArrayList();
@@ -100,6 +120,13 @@ public class PacjentDAO {
         return dostepne;
     }
 
+    /**
+     * method to map sql columns  to RealizacjaPacjent
+     * @param rs
+     * @return ObservableList of RealizacjaPacjent
+     * @throws SQLException
+     */
+
     private ObservableList<RealizacjaPacjent> datRealizacja(ResultSet rs) throws SQLException {
         ObservableList<RealizacjaPacjent> realizacja = FXCollections.observableArrayList();
         while (rs.next()) {
@@ -113,6 +140,12 @@ public class PacjentDAO {
         return realizacja;
     }
 
+    /**
+     * selects data from archiwum_pacjent in specified date interval and returns it as a list
+     * @param dataOd
+     * @param dataDo
+     * @return ObservableList of ArchiwumPacjent
+     */
     public ObservableList<ArchiwumPacjent> showSpecifiedFromArchiwum(Date dataOd, Date dataDo) {
         String selectStmt = "SELECT nazwa, choroba, data, godzina FROM archiwum_pacjent WHERE pesel = '" + this.getPesel() + "' AND data BETWEEN '" + dataOd + "' AND '" + dataDo + "';";
         ObservableList<ArchiwumPacjent> archiwum = FXCollections.observableArrayList();
@@ -129,6 +162,10 @@ public class PacjentDAO {
         return archiwum;
     }
 
+    /**
+     * selects data from view dostepne_szczepienia and returns it as a list
+     * @return Observable List of DostepneSzczepienia objects
+     */
     public ObservableList<DostepneSzczepienia> showAllDostepne() {
         String selectStmt = "SELECT nazwa, choroba, data, godzina FROM dostepne_szczepienia;";
         ObservableList<DostepneSzczepienia> dostepne = FXCollections.observableArrayList();
@@ -143,6 +180,10 @@ public class PacjentDAO {
         return dostepne;
     }
 
+    /**
+     * method that selects values from view realizacja_szczepienia
+     * @return Observable list of RealizaPacjent objects
+     */
     public ObservableList<RealizacjaPacjent> showAllRealizacja() {
         String selectStmt = "SELECT nazwa, choroba, data, godzina FROM realizacja_szczepienia";
         ObservableList<RealizacjaPacjent> realizacja = FXCollections.observableArrayList();
@@ -157,6 +198,13 @@ public class PacjentDAO {
         return realizacja;
     }
 
+    /**
+     * method that calls sql procedure zapisywanko
+     * @param dataZapisu
+     * @param godzinaZapisu
+     * @param choroba
+     * @return boolean according to success of operation
+     */
 
     public boolean zapisPacjenta(Date dataZapisu, Time godzinaZapisu, String choroba) {
         boolean czyZapisano = false;
@@ -184,6 +232,15 @@ public class PacjentDAO {
         return czyZapisano;
     }
 
+    /**
+     * method that calls sql procedure zmianaTerminu
+     * @param dataZ
+     * @param godzinaZ
+     * @param dataNa
+     * @param godzinaNa
+     * @param choroba
+     * @return boolean according to success of operation
+     */
     public boolean zmianaTeminuPacjenta(Date dataZ, Time godzinaZ, Date dataNa, Time godzinaNa, String choroba) {
         boolean czyZapisano = false;
         try {

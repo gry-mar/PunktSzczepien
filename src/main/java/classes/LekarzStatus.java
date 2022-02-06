@@ -9,6 +9,12 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class LekarzStatus {
+    /**
+     * class to map data to GUI in lekrzWindowController
+     * @author Zofia Dobrowolska
+     * @version 1.0
+     * @since 03.02.2022
+     */
     private StringProperty peselLekarzStatus = new SimpleStringProperty();
     private StringProperty nazwaLekarzStatus = new SimpleStringProperty();
     private StringProperty chorobaLekarzStatus= new SimpleStringProperty();

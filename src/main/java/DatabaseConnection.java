@@ -3,6 +3,9 @@ import javafx.scene.control.TextArea;
 import java.sql.*;
 
 public class DatabaseConnection {
+    /**
+     * Class responsible for database connection
+     */
     public Connection databaseLink;
     private String databaseUser;
     private String databasePassword;
@@ -48,6 +51,10 @@ public class DatabaseConnection {
 
     }
 
+    /**
+     * method to disconnect
+     * @throws SQLException
+     */
     public void dbDisconnect() throws SQLException {
         try {
             if (this.databaseLink != null && !this.databaseLink.isClosed()) {
@@ -59,6 +66,10 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * creates url for database connection
+     * @return
+     */
     private String createURL() {
         StringBuilder urlSB = new StringBuilder("jdbc:mysql://");
         urlSB.append("localhost:3306/");
@@ -72,6 +83,13 @@ public class DatabaseConnection {
         return urlSB.toString();
     }
 
+    /**
+     * method to execute sql query
+     * @param queryStmt
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = null;
         ResultSet resultSet = null;
@@ -102,6 +120,12 @@ public class DatabaseConnection {
         return crs;
     }
 
+    /**
+     * method to execute sql update
+     * @param sqlStmt
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         Statement stmt = null;
 

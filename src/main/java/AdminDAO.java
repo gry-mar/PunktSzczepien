@@ -6,6 +6,13 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class AdminDAO {
+    /**
+     * AdminDAO class is responsible for database operations for Admin view
+     * for example executing procedures and queries
+     * @author Martyna Grygiel
+     * @version 1.0
+     * @since 04.02.2022
+     */
 
     private String userNameA;
     private String userPasswordA;
@@ -43,6 +50,13 @@ public class AdminDAO {
         this.databaseConnection = databaseConnection;
     }
 
+    /**
+     * Method that interacts with database columns from table szczepienia and add data to ObservableList
+     * @param rs ResultSet
+     * @return
+     * @throws SQLException
+     * @return ObservableList list of objects from szczepienia table
+     */
     private ObservableList<Szczepienia> getSzczepieniaList(ResultSet rs) throws SQLException {
         ObservableList szczepieniaList = FXCollections.observableArrayList();
         while(rs.next()){
@@ -58,6 +72,13 @@ public class AdminDAO {
         return szczepieniaList;
     }
 
+    /**
+     * Method that interacts with database columns from table lekarze and add data to ObservableList
+     * @param rs ResultSet
+     * @return
+     * @throws SQLException
+     * @return ObservableList list of objects from lekarze table
+     */
     private ObservableList<Lekarz> getAllLekarze(ResultSet rs) throws SQLException {
         ObservableList<Lekarz> lekarze = FXCollections.observableArrayList();
         while(rs.next()){
@@ -70,6 +91,12 @@ public class AdminDAO {
         }
         return lekarze;
     }
+
+
+    /**
+     * returns all data from table lekarze as an observableList
+     * @return ObservableList objects from table lekarze
+     */
     public ObservableList<Lekarz> showAllLekarze(){
         String stmt = "SELECT * from lekarze";
         ObservableList<Lekarz> lekarze = FXCollections.observableArrayList();
@@ -84,6 +111,15 @@ public class AdminDAO {
         return lekarze;
     }
 
+    /**
+     * calls MySQL procedure to rejestracja_lekarz
+     * @param imie
+     * @param nazwisko
+     * @param nrPwz
+     * @param loginLek
+     * @param hasloLek
+     * @return boolean according to success of adding
+     */
     public boolean zapisLekarza(String imie, String nazwisko, int nrPwz, String loginLek, String hasloLek){
         boolean czyDodano = false;
         try{
@@ -106,6 +142,10 @@ public class AdminDAO {
         return czyDodano;
     }
 
+    /**
+     *returns data from szczepienia table as a observable list, interacts with query
+     * @return ObservableList szczepienia
+     */
     public ObservableList<Szczepienia> showAllSzczepienia(){
         String stmt = "SELECT data, godzina, pesel_pacjenta, lekarz_nr_pwz, status, id_typ FROM szczepienia;";
         ObservableList<Szczepienia> szczepienia = FXCollections.observableArrayList();
@@ -120,7 +160,16 @@ public class AdminDAO {
         return szczepienia;
     }
 
-public boolean dodajTermin(Date data, Time godzina, String choroba, int nrPwz, String nazwaSzczepionki){
+    /**
+     * Interacts with MySQL procedure dodajTermin
+     * @param data
+     * @param godzina
+     * @param choroba
+     * @param nrPwz
+     * @param nazwaSzczepionki
+     * @return boolean according to positive or negative result of calling procedue
+     */
+    public boolean dodajTermin(Date data, Time godzina, String choroba, int nrPwz, String nazwaSzczepionki){
         boolean czyDodano = false;
         try{
             databaseConnection.getConnection();

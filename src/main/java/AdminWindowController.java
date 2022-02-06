@@ -20,6 +20,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AdminWindowController {
+    /**
+     * class to interact with admin view
+     * @author Martyna Grygiel
+     * @version 1.0
+     * @since 04.02.2022
+     */
 
     @FXML
     private ResourceBundle resources;
@@ -126,8 +132,11 @@ public class AdminWindowController {
     }
 
 
-
-
+    /**
+     * Method that interacts with GUI
+     * responsible for adding new doctor
+     * @param event
+     */
     @FXML
     void dodajLekarzaClicked(ActionEvent event) {
         try {
@@ -149,6 +158,12 @@ public class AdminWindowController {
 
     }
 
+    /**
+     * Method responsible for adding vaccination date
+     * @param event
+     * @throws ParseException
+     */
+
     @FXML
     void dodajTerminClicked(ActionEvent event) throws ParseException {
 try {
@@ -169,11 +184,12 @@ try {
     tvDodawanieTerminu.setText("Wprowadź wszystkie dane");
 }
 
-
-
-
     }
 
+    /**
+     * method that shows doctors in GUI table
+     * @param event
+     */
     @FXML
     void pokazLekarzyClicked(ActionEvent event) {
         ObservableList<Lekarz> lekarze = this.adminDAO.showAllLekarze();
@@ -188,6 +204,11 @@ try {
 
     }
 
+    /**
+     * method that shows vaccination dates in GUI table
+     * @param event
+     */
+
     @FXML
     void pokazTerminyClicked(ActionEvent event) {
         ObservableList<Szczepienia> szczepienia = this.adminDAO.showAllSzczepienia();
@@ -201,6 +222,12 @@ try {
 
     }
 
+    /**
+     * log out method,
+     * changes scene to logWindow
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void wylogujClicked(ActionEvent event) throws IOException {
         btnPokazLekarzy.getScene().getWindow().hide();
@@ -210,6 +237,11 @@ try {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    /**
+     * initialization, connecting to database,
+     * getting parameters from singleton
+     */
 
     @FXML
     void initialize() {
@@ -242,8 +274,8 @@ try {
         assert tfChorobaAdd != null : "fx:id=\"tfChorobaAdd\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert nrPwzLekarzaDodaj != null : "fx:id=\"nrPwzLekarzaDodaj\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tfNazwaSzczepionki != null : "fx:id=\"tfNazwaSzczepionki\" was not injected: check your FXML file 'adminwindow.fxml'.";
-        databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
-        databaseConnection.getConnection();
+        //databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        //databaseConnection.getConnection();
         userHolder = UserHolder.getInstance();
         System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();

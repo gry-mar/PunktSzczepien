@@ -1,6 +1,8 @@
 public final class UserHolder {
 
-
+    /**
+     * singleton class to pass login and password data between scenes when needed
+     */
     private static UserHolder instance;
     private static String haslo;
     private static String login;

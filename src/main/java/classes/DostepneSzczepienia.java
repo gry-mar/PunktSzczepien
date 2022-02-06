@@ -7,10 +7,16 @@ import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 public class DostepneSzczepienia {
+
+    /**
+     * class to map data to further GUI tables
+     * @author Martyna Grygiel
+     * @version 1.0
+     * @since 03.02.2022
+     */
     private StringProperty nazwaDostepne = new SimpleStringProperty();
     private StringProperty chorobaDostepne = new SimpleStringProperty();
     private ObjectProperty<Date> dataDostepne = new SimpleObjectProperty<>();
