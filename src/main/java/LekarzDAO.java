@@ -1,6 +1,7 @@
 import classes.LekarzArchiwum;
 import classes.LekarzStatus;
 import classes.LekarzStatystyki;
+import classes.LekarzWykres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -115,6 +116,15 @@ public class LekarzDAO {
         return lekarzStatystyki;
     }
 
+    private int getLekarzWykres(ResultSet resultSet) throws SQLException {
+        int lekarzWykres = 0;
+        LekarzWykres lw = new LekarzWykres();
+        while (resultSet.next()){
+            lw.setIlosc(resultSet.getInt(1));
+        }
+        return lw.getIlosc();
+    }
+
     public ObservableList<LekarzArchiwum> showSpecifiedFromArchiwum(Date dataOD, Date dataDO){
         String selectStmt = "select a.id_typ, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa where data between '" + dataOD +"'"+ " and " +"'"+ dataDO + "';";
         ObservableList<LekarzArchiwum> lekarzArchiwum = FXCollections.observableArrayList();
@@ -168,5 +178,16 @@ public class LekarzDAO {
         String delete = "delete from szczepienia where status = '" + status + "'  and " +
                                " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
         statement1.execute(delete);
+    }
+
+    public int szczepieniaMiesiac(String nazwa, int rok, int miesiac) throws SQLException, ClassNotFoundException {
+        this.databaseConnection.getConnection();
+        int lekarzWykres = 0;
+        String szczepieniaIlosc = "select count(id_szczepienia) as ilosc from archiwum where id_typ = '"
+                + nazwa + "' and YEAR(data) = " + rok +
+                " and MONTH(data) = " + miesiac + ";";
+        ResultSet resultSet = this.databaseConnection.dbExecuteQuery(szczepieniaIlosc);
+        lekarzWykres = this.getLekarzWykres(resultSet);
+        return lekarzWykres;
     }
 }

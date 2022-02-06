@@ -2,6 +2,7 @@ classes\Szczepienia.class
 classes\Loginy.class
 MainApplication.class
 Main.class
+classes\LekarzWykres.class
 classes\Rola.class
 classes\Lekarz.class
 AdminDAO.class
