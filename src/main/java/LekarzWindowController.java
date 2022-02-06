@@ -20,6 +20,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
@@ -38,6 +42,18 @@ public class LekarzWindowController{
 
     @FXML
     private URL location;
+
+    @FXML
+    private CategoryAxis axisMiesiace;
+
+    @FXML
+    private NumberAxis axisSzczepionki;
+
+    @FXML
+    private BarChart<String, Number> charWykres;
+
+    @FXML
+    private Button btnWykres;
 
     @FXML
     private Button btnFiltruj;
@@ -113,6 +129,13 @@ public class LekarzWindowController{
 
     @FXML
     private TextField txtGodzinaStatus;
+
+
+    @FXML
+    private TextField txtStatusNazwa;
+
+    @FXML
+    private TextField txtStatusRok;
 
     @FXML
     private DatePicker dateDO;
@@ -240,6 +263,33 @@ public class LekarzWindowController{
      * initialization, receive data from singleton
      */
     @FXML
+    void ClickedWykres(ActionEvent event) throws SQLException, ClassNotFoundException {
+        charWykres.getData().clear();
+        try {
+            int rok = Integer.parseInt(txtStatusRok.getText());
+            String nazwa = txtStatusNazwa.getText().toString();
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.getData().add(new XYChart.Data<>("1", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 1)));
+            series.getData().add(new XYChart.Data<>("2", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 2)));
+            series.getData().add(new XYChart.Data<>("3", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 3)));
+            series.getData().add(new XYChart.Data<>("4", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 4)));
+            series.getData().add(new XYChart.Data<>("5", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 5)));
+            series.getData().add(new XYChart.Data<>("6", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 6)));
+            series.getData().add(new XYChart.Data<>("7", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 7)));
+            series.getData().add(new XYChart.Data<>("8", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 8)));
+            series.getData().add(new XYChart.Data<>("9", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 9)));
+            series.getData().add(new XYChart.Data<>("10", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 10)));
+            series.getData().add(new XYChart.Data<>("11", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 11)));
+            series.getData().add(new XYChart.Data<>("12", lekarzDAO.szczepieniaMiesiac(nazwa, rok, 12)));
+            charWykres.getData().add(series);
+        } catch (Exception e){
+            tfArchiwumError.setText("Wprowadź wszystkie wartości!");
+        }
+
+    }
+
+
+    @FXML
     void initialize() {
         assert btnFiltruj != null : "fx:id=\"btnFiltruj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert btnWyloguj != null : "fx:id=\"btnWyloguj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
@@ -269,6 +319,13 @@ public class LekarzWindowController{
         assert txtGodzinaStatus != null : "fx:id=\"txtGodzinaStatus\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert tfArchiwumError != null : "fx:id=\"tfArchiwumError\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         assert tfStatusError != null : "fx:id=\"tfStatusError\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtStatusNazwa != null : "fx:id=\"txtStatusNazwa\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert txtStatusRok != null : "fx:id=\"txtStatusRok\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert charWykres != null : "fx:id=\"charWykres\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert btnWykres != null : "fx:id=\"btnWykres\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert axisMiesiace != null : "fx:id=\"axisMiesiace\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        assert axisSzczepionki != null : "fx:id=\"axisSzczepionki\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
+        charWykres.getData().clear();
         userHolder = UserHolder.getInstance();
         System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();
