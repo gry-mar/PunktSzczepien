@@ -80,7 +80,7 @@ public class LekarzDAO {
         this.userName = userName;
         this.userPassword = userPassword;
         this.nrPwz = getNrPwz();
-        this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+        //this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
     }
 
     public LekarzDAO(){
@@ -215,11 +215,12 @@ public class LekarzDAO {
      * @throws SQLException
      */
     public void lekarzUpdate(String status, String nazwa, Date data, Time godzina ) throws SQLException {
-        Statement statement = databaseConnection.databaseLink.createStatement();
+        this.databaseConnection.getConnection();
+        Statement statement = this.databaseConnection.getDatabaseLink().createStatement();
         String update = "update szczepienia set status = '" + status + "'  where " +
                 " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
         statement.execute(update);
-        Statement statement1 = databaseConnection.databaseLink.createStatement();
+        Statement statement1 = databaseConnection.getDatabaseLink().createStatement();
         String delete = "delete from szczepienia where status = '" + status + "'  and " +
                                " id_typ = '" + nazwa + "' and data = '" + data + "' and godzina = '" + godzina + "';";
         statement1.execute(delete);
