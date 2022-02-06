@@ -12,6 +12,13 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainWindowController {
+    /**
+     * Controller class to main application window
+     * that shows up when app starts running
+     * @author Martyna Grygiel, Zofia Dobrowolska
+     * @version 1.0
+     * @since 31.01.2022
+     */
 
     @FXML
     private ResourceBundle resources;
@@ -24,6 +31,11 @@ public class MainWindowController {
 
     private Stage stage;
     private Scene scene;
+
+    /**
+     * method to switch view to login window
+     * @param event
+     */
 
     @FXML
     void goToLog(ActionEvent event){
@@ -40,6 +52,9 @@ public class MainWindowController {
 
     }
 
+    /**
+     * initialization
+     */
     @FXML
     void initialize() {
         assert btnGoToLog != null : "fx:id=\"btnGoToLog\" was not injected: check your FXML file 'welcomewindow.fxml'.";

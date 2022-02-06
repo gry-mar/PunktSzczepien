@@ -7,10 +7,22 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class LekarzDAO {
+    /**
+     * LekarzDAO class is responsible for database operations for Lekarz view
+     * for example executing procedures and queries
+     * @author Zofia Dobrowolska
+     * @version 1.0
+     * @since 04.02.2022
+     */
     private String userName;
     private String userPassword;
     private Integer nrPwz;
     private DatabaseConnection databaseConnection;
+
+    /**
+     * method to get doctor nrPWZ from table lekarze
+     * @return double nrPwz
+     */
 
     public Integer getNrPwz() {
         String selectStms = "select nr_pwz from lekarze where login_lek = '" + userName + "';";
@@ -75,7 +87,12 @@ public class LekarzDAO {
 
     }
 
-    // status i archiwum
+    /**
+     * maps sql columns to LekarzStatus
+     * @param resultSet
+     * @return ObservableList of LekarzStatus objects
+     * @throws SQLException
+     */
 
     private ObservableList<LekarzStatus> getLekarzStatus(ResultSet resultSet) throws SQLException {
         ObservableList<LekarzStatus> lekarzStatus = FXCollections.observableArrayList();
@@ -90,6 +107,13 @@ public class LekarzDAO {
         return lekarzStatus;
     }
 
+    /**
+     * maps sql columns to LekarzArchiwum
+     * @param resultSet
+     * @return ObservableList of LekarzArchiwum objects
+     * @throws SQLException
+     */
+
     private ObservableList<LekarzArchiwum> getLekarzArchiwum(ResultSet resultSet) throws SQLException {
         ObservableList lekarzArchiwum = FXCollections.observableArrayList();
         while(resultSet.next()){
@@ -103,6 +127,12 @@ public class LekarzDAO {
         return lekarzArchiwum;
     }
 
+    /**
+     * maps sql columns to LekarzStatystyki
+     * @param resultSet
+     * @return ObservableList of LekarzStatystyki objects
+     * @throws SQLException
+     */
     private ObservableList<LekarzStatystyki> getLekarzStatystyki(ResultSet resultSet) throws SQLException {
         ObservableList lekarzStatystyki = FXCollections.observableArrayList();
         while (resultSet.next()){
@@ -115,6 +145,13 @@ public class LekarzDAO {
         return lekarzStatystyki;
     }
 
+    /**
+     * adds to ObservableList data from archiwum joined with typy_szczepien
+     * for specified date interval
+     * @param dataOD
+     * @param dataDO
+     * @return ObservableList LekarzArchiwum objects
+     */
     public ObservableList<LekarzArchiwum> showSpecifiedFromArchiwum(Date dataOD, Date dataDO){
         String selectStmt = "select a.id_typ, t.choroba, a.data, a.godzina from archiwum a join typy_szczepien t on a.id_typ = t.nazwa where data between '" + dataOD +"'"+ " and " +"'"+ dataDO + "';";
         ObservableList<LekarzArchiwum> lekarzArchiwum = FXCollections.observableArrayList();
@@ -129,6 +166,11 @@ public class LekarzDAO {
         return lekarzArchiwum;
     }
 
+    /**
+     * method to show data from dostepne_lekarz view for specified patient
+     * @param pesel String - patient pesel number
+     * @return ObservableList LekarzStatus objects
+     */
     public ObservableList<LekarzStatus> showPacjenta(String pesel){
         String selectStmt = "select nazwa, choroba, data, godzina from dostepne_lekarz where pesel = '" + pesel + "';";
         ObservableList<LekarzStatus> lekarzStatuses = FXCollections.observableArrayList();
@@ -143,6 +185,11 @@ public class LekarzDAO {
         return lekarzStatuses;
     }
 
+    /**
+     * method to show statistics for doctor
+     * @return ObservableList LekarzStatystyki objects
+     * @throws SQLException
+     */
     public ObservableList<LekarzStatystyki> showLekarzStatystyki() throws SQLException {
         String selectStmt = "select t.choroba, a.id_typ, count(a.id_typ) from archiwum a join " +
                 "typy_szczepien t on a.id_typ = t.nazwa where status = 'zrealizowane' group by a.id_typ;";
@@ -159,6 +206,14 @@ public class LekarzDAO {
         return lekarzStatystyki;
     }
 
+    /**
+     * updates status for vaccination
+     * @param status
+     * @param nazwa
+     * @param data
+     * @param godzina
+     * @throws SQLException
+     */
     public void lekarzUpdate(String status, String nazwa, Date data, Time godzina ) throws SQLException {
         Statement statement = databaseConnection.databaseLink.createStatement();
         String update = "update szczepienia set status = '" + status + "'  where " +

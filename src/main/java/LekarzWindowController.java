@@ -25,6 +25,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LekarzWindowController{
+    /**
+     * class to interact with lekarz view
+     * @author Zofia Dobrowolska
+     * @version 1.0
+     * @since 04.02.2022
+     */
 
     @FXML
     private ResourceBundle resources;
@@ -132,7 +138,11 @@ public class LekarzWindowController{
         this.lekarzDAO = lekarzDAO;
     }
 
-
+    /**
+     * method that intearacts with table views, both archiwum and statystyki
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void btnClickedFiltruj(ActionEvent event) throws SQLException {
         try{
@@ -158,8 +168,14 @@ public class LekarzWindowController{
         }
     }
 
+    /**
+     * Interacts with table tblStatusZmiana,
+     * need to fill textField, shows vaccines for specific patient
+     * @param event
+     */
     @FXML
     void btnClickedSzukajPacjenta(ActionEvent event) {
+        try{
         String pesel = txtPesel.getText().toString();
         this.tblStatusZmiana.getItems().clear();
         ObservableList<LekarzStatus> lekarzStatus = this.lekarzDAO.showPacjenta(pesel);
@@ -168,27 +184,31 @@ public class LekarzWindowController{
         colStatusData.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Date>("dataLekarzStatus"));
         colStatusGodzina.setCellValueFactory(new PropertyValueFactory<LekarzStatus, Time>("godzinaLekarzStatus"));
 
-        this.tblStatusZmiana.setItems(lekarzStatus);
+        this.tblStatusZmiana.setItems(lekarzStatus);}
+        catch(NullPointerException e){
+            tfStatusError.setText("Wprowadź pesel pacjenta");
+        }
 
     }
+
+    /**
+     * Changes vaccination status by interacting with gui
+     * @param event
+     */
 
     @FXML
     void btnClickedZmienStatus(ActionEvent event) {
        try{
-//           userHolder = UserHolder.getInstance();
-//        System.out.println(UserHolder.getHaslo());
-//        String login = UserHolder.getLogin();
-//        String haslo = UserHolder.getHaslo();
-        //lekarzDAO = new LekarzDAO(login,haslo);// ogar
-//        databaseConnection = lekarzDAO.getDatabaseConnection();
-//        databaseConnection.getConnection();
-
         String nazwa = txtNazwa.getText().toString();
         String status = txtStatus.getText().toString();
         Date data = Date.valueOf(dateStatus.getValue());
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         Time godzina = Time.valueOf(txtGodzinaStatus.getText().toString());
+        if(status.equals("zrealizowane")||status.equals("niezrezalizowane")){
         this.lekarzDAO.lekarzUpdate(status, nazwa, data, godzina);}
+       else{
+           tfStatusError.setText("Wprowadzono nieprawidłowy status");
+        }}
        catch (SQLException throwables) {
            throwables.printStackTrace();
        }catch(NullPointerException e){
@@ -196,6 +216,13 @@ public class LekarzWindowController{
        }
 
     }
+
+    /**
+     * log out method,
+     * changes scene to logWindow
+     * @param event
+     * @throws IOException
+     */
 
     @FXML
     void ClickedWyloguj(ActionEvent event) throws IOException, SQLException {
@@ -206,9 +233,11 @@ public class LekarzWindowController{
         scene= new Scene(root,600,400);
         primaryStage.setScene(scene);
         primaryStage.show();
-        //userHolder.setUserHolder(new UserHolder(null,null));
     }
 
+    /**
+     * initialization, receive data from singleton
+     */
     @FXML
     void initialize() {
         assert btnFiltruj != null : "fx:id=\"btnFiltruj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
@@ -243,12 +272,10 @@ public class LekarzWindowController{
         System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();
         String haslo = UserHolder.getHaslo();
-        lekarzDAO = new LekarzDAO(login,haslo);// ogar
+        lekarzDAO = new LekarzDAO(login,haslo);
         databaseConnection = lekarzDAO.getDatabaseConnection();
         databaseConnection.getConnection();
-//
-//        int nrPWZ = lekarzDAO.getNrPwz();
-//        System.out.println(nrPWZ);
+
 
     }
 

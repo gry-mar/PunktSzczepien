@@ -8,20 +8,6 @@
       <jdbc-url>jdbc:mysql://localhost:3306/punkt_szczepien</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="punkt_szczepien@admin_punktu" uuid="c7015a1a-3cac-4258-936f-77040009324a">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://admin_punktu:3306/punkt_szczepien</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="punkt_szczepien@localhost [2]" uuid="5859c224-e217-4d60-b613-cd3ec331c92b">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/punkt_szczepien</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="pacjent" uuid="868c2431-0d15-4c52-8360-a26694497f32">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>

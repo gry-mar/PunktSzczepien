@@ -20,6 +20,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PacjentWindowController {
+    /**
+     * class to interact with patient view
+     * @author Martyna Grygiel
+     * @version 1.0
+     * @since 04.02.2022
+     */
 
     @FXML
     private ResourceBundle resources;
@@ -136,7 +142,11 @@ public class PacjentWindowController {
     private Scene scene;
     private UserHolder userHolder;
 
-
+    /**
+     * shows completed patient visits on specified date interval,
+     * user must select the interval
+     * @param event
+     */
 
     @FXML
     void pokazArchiwumClicked(ActionEvent event) {
@@ -167,6 +177,10 @@ public class PacjentWindowController {
 
     }
 
+    /**
+     * shows all avaliable vaccinations in table after clicking specified button
+     * @param event
+     */
     @FXML
     void pokazDostepneClicked(ActionEvent event) {
         tableDostepne.refresh();
@@ -182,6 +196,10 @@ public class PacjentWindowController {
 
     }
 
+    /**
+     * interacts with table, shows all proceeded vaccinations for patient after clicking specified button
+     * @param event
+     */
     @FXML
     void pokazNadchodzaceClicked(ActionEvent event) {
         tableWRealizacji.refresh();
@@ -196,7 +214,12 @@ public class PacjentWindowController {
         }
 
     }
-
+    /**
+     * log out method,
+     * changes scene to logWindow
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void wylogujClicked(ActionEvent event) throws IOException, SQLException {
 
@@ -206,8 +229,13 @@ public class PacjentWindowController {
         scene= new Scene(root,600,400);
         primaryStage.setScene(scene);
         primaryStage.show();
-        //userHolder.setUserHolder(new UserHolder(null,null));
     }
+
+    /**
+     * parsing fileds data and interacts with method from PacjentDAO tha calls procedure zapisywanko
+     * @param event
+     * @throws ParseException
+     */
 
     @FXML
     void zapisNaSzczepienieClicked(ActionEvent event) throws ParseException {
@@ -233,6 +261,11 @@ public class PacjentWindowController {
 
     }
 
+    /**
+     * parsing fileds data and interacts with method from PacjentDAO tha calls procedure zmianaTerminu
+     * @param event
+     * @throws ParseException
+     */
     @FXML
     void zmianaTerminuClicked(ActionEvent event) throws ParseException {
         try {
@@ -259,6 +292,9 @@ public class PacjentWindowController {
 
     }
 
+    /**
+     * onitialization, receive login and password from singleton
+     */
     @FXML
     void initialize() {
         assert btnPokazArchiwum != null : "fx:id=\"btnPokazArchiwum\" was not injected: check your FXML file 'pacjentwindow.fxml'.";

@@ -6,6 +6,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class LekarzStatystyki {
+    /**
+     * class to map data to statistics
+     * @author Zofia Dobrowolska
+     * @version 1.0
+     * @since 03.02.2022
+     */
     private StringProperty chorobaLekarzStatystyki = new SimpleStringProperty();
     private StringProperty nazwaLekarzStatystyki = new SimpleStringProperty();
     private IntegerProperty iloscWykonanychLekarzStatystyki = new SimpleIntegerProperty();
