@@ -225,7 +225,7 @@ public class LekarzDAO {
         int lekarzWykres = 0;
         String szczepieniaIlosc = "select count(id_szczepienia) as ilosc from archiwum where id_typ = '"
                 + nazwa + "' and YEAR(data) = " + rok +
-                " and MONTH(data) = " + miesiac + ";";
+                " and MONTH(data) = " + miesiac + " and status = 'zrealizowane';";
         ResultSet resultSet = this.databaseConnection.dbExecuteQuery(szczepieniaIlosc);
         lekarzWykres = this.getLekarzWykres(resultSet);
         return lekarzWykres;

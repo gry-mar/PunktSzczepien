@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="punkt_szczepien@localhost" uuid="99a976d5-d90c-4df8-bbce-cbb9bde5365e">
+    <data-source source="LOCAL" name="admin_punktu@localhost" uuid="ef1ae5a9-b0b4-4720-a709-fd6c36bca5e8">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/punkt_szczepien</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="pacjent" uuid="868c2431-0d15-4c52-8360-a26694497f32">
+    <data-source source="LOCAL" name="pacjent@localhost" uuid="c1b342fa-280d-4e3b-bfd8-1b833e40ca91">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/punkt_szczepien</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="lekarz" uuid="147660c3-2cad-4cd2-8ea1-2bdd2e314352">
+    <data-source source="LOCAL" name="lekarz@localhost" uuid="9ffaf9bb-2660-471c-9a16-b77d0358e32d">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
