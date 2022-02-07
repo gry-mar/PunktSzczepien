@@ -332,7 +332,6 @@ public class PacjentWindowController {
         assert tvCzyZapisano != null : "fx:id=\"tvCzyZapisano\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         assert tfChorobaZmiana != null : "fx:id=\"tfChorobaZmiana\" was not injected: check your FXML file 'pacjentwindow.fxml'.";
         userHolder = UserHolder.getInstance();
-        System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();
         String haslo = UserHolder.getHaslo();
         pacjentDAO = new PacjentDAO(login,haslo);
@@ -340,7 +339,6 @@ public class PacjentWindowController {
         databaseConnection.getConnection();
 
         String pesel = pacjentDAO.getPesel();
-        System.out.println(pesel);
 
 
 

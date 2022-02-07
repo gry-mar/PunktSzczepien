@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 public class Pacjent {
     /**
      * class to map data from pacjenci table
-     * @author martyna Grygiel
+     * @author Zofia Dobrowolska
      * @version 1.0
      * @since 03.02.2022
      */

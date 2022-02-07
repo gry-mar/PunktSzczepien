@@ -333,7 +333,6 @@ public class LekarzWindowController{
         assert axisSzczepionki != null : "fx:id=\"axisSzczepionki\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
         charWykres.getData().clear();
         userHolder = UserHolder.getInstance();
-        System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();
         String haslo = UserHolder.getHaslo();
         lekarzDAO = new LekarzDAO(login,haslo);

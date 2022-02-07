@@ -274,10 +274,8 @@ try {
         assert tfChorobaAdd != null : "fx:id=\"tfChorobaAdd\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert nrPwzLekarzaDodaj != null : "fx:id=\"nrPwzLekarzaDodaj\" was not injected: check your FXML file 'adminwindow.fxml'.";
         assert tfNazwaSzczepionki != null : "fx:id=\"tfNazwaSzczepionki\" was not injected: check your FXML file 'adminwindow.fxml'.";
-        //databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
-        //databaseConnection.getConnection();
+
         userHolder = UserHolder.getInstance();
-        System.out.println(UserHolder.getHaslo());
         String login = UserHolder.getLogin();
         String haslo = UserHolder.getHaslo();
         adminDAO = new AdminDAO(login,haslo);

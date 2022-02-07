@@ -10,34 +10,15 @@ import java.sql.*;
 public class LekarzDAO {
     private String userName;
     private String userPassword;
-    private Integer nrPwz;
     private DatabaseConnection databaseConnection;
 
-    /**
-     * method that executes sql query to get nr PWZ
-     * @return int nrPWZ
-     */
-    public Integer getNrPwz() {
-        String selectStms = "select nr_pwz from lekarze where login_lek = '" + userName + "';";
-        try{
-            ResultSet resultSet = this.databaseConnection.dbExecuteQuery(selectStms);
-            while(resultSet.next()){
-                nrPwz = Integer.valueOf(resultSet.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return nrPwz;
-    }
+
 
     public LekarzDAO(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.databaseConnection = new DatabaseConnection("lekarz", "lekarz1");
         databaseConnection.getConnection();
-        this.nrPwz = getNrPwz();
     }
 
     public String getUserName() {
@@ -65,15 +46,11 @@ public class LekarzDAO {
     }
 
 
-    public void setNrPwz(Integer nrPwz) {
-        this.nrPwz = nrPwz;
-    }
 
     public LekarzDAO(String userName, String userPassword, DatabaseConnection databaseConnection) {
         this.userName = userName;
         this.userPassword = userPassword;
-        this.nrPwz = getNrPwz();
-        //this.databaseConnection = new DatabaseConnection("admin_punktu", "admin1");
+
     }
 
     public LekarzDAO(){

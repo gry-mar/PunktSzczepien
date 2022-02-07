@@ -9,7 +9,7 @@ public class Archiwum {
 
     /**
      * class to map data from archiwum table
-     * @author martyna Grygiel, Zofia Dobrowolska
+     * @author Martyna Grygiel, Zofia Dobrowolska
      * @version 1.0
      * @since 03.02.2022
      */

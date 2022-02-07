@@ -185,7 +185,7 @@ public class PacjentDAO {
      * @return Observable list of RealizaPacjent objects
      */
     public ObservableList<RealizacjaPacjent> showAllRealizacja() {
-        String selectStmt = "SELECT nazwa, choroba, data, godzina FROM realizacja_szczepienia";
+        String selectStmt = "SELECT nazwa, choroba, data, godzina FROM realizacja_szczepienia WHERE pesel = '"+this.getPesel()+"';";
         ObservableList<RealizacjaPacjent> realizacja = FXCollections.observableArrayList();
         try {
             ResultSet rs = this.databaseConnection.dbExecuteQuery(selectStmt);
@@ -226,8 +226,6 @@ public class PacjentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(czyZapisano);
-        System.out.println(getPesel());
 
         return czyZapisano;
     }
@@ -266,7 +264,6 @@ public class PacjentDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        System.out.println(czyZapisano);
         return czyZapisano;
 
 
