@@ -104,9 +104,9 @@ public class LogWindowController {
             if (czyIstnieje) {
                 tvLogInfo.setText("Uworzono konto, teraz mozesz sie zalogowac");
             } else {
-                tvLogInfo.setText("Takie konto istnieje, zaloguj sie");
+                tvLogInfo.setText("Poprawnie wprowadź dane");
             }
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             tvLogInfo.setText("Wprowadź wszystkie dane logowania");
         }
     }

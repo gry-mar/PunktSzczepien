@@ -151,7 +151,7 @@ public class AdminWindowController {
             } else {
                 tvDodawanieLekarza.setText("Wystąpił błąd przy dodawaniu");
             }
-        }catch(NullPointerException e){
+        }catch(Exception e){
             tvDodawanieLekarza.setText("Wprowadż wszystkie dane");
         }
 
@@ -180,7 +180,7 @@ try {
     } else {
         tvDodawanieTerminu.setText("Błąd przy dodawaniu, sprawdź dane");
     }
-}catch(NullPointerException e){
+}catch(Exception e){
     tvDodawanieTerminu.setText("Wprowadź wszystkie dane");
 }
 

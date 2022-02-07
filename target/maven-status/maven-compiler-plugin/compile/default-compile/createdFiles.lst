@@ -1,9 +1,7 @@
 PacjentDAO.class
 classes\RealizacjaPacjent.class
-classes\Loginy.class
 MainApplication.class
 LekarzWindowController.class
-Main.class
 PacjentWindowController.class
 classes\LekarzStatus.class
 AdminWindowController.class

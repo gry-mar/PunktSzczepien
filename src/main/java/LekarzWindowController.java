@@ -260,8 +260,12 @@ public class LekarzWindowController{
     }
 
     /**
-     * initialization, receive data from singleton
+     * methode to show statistics chart
+     * @param event
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
+
     @FXML
     void ClickedWykres(ActionEvent event) throws SQLException, ClassNotFoundException {
         charWykres.getData().clear();
@@ -288,7 +292,9 @@ public class LekarzWindowController{
 
     }
 
-
+    /**
+     * initialization, receive data from singleton
+     */
     @FXML
     void initialize() {
         assert btnFiltruj != null : "fx:id=\"btnFiltruj\" was not injected: check your FXML file 'lekarzwindow.fxml'.";
