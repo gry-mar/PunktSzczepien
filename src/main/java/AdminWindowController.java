@@ -18,14 +18,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+/**
+ * class to interact with admin view
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 04.02.2022
+ */
 public class AdminWindowController {
-    /**
-     * class to interact with admin view
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 04.02.2022
-     */
+
 
     @FXML
     private ResourceBundle resources;

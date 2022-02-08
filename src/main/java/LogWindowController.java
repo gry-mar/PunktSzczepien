@@ -15,15 +15,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * class to interact with login wiew
+ * @author Martyna Grygiel, Zofia Dobrowolska
+ * @version 1.0
+ * @since 04.02.2022
+ */
 
 public class LogWindowController {
-    /**
-     * class to interact with login wiew
-     * @author Martyna Grygiel, Zofia Dobrowolska
-     * @version 1.0
-     * @since 04.02.2022
-     */
+
 
     private DatabaseConnection databaseConnection;
 

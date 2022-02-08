@@ -18,14 +18,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+/**
+ * class to interact with patient view
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 04.02.2022
+ */
 public class PacjentWindowController {
-    /**
-     * class to interact with patient view
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 04.02.2022
-     */
+
 
     @FXML
     private ResourceBundle resources;

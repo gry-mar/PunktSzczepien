@@ -7,14 +7,14 @@ import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
 import java.sql.Time;
-
+/**
+ * class to map data to GUI tables in Lekarz window
+ * @author Zofia Dobrowolska
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class LekarzArchiwum {
-    /**
-     * class to map data to GUI tables in Lekarz window
-     * @author Zofia Dobrowolska
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private StringProperty nazwaLekarzArchiwum = new SimpleStringProperty();
     private StringProperty chorobaLekarzArchiwum = new SimpleStringProperty();
     private ObjectProperty<Date> dataLekarzArchiwum = new SimpleObjectProperty<>();

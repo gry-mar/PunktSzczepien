@@ -4,15 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
+/**
+ * AdminDAO class is responsible for database operations for Admin view
+ * for example executing procedures and queries
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 04.02.2022
+ */
 public class AdminDAO {
-    /**
-     * AdminDAO class is responsible for database operations for Admin view
-     * for example executing procedures and queries
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 04.02.2022
-     */
+
 
     private String userNameA;
     private String userPasswordA;

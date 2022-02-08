@@ -10,15 +10,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+/**
+ * Controller class to main application window
+ * that shows up when app starts running
+ * @author Martyna Grygiel, Zofia Dobrowolska
+ * @version 1.0
+ * @since 31.01.2022
+ */
 
 public class MainWindowController {
-    /**
-     * Controller class to main application window
-     * that shows up when app starts running
-     * @author Martyna Grygiel, Zofia Dobrowolska
-     * @version 1.0
-     * @since 31.01.2022
-     */
 
     @FXML
     private ResourceBundle resources;

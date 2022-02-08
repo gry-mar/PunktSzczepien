@@ -5,16 +5,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
+
+/**
+ * main application
+ * loads first, welcome window
+ * @author Martyna Grygiel, Zofia Dobrowolska
+ * @version 1.0
+ * @since 25.01.2022
+ */
 
 public class MainApplication extends Application {
-    /**
-     * main application
-     * loads first, welcome window
-     * @author Martyna Grygiel, Zofia Dobrowolska
-     * @version 1.0
-     * @since 25.01.2022
-     */
 
     private static Scene scene;
 

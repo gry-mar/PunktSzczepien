@@ -10,14 +10,14 @@ import javafx.beans.property.StringProperty;
 import java.sql.Date;
 import java.sql.Time;
 
-
+/**
+ * class to map data from archiwum_pacjent view
+ * @author Zofia Dobrowolska
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class ArchiwumPacjent {
-    /**
-     * class to map data from archiwum_pacjent view
-     * @author Zofia Dobrowolska
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private StringProperty nazwa = new SimpleStringProperty();
     private StringProperty choroba = new SimpleStringProperty();
     private ObjectProperty<Date> data = new SimpleObjectProperty<>();

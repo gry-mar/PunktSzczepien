@@ -6,14 +6,14 @@ import javafx.beans.property.*;
 import java.sql.Date;
 import java.sql.Time;
 
-
+/**
+ * class to map data from szczepienia sql table
+ * @author martyna Grygiel
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class Szczepienia {
-    /**
-     * class to map data from szczepienia sql table
-     * @author martyna Grygiel
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private ObjectProperty<Date> data = new SimpleObjectProperty<>();
     private ObjectProperty<Time> godzina = new SimpleObjectProperty<>();
     private StringProperty peselPacjent = new SimpleStringProperty();

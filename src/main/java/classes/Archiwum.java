@@ -4,15 +4,15 @@ import javafx.beans.property.*;
 
 import java.sql.Time;
 import java.util.Date;
-
+/**
+ * class to map data from archiwum table
+ * @author Martyna Grygiel, Zofia Dobrowolska
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class Archiwum {
 
-    /**
-     * class to map data from archiwum table
-     * @author Martyna Grygiel, Zofia Dobrowolska
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private StringProperty idSzczepienia;
     private ObjectProperty<Date> date;
     private ObjectProperty<Time> godzina;

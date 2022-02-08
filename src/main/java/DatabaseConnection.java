@@ -1,11 +1,11 @@
 import javafx.scene.control.TextArea;
 
 import java.sql.*;
-
+/**
+ * Class responsible for database connection
+ */
 public class DatabaseConnection {
-    /**
-     * Class responsible for database connection
-     */
+
     public Connection databaseLink;
     private String databaseUser;
     private String databasePassword;

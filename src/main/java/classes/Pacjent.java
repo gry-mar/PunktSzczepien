@@ -1,14 +1,14 @@
 package classes;
 
 import javafx.beans.property.*;
-
+/**
+ * class to map data from pacjenci table
+ * @author Zofia Dobrowolska
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class Pacjent {
-    /**
-     * class to map data from pacjenci table
-     * @author Zofia Dobrowolska
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private StringProperty pesel;
     private StringProperty imie;
     private StringProperty nazwisko;

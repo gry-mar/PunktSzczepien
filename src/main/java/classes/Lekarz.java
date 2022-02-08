@@ -4,14 +4,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * class to map data about doctors in admin window
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class Lekarz {
-    /**
-     * class to map data about doctors in admin window
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
 
     private IntegerProperty nrPwz = new SimpleIntegerProperty();
     private StringProperty imie = new SimpleStringProperty();

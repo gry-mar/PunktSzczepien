@@ -1,12 +1,12 @@
 package classes;
-
+/**
+ * class to map data from typy_szczepien table
+ * @author martyna Grygiel, Zofia Dobrowolska
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class TypySzczepien {
-    /**
-     * class to map data from typy_szczepien table
-     * @author martyna Grygiel, Zofia Dobrowolska
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
 
     private String nazwa;
     private String choroba;

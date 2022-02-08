@@ -7,14 +7,14 @@ import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
 import java.sql.Time;
-
+/**
+ * class to map data from view realizacja_pacjent to GUI table and procedures in PacjentDAO
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 03.02.2022
+ */
 public class RealizacjaPacjent {
-    /**
-     * class to map data from view realizacja_pacjent to GUI table and procedures in PacjentDAO
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 03.02.2022
-     */
+
     private StringProperty nazwaRealizacja = new SimpleStringProperty();
     private StringProperty chorobaRealizacja = new SimpleStringProperty();
     private ObjectProperty<Date> dataRealizacja = new SimpleObjectProperty<>();

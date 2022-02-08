@@ -6,16 +6,16 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-
+/**
+ * PacjentDAO class is responsible for database operations for Pacjent view
+ * for example executing procedures and queries
+ * @author Martyna Grygiel
+ * @version 1.0
+ * @since 04.02.2022
+ */
 public class PacjentDAO {
 
-    /**
-     * PacjentDAO class is responsible for database operations for Pacjent view
-     * for example executing procedures and queries
-     * @author Martyna Grygiel
-     * @version 1.0
-     * @since 04.02.2022
-     */
+
 
     private String userName;
     private String userPassword;
